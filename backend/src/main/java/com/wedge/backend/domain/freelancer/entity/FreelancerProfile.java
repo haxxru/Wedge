@@ -1,22 +1,23 @@
 package com.wedge.backend.domain.freelancer.entity;
 
+import com.wedge.backend.domain.member.entity.Member;
+import com.wedge.backend.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
+import lombok.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "freelancer_profiles")
-public class FreelancerProfile {
+public class FreelancerProfile extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "member_id", nullable = false, unique = true)
-    private Long memberId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false, unique = true)
+    private Member member;
 
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
@@ -36,20 +37,25 @@ public class FreelancerProfile {
     @Column(name = "career_years", nullable = false)
     private int careerYears = 0;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+    @Builder
+    public FreelancerProfile(Member member, Long categoryId, String title,
+                             String introduction, String region, Integer price, int careerYears) {
+        this.member = member;
+        this.categoryId = categoryId;
+        this.title = title;
+        this.introduction = introduction;
+        this.region = region;
+        this.price = price;
+        this.careerYears = careerYears;
     }
 
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
+    public void update(Long categoryId, String title, String introduction,
+                       String region, Integer price, int careerYears) {
+        this.categoryId = categoryId;
+        this.title = title;
+        this.introduction = introduction;
+        this.region = region;
+        this.price = price;
+        this.careerYears = careerYears;
     }
 }
