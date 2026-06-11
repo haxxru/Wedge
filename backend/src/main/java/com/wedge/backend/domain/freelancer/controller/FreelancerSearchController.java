@@ -1,6 +1,7 @@
 package com.wedge.backend.domain.freelancer.controller;
 
 import com.wedge.backend.domain.freelancer.dto.FreelancerProfileResponse;
+import com.wedge.backend.domain.freelancer.dto.SortType;
 import com.wedge.backend.domain.freelancer.service.FreelancerSearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,10 +24,11 @@ public class FreelancerSearchController {
             @RequestParam(required = false) String region,
             @RequestParam(required = false) Integer minPrice,
             @RequestParam(required = false) Integer maxPrice,
+            @RequestParam(defaultValue = "ALL") SortType sortType,
             @PageableDefault(size = 10, sort = "createdAt") Pageable pageable) {
 
         return ResponseEntity.ok(
                 freelancerSearchService.getFreelancers(
-                        keyword, categoryId, region, minPrice, maxPrice, pageable));
+                        keyword, categoryId, region, minPrice, maxPrice, sortType, pageable));
     }
 }

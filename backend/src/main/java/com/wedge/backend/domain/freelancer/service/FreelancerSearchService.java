@@ -1,11 +1,14 @@
 package com.wedge.backend.domain.freelancer.service;
 
 import com.wedge.backend.domain.freelancer.dto.FreelancerProfileResponse;
+import com.wedge.backend.domain.freelancer.dto.SortType;
 import com.wedge.backend.domain.freelancer.entity.FreelancerProfile;
 import com.wedge.backend.domain.freelancer.repository.FreelancerProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,7 @@ public class FreelancerSearchService {
             String region,
             Integer minPrice,
             Integer maxPrice,
+            SortType sortType,
             Pageable pageable) {
 
         Specification<FreelancerProfile> spec = (root, query, cb) -> null;
@@ -52,7 +56,22 @@ public class FreelancerSearchService {
                     cb.lessThanOrEqualTo(root.get("price"), maxPrice));
         }
 
-        return freelancerProfileRepository.findAll(spec, pageable)
-                .map(FreelancerProfileResponse::from);  // ← Entity → DTO 변환!
+
+        Pageable sortedPageable = switch (sortType) {
+            case NEW -> PageRequest.of(
+                    pageable.getPageNumber(),
+                    pageable.getPageSize(),
+                    Sort.by(Sort.Direction.DESC, "createdAt")
+            );
+            case POPULAR -> PageRequest.of(
+                    pageable.getPageNumber(),
+                    pageable.getPageSize(),
+                    Sort.by(Sort.Direction.DESC, "careerYears") // TODO: 북마크 수 기준 정렬로 교체 예정
+            );
+            default -> pageable; // ALL
+        };
+
+        return freelancerProfileRepository.findAll(spec, sortedPageable)
+                .map(FreelancerProfileResponse::from);
     }
 }
