@@ -1,0 +1,23 @@
+package com.wedge.backend.domain.review.dto;
+
+import com.wedge.backend.domain.review.entity.Review;
+import lombok.Getter;
+
+@Getter
+public class ReviewResponseDto {
+    private Long id;
+    private Long memberId;
+    private String memberName;
+    private int rating;
+    private String content;
+    private String createdAt;
+
+    public ReviewResponseDto(Review review) {
+        this.id = review.getId();
+        this.memberId = review.getMember().getId();
+        this.memberName = review.getMember().getName();
+        this.rating = review.getRating();
+        this.content = review.getContent();
+        this.createdAt = review.getCreatedAt().toString();
+    }
+}
