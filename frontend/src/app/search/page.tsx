@@ -75,7 +75,6 @@ export default function SearchPage() {
       setFreelancers(data.content);
       setTotalElements(data.totalElements);
     } catch (error) {
-console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
       console.error("프리랜서 목록 조회 실패", error);
     } finally {
       setLoading(false);
@@ -99,7 +98,6 @@ console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
     <div className="flex flex-col min-h-screen bg-[#fbf9f2]">
       <Navbar />
 
-      {/* Header */}
       <div className="bg-[#f5f4ec] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="font-[var(--font-display)] text-3xl font-semibold text-[#1b1c18] mb-2">
@@ -108,7 +106,6 @@ console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
           <p className="text-sm text-[#75786c]">
             당신의 특별한 기념일을 위한 엄선된 전문가들을 만나보세요
           </p>
-          {/* 키워드 검색 - shadcn Input + Button */}
           <div className="mt-4 flex gap-2">
             <Input
               value={keyword}
@@ -127,7 +124,6 @@ console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
         </div>
       </div>
 
-      {/* Filters */}
       <div className="border-b border-[#efeee7] bg-white sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1">
@@ -148,7 +144,6 @@ console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
         </div>
       </div>
 
-      {/* Sort bar - shadcn Select */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 w-full">
         <div className="flex items-center justify-between">
           <span className="text-sm text-[#75786c]">
@@ -171,9 +166,7 @@ console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
         </div>
       </div>
 
-      {/* Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
-        {/* 로딩 - 스켈레톤 */}
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {Array.from({ length: 8 }).map((_, i) => (
