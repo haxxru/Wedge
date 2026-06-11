@@ -1,5 +1,6 @@
 package com.wedge.backend.domain.freelancer.service;
 
+import com.wedge.backend.domain.freelancer.dto.FreelancerProfileResponse;
 import com.wedge.backend.domain.freelancer.entity.FreelancerProfile;
 import com.wedge.backend.domain.freelancer.repository.FreelancerProfileRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class FreelancerSearchService {
 
     private final FreelancerProfileRepository freelancerProfileRepository;
 
-    public Page<FreelancerProfile> getFreelancers(
+    public Page<FreelancerProfileResponse> getFreelancers(
             String keyword,
             Long categoryId,
             String region,
@@ -41,7 +42,6 @@ public class FreelancerSearchService {
                     cb.equal(root.get("region"), region));
         }
 
-
         if (minPrice != null) {
             spec = spec.and((root, query, cb) ->
                     cb.greaterThanOrEqualTo(root.get("price"), minPrice));
@@ -52,6 +52,7 @@ public class FreelancerSearchService {
                     cb.lessThanOrEqualTo(root.get("price"), maxPrice));
         }
 
-        return freelancerProfileRepository.findAll(spec, pageable);
+        return freelancerProfileRepository.findAll(spec, pageable)
+                .map(FreelancerProfileResponse::from);  // ← Entity → DTO 변환!
     }
 }

@@ -1,6 +1,6 @@
 package com.wedge.backend.domain.freelancer.controller;
 
-import com.wedge.backend.domain.freelancer.entity.FreelancerProfile;
+import com.wedge.backend.domain.freelancer.dto.FreelancerProfileResponse;
 import com.wedge.backend.domain.freelancer.service.FreelancerSearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ public class FreelancerSearchController {
     private final FreelancerSearchService freelancerSearchService;
 
     @GetMapping
-    public ResponseEntity<Page<FreelancerProfile>> getFreelancers(
+    public ResponseEntity<Page<FreelancerProfileResponse>> getFreelancers(
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) String region,
@@ -25,9 +25,8 @@ public class FreelancerSearchController {
             @RequestParam(required = false) Integer maxPrice,
             @PageableDefault(size = 10, sort = "createdAt") Pageable pageable) {
 
-        Page<FreelancerProfile> result = freelancerSearchService.getFreelancers(
-                keyword, categoryId, region, minPrice, maxPrice, pageable);
-
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(
+                freelancerSearchService.getFreelancers(
+                        keyword, categoryId, region, minPrice, maxPrice, pageable));
     }
 }
