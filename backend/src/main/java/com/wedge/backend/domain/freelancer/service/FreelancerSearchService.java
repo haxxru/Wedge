@@ -1,0 +1,57 @@
+package com.wedge.backend.domain.freelancer.service;
+
+import com.wedge.backend.domain.freelancer.entity.FreelancerProfile;
+import com.wedge.backend.domain.freelancer.repository.FreelancerProfileRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class FreelancerSearchService {
+
+    private final FreelancerProfileRepository freelancerProfileRepository;
+
+    public Page<FreelancerProfile> getFreelancers(
+            String keyword,
+            Long categoryId,
+            String region,
+            Integer minPrice,
+            Integer maxPrice,
+            Pageable pageable) {
+
+        Specification<FreelancerProfile> spec = (root, query, cb) -> null;
+
+        if (keyword != null && !keyword.isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.like(root.get("title"), "%" + keyword + "%"));
+        }
+
+        if (categoryId != null) {
+            spec = spec.and((root, query, cb) ->
+                    cb.equal(root.get("categoryId"), categoryId));
+        }
+
+        if (region != null && !region.isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.equal(root.get("region"), region));
+        }
+
+
+        if (minPrice != null) {
+            spec = spec.and((root, query, cb) ->
+                    cb.greaterThanOrEqualTo(root.get("price"), minPrice));
+        }
+
+        if (maxPrice != null) {
+            spec = spec.and((root, query, cb) ->
+                    cb.lessThanOrEqualTo(root.get("price"), maxPrice));
+        }
+
+        return freelancerProfileRepository.findAll(spec, pageable);
+    }
+}
