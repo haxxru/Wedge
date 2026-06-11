@@ -43,15 +43,12 @@ public class SecurityConfig {
                                 "/oauth2/**",
                                 "/login/oauth2/**",
                                 "/swagger-ui/**",
-<<<<<<< HEAD
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/webjars/**"
-=======
                                 "/api/freelancers",
                                 "/v3/api-docs/**"
->>>>>>> origin/dev
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
