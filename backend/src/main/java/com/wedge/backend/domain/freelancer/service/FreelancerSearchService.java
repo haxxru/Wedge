@@ -33,7 +33,10 @@ public class FreelancerSearchService {
 
         if (keyword != null && !keyword.isBlank()) {
             spec = spec.and((root, query, cb) ->
-                    cb.like(root.get("title"), "%" + keyword + "%"));
+                    cb.or(
+                            cb.like(root.get("title"), "%" + keyword + "%"),
+                            cb.like(root.get("introduction"), "%" + keyword + "%")
+                    ));
         }
 
         if (categoryId != null) {
