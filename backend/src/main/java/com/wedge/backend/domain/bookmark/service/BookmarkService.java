@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +28,11 @@ public class BookmarkService {
                 .findById(freelancerProfileId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 프리랜서입니다."));
 
-        if (bookmarkRepository.existsByMemberIdAndFreelancerProfileId(
-                member.getId(), freelancerProfileId)) {
-            bookmarkRepository.findByMemberIdAndFreelancerProfileId(
-                            member.getId(), freelancerProfileId)
-                    .ifPresent(bookmarkRepository::delete);
+        Optional<Bookmark> existing = bookmarkRepository
+                .findByMemberIdAndFreelancerProfileId(member.getId(), freelancerProfileId);
+
+        if (existing.isPresent()) {
+            bookmarkRepository.delete(existing.get());
             return false;
         }
 
