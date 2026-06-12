@@ -1,6 +1,8 @@
 package com.wedge.backend.domain.bookmark.controller;
 
 import com.wedge.backend.domain.bookmark.dto.BookmarkResponse;
+import com.wedge.backend.domain.bookmark.dto.CheckBookmarkResponse;
+import com.wedge.backend.domain.bookmark.dto.ToggleBookmarkResponse;
 import com.wedge.backend.domain.bookmark.service.BookmarkService;
 import com.wedge.backend.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
@@ -19,27 +21,27 @@ public class BookmarkController {
     private final BookmarkService bookmarkService;
 
     @PostMapping("/{freelancerProfileId}")
-    public ResponseEntity<Map<String, Object>> toggleBookmark(
+    public ResponseEntity<ToggleBookmarkResponse> toggleBookmark(
             @AuthenticationPrincipal Member member,
             @PathVariable Long freelancerProfileId) {
 
         boolean isBookmarked = bookmarkService.toggleBookmark(member, freelancerProfileId);
 
-        return ResponseEntity.ok(Map.of(
-                "bookmarked", isBookmarked,
-                "message", isBookmarked ? "찜하기 완료" : "찜 해제 완료"
+        return ResponseEntity.ok(new ToggleBookmarkResponse(
+                isBookmarked,
+                isBookmarked ? "찜하기 완료" : "찜 해제 완료"
         ));
     }
 
     @GetMapping("/{freelancerProfileId}")
-    public ResponseEntity<Map<String, Object>> checkBookmark(
+    public ResponseEntity<CheckBookmarkResponse> checkBookmark(
             @AuthenticationPrincipal Member member,
             @PathVariable Long freelancerProfileId) {
 
         boolean isBookmarked = bookmarkService.isBookmarked(
                 member.getId(), freelancerProfileId);
 
-        return ResponseEntity.ok(Map.of("bookmarked", isBookmarked));
+        return ResponseEntity.ok(new CheckBookmarkResponse(isBookmarked));
     }
 
     @GetMapping
