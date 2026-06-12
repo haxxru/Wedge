@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,5 +33,12 @@ public class MemberController {
         @Valid MemberUpdateRequest request) {
         Long memberId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(memberService.updateMyInfo(memberId, request));
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<Void> withdrawMyAccount(Authentication authentication) {
+        Long memberId = (Long) authentication.getPrincipal();
+        memberService.withdrawMyAccount(memberId);
+        return ResponseEntity.noContent().build();
     }
 }

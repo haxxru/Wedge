@@ -31,4 +31,12 @@ public class MemberService {
 
         return MemberMeResponse.from(member);
     }
+
+    @Transactional
+    public void withdrawMyAccount(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+
+        member.withdraw();
+    }
 }
