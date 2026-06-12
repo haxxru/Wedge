@@ -52,7 +52,7 @@ public class BookmarkService {
 
     @Transactional(readOnly = true)
     public List<BookmarkResponse> getBookmarks(Long memberId) {
-        return bookmarkRepository.findAllByMemberId(memberId)
+        return bookmarkRepository.findAllByMemberIdWithProfile(memberId) // ✅ 교체
                 .stream()
                 .map(BookmarkResponse::from)
                 .toList();
