@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+<<<<<<< HEAD
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -21,6 +22,9 @@ type Category = {
   id: number;
   name: string;
 };
+=======
+import { API_BASE_URL } from "@/lib/auth";
+>>>>>>> 342e494a43661da9ec94ceac8c0493519185a8cb
 
 type FreelancerProfile = {
   id: number;
@@ -96,7 +100,11 @@ export default function SearchPage() {
         params.append("categoryId", String(selectedCategoryId));
 
       const res = await fetch(
+<<<<<<< HEAD
         `${process.env.NEXT_PUBLIC_API_URL}/api/freelancers?${params.toString()}`,
+=======
+        `${API_BASE_URL}/api/freelancers?${params.toString()}`
+>>>>>>> 342e494a43661da9ec94ceac8c0493519185a8cb
       );
       const data = await res.json();
       console.log("API 응답:", data);
