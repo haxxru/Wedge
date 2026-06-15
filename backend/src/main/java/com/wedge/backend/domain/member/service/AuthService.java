@@ -89,17 +89,17 @@ public class AuthService {
     public TokenDto reissue(String refreshToken) {
         // 1. 토큰 자체 유효성 검증
         if (!jwtUtil.validateToken(refreshToken)) {
-            throw new IllegalArgumentException("유효하지 않은 리프레시 토큰입니다.");
+            throw new LoginFailedException("유효하지 않은 리프레시 토큰입니다.");
         }
 
         // 2. DB에서 토큰 조회 및 일치 여부 확인
         RefreshToken tokenEntity = refreshTokenRepository.findByToken(refreshToken)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않거나 무효화된 리프레시 토큰입니다."));
+                .orElseThrow(() -> new LoginFailedException("존재하지 않거나 무효화된 리프레시 토큰입니다."));
 
         // 3. 토큰 만료 여부 확인 (DB 기준 만료 시간 체크)
         if (tokenEntity.isExpired()) {
             refreshTokenRepository.delete(tokenEntity);
-            throw new IllegalArgumentException("만료된 리프레시 토큰입니다. 다시 로그인해주세요.");
+            throw new LoginFailedException("만료된 리프레시 토큰입니다. 다시 로그인해주세요.");
         }
 
         // 4. 새로운 토큰 쌍 생성 (RTR - Refresh Token Rotation)

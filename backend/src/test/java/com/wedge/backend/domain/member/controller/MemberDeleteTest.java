@@ -116,7 +116,7 @@ class MemberDeleteTest {
         // 탈퇴 후 refresh 시도 -> 더 이상 유효하지 않음 (재발급으로 서비스 계속 이용 불가)
         mockMvc.perform(post("/api/v1/auth/refresh")
                         .cookie(new Cookie("refreshToken", refreshToken)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test

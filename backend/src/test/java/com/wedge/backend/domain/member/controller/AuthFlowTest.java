@@ -82,7 +82,7 @@ class AuthFlowTest {
         // 4. RTR 검증: 회전 전(이전) refresh token을 재사용하면 실패한다
         mockMvc.perform(post("/api/v1/auth/refresh")
                         .cookie(new Cookie("refreshToken", refreshToken1)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnauthorized());
 
         // 5. 로그아웃
         mockMvc.perform(post("/api/v1/auth/logout")
@@ -96,7 +96,7 @@ class AuthFlowTest {
         // 6. 로그아웃 이후에는 최신(회전된) refresh token도 더 이상 사용할 수 없다
         mockMvc.perform(post("/api/v1/auth/refresh")
                         .cookie(new Cookie("refreshToken", refreshToken2)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test

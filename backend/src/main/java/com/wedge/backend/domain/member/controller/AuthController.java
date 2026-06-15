@@ -5,6 +5,7 @@ import com.wedge.backend.domain.member.dto.LoginRequest;
 import com.wedge.backend.domain.member.dto.SignUpRequest;
 import com.wedge.backend.domain.member.dto.TokenDto;
 import com.wedge.backend.domain.member.service.AuthService;
+import com.wedge.backend.global.exception.LoginFailedException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -48,7 +49,7 @@ public class AuthController {
             @CookieValue(name = "refreshToken", required = false) String refreshToken) {
 
         if (refreshToken == null || refreshToken.isBlank()) {
-            throw new IllegalArgumentException("리프레시 토큰이 누락되었습니다.");
+            throw new LoginFailedException("리프레시 토큰이 누락되었습니다.");
         }
 
         TokenDto tokenDto = authService.reissue(refreshToken);
