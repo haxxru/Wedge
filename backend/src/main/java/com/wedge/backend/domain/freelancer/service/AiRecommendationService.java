@@ -92,7 +92,14 @@ public class AiRecommendationService {
                     .path("parts").get(0)
                     .path("text")
                     .asText();
-            text = text.replaceAll("```json", "").replaceAll("```", "").trim();
+
+            int start = text.indexOf("[");
+            int end = text.lastIndexOf("]") + 1;
+            if (start == -1 || end == 0) {
+                log.warn("Gemini 응답에서 JSON 배열을 찾을 수 없습니다.");
+                return List.of();
+            }
+            text = text.substring(start, end);
 
             JsonNode recommendations = objectMapper.readTree(text);
 
