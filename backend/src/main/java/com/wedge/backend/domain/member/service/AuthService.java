@@ -8,7 +8,7 @@ import com.wedge.backend.domain.member.entity.MemberStatus;
 import com.wedge.backend.domain.member.entity.Provider;
 import com.wedge.backend.domain.member.repository.MemberRepository;
 import com.wedge.backend.global.jwt.JwtUtil;
-import com.wedge.backend.domain.member.dto.TokenRefreshRequest;
+import com.wedge.backend.domain.member.dto.TokenDto;
 import com.wedge.backend.domain.member.entity.RefreshToken;
 import com.wedge.backend.domain.member.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
@@ -115,5 +115,10 @@ public class AuthService {
         refreshTokenRepository.save(tokenEntity);
 
         return new TokenDto(newAccessToken, newRefreshToken);
+    }
+
+    @Transactional
+    public void logout(Long memberId) {
+        refreshTokenRepository.deleteByMemberId(memberId);
     }
 }
