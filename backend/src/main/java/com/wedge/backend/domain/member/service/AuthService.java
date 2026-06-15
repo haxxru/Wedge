@@ -7,6 +7,8 @@ import com.wedge.backend.domain.member.entity.Member;
 import com.wedge.backend.domain.member.entity.MemberStatus;
 import com.wedge.backend.domain.member.entity.Provider;
 import com.wedge.backend.domain.member.repository.MemberRepository;
+import com.wedge.backend.global.exception.LoginFailedException;
+import com.wedge.backend.global.exception.MemberNotFoundException;
 import com.wedge.backend.global.jwt.JwtUtil;
 import com.wedge.backend.domain.member.dto.TokenDto;
 import com.wedge.backend.domain.member.entity.RefreshToken;
@@ -53,14 +55,14 @@ public class AuthService {
     @Transactional
     public TokenDto login(LoginRequest request) {
         Member member = memberRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다."));
 
         if (member.getStatus() == MemberStatus.DELETED) {
             throw new IllegalStateException("탈퇴한 회원입니다.");
         }
 
         if (!passwordEncoder.matches(request.getPassword(), member.getPassword())) {
-            throw new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다.");
+            throw new LoginFailedException("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
 
         String accessToken = jwtUtil.generateAccessToken(member.getId(), member.getRole().name());
@@ -104,7 +106,7 @@ public class AuthService {
         // 4. 새로운 토큰 쌍 생성 (RTR - Refresh Token Rotation)
         Long memberId = tokenEntity.getMemberId();
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+                .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다."));
 
         String newAccessToken = jwtUtil.generateAccessToken(memberId, member.getRole().name());
         String newRefreshToken = jwtUtil.generateRefreshToken(memberId, member.getRole().name());
