@@ -33,6 +33,9 @@ public class AiRecommendationService {
     public List<AiRecommendationResponse> getRecommendations() {
 
         List<FreelancerProfile> profiles = freelancerProfileRepository.findAll();
+        if (profiles.isEmpty()) {
+            return List.of();
+        }
         Collections.shuffle(profiles);
         List<FreelancerProfile> candidates = profiles.stream().limit(30).toList();
 
