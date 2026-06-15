@@ -23,6 +23,7 @@ public class AiRecommendationService {
 
     private final FreelancerProfileRepository freelancerProfileRepository;
     private final ObjectMapper objectMapper;
+    private final RestClient restClient = RestClient.create();
 
     @Value("${gemini.api-key}")
     private String apiKey;
@@ -68,7 +69,7 @@ public class AiRecommendationService {
                 )
         );
 
-        String response = RestClient.create()
+        String response = restClient
                 .post()
                 .uri(GEMINI_URL + "?key=" + apiKey)
                 .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
