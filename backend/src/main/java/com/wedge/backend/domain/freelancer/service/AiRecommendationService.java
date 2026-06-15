@@ -6,6 +6,7 @@ import com.wedge.backend.domain.freelancer.dto.AiRecommendationResponse;
 import com.wedge.backend.domain.freelancer.entity.FreelancerProfile;
 import com.wedge.backend.domain.freelancer.repository.FreelancerProfileRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -112,6 +114,7 @@ public class AiRecommendationService {
                     .toList();
 
         } catch (Exception e) {
+            log.error("Gemini 응답 파싱 실패: {}", e.getMessage());
             return List.of();
         }
     }
