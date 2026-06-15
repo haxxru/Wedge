@@ -1,18 +1,17 @@
 package com.wedge.backend.domain.member.service;
 
-import com.wedge.backend.domain.member.dto.AuthResponse;
 import com.wedge.backend.domain.member.dto.LoginRequest;
 import com.wedge.backend.domain.member.dto.SignUpRequest;
+import com.wedge.backend.domain.member.dto.TokenDto;
 import com.wedge.backend.domain.member.entity.Member;
 import com.wedge.backend.domain.member.entity.MemberStatus;
 import com.wedge.backend.domain.member.entity.Provider;
+import com.wedge.backend.domain.member.entity.RefreshToken;
 import com.wedge.backend.domain.member.repository.MemberRepository;
+import com.wedge.backend.domain.member.repository.RefreshTokenRepository;
 import com.wedge.backend.global.exception.LoginFailedException;
 import com.wedge.backend.global.exception.MemberNotFoundException;
 import com.wedge.backend.global.jwt.JwtUtil;
-import com.wedge.backend.domain.member.dto.TokenDto;
-import com.wedge.backend.domain.member.entity.RefreshToken;
-import com.wedge.backend.domain.member.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -108,6 +107,12 @@ public class AuthService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다."));
 
+        // 탈퇴한 회원의 refresh token이 만료 전에 남아있는 경우를 대비한 방어 로직
+        if (member.getStatus() == MemberStatus.DELETED) {
+            refreshTokenRepository.delete(tokenEntity);
+            throw new IllegalStateException("탈퇴한 회원입니다.");
+        }
+
         String newAccessToken = jwtUtil.generateAccessToken(memberId, member.getRole().name());
         String newRefreshToken = jwtUtil.generateRefreshToken(memberId, member.getRole().name());
 
@@ -122,5 +127,12 @@ public class AuthService {
     @Transactional
     public void logout(Long memberId) {
         refreshTokenRepository.deleteByMemberId(memberId);
+    }
+
+    // access token이 만료/누락되어 memberId를 알 수 없는 경우, refresh token 값으로 무효화
+    @Transactional
+    public void logoutByRefreshToken(String refreshToken) {
+        refreshTokenRepository.findByToken(refreshToken)
+                .ifPresent(refreshTokenRepository::delete);
     }
 }

@@ -27,6 +27,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Value("${jwt.refresh-expiration}")
     private long refreshExpiration;
 
+    @Value("${app.frontend-url}")
+    private String frontendUrl;
+
     @Override
     @Transactional
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -66,7 +69,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
         // 프론트엔드로 액세스 토큰만 전달 (쿼리파라미터)
-        String redirectUrl = "http://localhost:3000/oauth2/callback"
+        String redirectUrl = frontendUrl + "/oauth2/callback"
                 + "?accessToken=" + accessToken;
 
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
