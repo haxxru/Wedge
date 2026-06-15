@@ -31,8 +31,8 @@ public class AiRecommendationService {
     @Value("${gemini.api-key}")
     private String apiKey;
 
-    private static final String GEMINI_URL =
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+    @Value("${gemini.url}")
+    private String geminiUrl;
 
     public List<AiRecommendationResponse> getRecommendations() {
 
@@ -74,7 +74,7 @@ public class AiRecommendationService {
 
         String response = restClient
                 .post()
-                .uri(GEMINI_URL + "?key=" + apiKey)
+                .uri(geminiUrl + "?key=" + apiKey)
                 .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
                 .body(requestBody)
                 .retrieve()
