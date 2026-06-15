@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -106,19 +107,16 @@ public class AiRecommendationService {
             Map<Long, FreelancerProfile> profileMap = candidates.stream()
                     .collect(Collectors.toMap(FreelancerProfile::getId, p -> p));
 
-            return recommendations.findValues("id").stream()
-                    .map(idNode -> {
-                        Long id = idNode.asLong();
-                        String reason = recommendations.get(
-                                recommendations.findValues("id").indexOf(idNode)
-                        ).path("reason").asText();
-                        FreelancerProfile profile = profileMap.get(id);
-                        return profile != null
-                                ? AiRecommendationResponse.of(profile, reason)
-                                : null;
-                    })
-                    .filter(r -> r != null)
-                    .toList();
+            List<AiRecommendationResponse> result = new ArrayList<>();
+            for (JsonNode item : recommendations) {
+                Long id = item.path("id").asLong();
+                String reason = item.path("reason").asText();
+                FreelancerProfile profile = profileMap.get(id);
+                if (profile != null) {
+                    result.add(AiRecommendationResponse.of(profile, reason));
+                }
+            }
+            return result;
 
         } catch (Exception e) {
             log.error("Gemini 응답 파싱 실패: {}", e.getMessage());
