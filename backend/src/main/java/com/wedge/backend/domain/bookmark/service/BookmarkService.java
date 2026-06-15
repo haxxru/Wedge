@@ -33,6 +33,7 @@ public class BookmarkService {
 
         if (existing.isPresent()) {
             bookmarkRepository.delete(existing.get());
+            freelancerProfile.decreaseBookmarkCount();
             return false;
         }
 
@@ -41,6 +42,7 @@ public class BookmarkService {
                 .freelancerProfile(freelancerProfile)
                 .build();
         bookmarkRepository.save(bookmark);
+        freelancerProfile.increaseBookmarkCount();
         return true;
     }
 
