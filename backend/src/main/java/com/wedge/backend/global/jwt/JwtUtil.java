@@ -45,6 +45,11 @@ public class JwtUtil {
         return parseClaims(token).get("role", String.class);
     }
 
+    // 예외를 직접 던지는 토큰 유효성 검증
+    public void validateTokenOrThrow(String token) {
+        parseClaims(token);
+    }
+
     // 토큰 유효성 검증
     public boolean validateToken(String token) {
         try {

@@ -68,7 +68,9 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@AuthenticationPrincipal Long memberId) {
-        authService.logout(memberId);
+        if (memberId != null) {
+            authService.logout(memberId);
+        }
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", "")
                 .httpOnly(true)
