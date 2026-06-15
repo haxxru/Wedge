@@ -1,6 +1,7 @@
 package com.wedge.backend.global.config;
 
 import com.wedge.backend.global.jwt.JwtAuthFilter;
+import com.wedge.backend.global.jwt.JwtAuthenticationEntryPoint;
 import com.wedge.backend.global.jwt.JwtUtil;
 import com.wedge.backend.global.oauth2.OAuth2MemberService;
 import com.wedge.backend.global.oauth2.OAuth2SuccessHandler;
@@ -29,6 +30,7 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final OAuth2MemberService oauth2MemberService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,6 +39,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/**",
