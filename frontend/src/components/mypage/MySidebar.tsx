@@ -9,12 +9,19 @@ const sidebarMenu = [
   { icon: "🔖", label: "관심 프리랜서", href: "/bookmarks", active: false },
   { icon: "⭐", label: "리뷰 내역", href: "/mypage/reviews", active: false },
   { icon: "📝", label: "내 게시물", href: "/mypage/posts", active: false },
+  {
+    icon: "🎨",
+    label: "프로필 관리",
+    href: "/freelancer/profile/manage",
+    active: false,
+  },
 ];
 
 interface MySidebarProps {
   name: string;
   email: string;
   profileImg: string | null;
+  role: "CLIENT" | "FREELANCER" | null;
   onLogout: () => void;
 }
 
@@ -22,6 +29,7 @@ export default function MySidebar({
   name,
   email,
   profileImg,
+  role,
   onLogout,
 }: MySidebarProps) {
   return (
@@ -51,20 +59,25 @@ export default function MySidebar({
           </div>
         </div>
         <nav className="p-2">
-          {sidebarMenu.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors ${
-                item.active
-                  ? "bg-[#f5f4ec] text-[#4f6231] font-medium"
-                  : "text-[#45483d] hover:bg-[#f5f4ec] hover:text-[#4f6231]"
-              }`}
-            >
-              <span>{item.icon}</span>
-              {item.label}
-            </Link>
-          ))}
+          {sidebarMenu
+            .filter(
+              (item) =>
+                item.href !== "/mypage/reviews" || role === "FREELANCER",
+            )
+            .map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors ${
+                  item.active
+                    ? "bg-[#f5f4ec] text-[#4f6231] font-medium"
+                    : "text-[#45483d] hover:bg-[#f5f4ec] hover:text-[#4f6231]"
+                }`}
+              >
+                <span>{item.icon}</span>
+                {item.label}
+              </Link>
+            ))}
         </nav>
         <div className="p-2 border-t border-[#efeee7]">
           <button
