@@ -36,36 +36,45 @@ public class AiIntroductionService {
         if (request.getKeywords() == null || request.getKeywords().isBlank()) {
             throw new IllegalArgumentException("키워드는 필수입니다.");
         }
-        String prompt = """
-                당신은 웨딩 프리랜서 프로필 소개글 작성 전문가입니다.
-                아래 정보를 바탕으로 자연스럽고 신뢰감 있는 소개글을 3~4문장으로 작성해 주세요.
-                
-                - 직종: %s
-                - 스타일 키워드: %s
-                
-                규칙:
-                1. 1인칭(저는)으로 작성
-                2. 과장 없이 진솔하게
-                3. 소개글 텍스트만 반환, 다른 텍스트 절대 포함 금지
-                """.formatted(request.getCategoryName(), request.getKeywords());
 
         Map<String, Object> requestBody = Map.of(
                 "contents", List.of(
                         Map.of("parts", List.of(
-                                Map.of("text", prompt)
+                                Map.of("text", buildPrompt(request))
                         ))
                 )
         );
 
-        String response = restClient
-                .post()
-                .uri(geminiUrl + "?key=" + apiKey)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(requestBody)
-                .retrieve()
-                .body(String.class);
+        String response;
+        try {
+            response = restClient
+                    .post()
+                    .uri(geminiUrl + "?key=" + apiKey)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(requestBody)
+                    .retrieve()
+                    .body(String.class);
+        } catch (Exception e) {
+            log.error("Gemini API 호출 실패: {}", e.getMessage());
+            throw new AiGenerationException("AI 서비스 호출에 실패했습니다. 다시 시도해 주세요.");
+        }
 
         return IntroductionGenerateResponse.from(parseResponse(response));
+    }
+
+    private String buildPrompt(IntroductionGenerateRequest request) {
+        return """
+            당신은 웨딩 프리랜서 프로필 소개글 작성 전문가입니다.
+            아래 정보를 바탕으로 자연스럽고 신뢰감 있는 소개글을 3~4문장으로 작성해 주세요.
+            
+            - 직종: %s
+            - 스타일 키워드: %s
+            
+            규칙:
+            1. 1인칭(저는)으로 작성
+            2. 과장 없이 진솔하게
+            3. 소개글 텍스트만 반환, 다른 텍스트 절대 포함 금지
+            """.formatted(request.getCategoryName(), request.getKeywords());
     }
 
     private String parseResponse(String response) {
@@ -87,7 +96,7 @@ public class AiIntroductionService {
             throw e;
         } catch (Exception e) {
             log.error("Gemini 응답 파싱 실패: {}", e.getMessage());
-            throw new RuntimeException("소개글 생성에 실패했습니다. 다시 시도해 주세요.");
+            throw new AiGenerationException("소개글 생성에 실패했습니다. 다시 시도해 주세요.");
         }
     }
 }
