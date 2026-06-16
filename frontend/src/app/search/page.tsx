@@ -1,5 +1,4 @@
 "use client";
-
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -13,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-<<<<<<< HEAD
+import { API_BASE_URL } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -22,9 +21,6 @@ type Category = {
   id: number;
   name: string;
 };
-=======
-import { API_BASE_URL } from "@/lib/auth";
->>>>>>> 342e494a43661da9ec94ceac8c0493519185a8cb
 
 type FreelancerProfile = {
   id: number;
@@ -78,9 +74,8 @@ export default function SearchPage() {
   useEffect(() => {
     const loadCategories = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/categories`,
-        );
+        const res = await fetch(`${API_BASE_URL}/api/categories`);
+
         const data = await res.json();
         setCategories(data);
       } catch (error) {
@@ -100,14 +95,9 @@ export default function SearchPage() {
         params.append("categoryId", String(selectedCategoryId));
 
       const res = await fetch(
-<<<<<<< HEAD
-        `${process.env.NEXT_PUBLIC_API_URL}/api/freelancers?${params.toString()}`,
-=======
-        `${API_BASE_URL}/api/freelancers?${params.toString()}`
->>>>>>> 342e494a43661da9ec94ceac8c0493519185a8cb
+        `${API_BASE_URL}/api/freelancers?${params.toString()}`,
       );
       const data = await res.json();
-      console.log("API 응답:", data);
       setFreelancers(data.content ?? []);
       setTotalElements(data.totalElements ?? 0);
     } catch (error) {
