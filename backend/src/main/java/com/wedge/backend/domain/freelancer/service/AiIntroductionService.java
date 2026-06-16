@@ -31,6 +31,7 @@ public class AiIntroductionService {
             2. 과장 없이 진솔하게
             3. 소개글 텍스트만 반환, 다른 텍스트 절대 포함 금지
             """;
+
     private final ObjectMapper objectMapper;
     private final RestClient restClient;
 
@@ -52,13 +53,7 @@ public class AiIntroductionService {
 
         String response;
         try {
-            response = restClient
-                    .post()
-                    .uri(geminiUrl + "?key=" + apiKey)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(requestBody)
-                    .retrieve()
-                    .body(String.class);
+            response = callGeminiApi(requestBody);
         } catch (Exception e) {
             log.error("Gemini API 호출 실패: {}", e.getMessage());
             throw new AiGenerationException("AI 서비스 호출에 실패했습니다. 다시 시도해 주세요.");
@@ -69,6 +64,16 @@ public class AiIntroductionService {
 
     private String buildPrompt(IntroductionGenerateRequest request) {
         return PROMPT_TEMPLATE.formatted(request.getCategoryName(), request.getKeywords());
+    }
+
+    protected String callGeminiApi(Map<String, Object> requestBody) {
+        return restClient
+                .post()
+                .uri(geminiUrl + "?key=" + apiKey)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(requestBody)
+                .retrieve()
+                .body(String.class);
     }
 
     private String parseResponse(String response) {

@@ -52,7 +52,7 @@ public class FreelancerProfileService {
     @Transactional
     public FreelancerProfileResponseDto updateProfile(Long profileId, Member member, FreelancerProfileRequestDto request) {
         FreelancerProfile profile = freelancerProfileRepository.findById(profileId)
-                .orElseThrow(() -> new IllegalArgumentException("프로필을 찾을 수 없습니다."));
+                .orElseThrow(() -> new FreelancerNotFoundException("프로필을 찾을 수 없습니다."));
         if (!profile.getMember().getId().equals(member.getId())) {
             throw new IllegalStateException("수정 권한이 없습니다.");
         }
@@ -68,7 +68,7 @@ public class FreelancerProfileService {
     @Transactional
     public void deleteProfile(Long profileId, Member member) {
         FreelancerProfile profile = freelancerProfileRepository.findById(profileId)
-                .orElseThrow(() -> new IllegalArgumentException("프로필을 찾을 수 없습니다."));
+                .orElseThrow(() -> new FreelancerNotFoundException("프로필을 찾을 수 없습니다."));
         if (!profile.getMember().getId().equals(member.getId())) {
             throw new IllegalStateException("삭제 권한이 없습니다.");
         }
