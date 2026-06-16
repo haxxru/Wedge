@@ -31,15 +31,19 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private PostType type;
 
+    @Column(name = "image_url", length = 1000)
+    private String imageUrl;
+
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted = false;
 
-    public static Post create(Member member, String title, String content, PostType type) {
+    public static Post create(Member member, String title, String content, PostType type, String imageUrl) {
         Post post = new Post();
         post.member = member;
         post.title = title;
         post.content = content;
         post.type = type;
+        post.imageUrl = imageUrl;
         return post;
     }
 

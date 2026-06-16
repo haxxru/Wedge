@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 import { API_BASE_URL, createAuthHeaders, getAccessToken } from "@/lib/auth";
 
 type PostType = "WEDDING_REVIEW" | "TIP" | "BOARD" | "TALENT";
@@ -20,6 +21,7 @@ type Post = {
   title: string;
   content: string;
   type: PostType;
+  imageUrl: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -47,6 +49,11 @@ export default function CommunityDetailPage() {
   const [myMemberId, setMyMemberId] = useState<number | null>(null);
 
   useEffect(() => {
+    if (!getAccessToken()) {
+      router.replace(`/login?redirect=/community/${id}`);
+      return;
+    }
+
     const fetchPost = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/api/v1/posts/${id}`);
@@ -61,8 +68,6 @@ export default function CommunityDetailPage() {
     };
 
     const fetchMe = async () => {
-      const token = getAccessToken();
-      if (!token) return;
       try {
         const res = await fetch(`${API_BASE_URL}/api/v1/members/me`, {
           headers: createAuthHeaders(),
@@ -162,6 +167,12 @@ export default function CommunityDetailPage() {
                 {new Date(post.createdAt).toLocaleDateString("ko-KR")}
               </span>
             </div>
+
+            {post.imageUrl && (
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-[#efeee7] mt-6">
+                <Image src={post.imageUrl} alt={post.title} fill className="object-cover" />
+              </div>
+            )}
 
             <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap">
               {post.content}

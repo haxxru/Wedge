@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import Image from "next/image";
 import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 
 type PostType = "WEDDING_REVIEW" | "TIP" | "BOARD" | "TALENT";
@@ -25,8 +26,17 @@ export default function CommunityWritePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [type, setType] = useState<PostType>("WEDDING_REVIEW");
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,10 +44,16 @@ export default function CommunityWritePage() {
     setIsSubmitting(true);
 
     try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      formData.append("type", type);
+      if (image) formData.append("image", image);
+
       const res = await fetch(`${API_BASE_URL}/api/v1/posts`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", ...createAuthHeaders() },
-        body: JSON.stringify({ title, content, type }),
+        headers: createAuthHeaders(),
+        body: formData,
       });
 
       if (!res.ok) {
@@ -124,6 +140,35 @@ export default function CommunityWritePage() {
                 rows={10}
                 className="bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] placeholder:text-[#75786c] resize-none"
               />
+            </div>
+
+            {/* 이미지 업로드 */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-[#45483d]">이미지 첨부 (선택)</Label>
+              <label className="block cursor-pointer">
+                <div className="border-2 border-dashed border-[#c5c8ba] rounded-xl p-6 text-center hover:border-[#4f6231] hover:bg-[#f5f4ec] transition-colors">
+                  <svg className="w-8 h-8 text-[#75786c] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-sm font-medium text-[#45483d] mb-1">
+                    {image ? image.name : "클릭해서 이미지 업로드"}
+                  </p>
+                  <p className="text-xs text-[#75786c]">PNG, JPG, WEBP · 최대 10MB</p>
+                </div>
+                <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+              </label>
+              {imagePreview && (
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-[#efeee7]">
+                  <Image src={imagePreview} alt="미리보기" fill className="object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => { setImage(null); setImagePreview(null); }}
+                    className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-black/70"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
             </div>
 
             {error && <p className="text-sm text-red-500">{error}</p>}

@@ -15,6 +15,7 @@ public class PostResponse {
     private final String title;
     private final String content;
     private final PostType type;
+    private final String imageUrl;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
@@ -25,6 +26,7 @@ public class PostResponse {
         this.title = post.getTitle();
         this.content = post.getContent();
         this.type = post.getType();
+        this.imageUrl = post.getImageUrl();
         this.createdAt = post.getCreatedAt();
         this.updatedAt = post.getUpdatedAt();
     }

@@ -6,21 +6,30 @@ import com.wedge.backend.domain.community.entity.Post;
 import com.wedge.backend.domain.community.entity.PostType;
 import com.wedge.backend.domain.community.repository.PostRepository;
 import com.wedge.backend.domain.member.entity.Member;
+import com.wedge.backend.global.storage.R2FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
+    private final R2FileUploadService r2FileUploadService;
 
     @Transactional
-    public Long createPost(Member member, PostRequest request) {
-        Post post = Post.create(member, request.getTitle(), request.getContent(), request.getType());
+    public Long createPost(Member member, String title, String content, PostType type, MultipartFile image) throws IOException {
+        String imageUrl = null;
+        if (image != null && !image.isEmpty()) {
+            imageUrl = r2FileUploadService.upload(image, "posts");
+        }
+        Post post = Post.create(member, title, content, type, imageUrl);
         return postRepository.save(post).getId();
     }
 

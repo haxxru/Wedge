@@ -8,17 +8,19 @@ import com.wedge.backend.domain.member.entity.Member;
 import com.wedge.backend.domain.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -30,12 +32,15 @@ public class PostController {
     private final PostService postService;
     private final MemberService memberService;
 
-    @PostMapping
-    @Operation(summary = "게시글 등록", description = "로그인한 회원이 게시글을 등록합니다. (WEDDING_REVIEW / TIP / BOARD / TALENT)")
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "게시글 등록", description = "로그인한 회원이 게시글을 등록합니다. 이미지는 선택 사항입니다. (WEDDING_REVIEW / TIP / BOARD / TALENT)")
     public ResponseEntity<Map<String, Long>> createPost(
             Authentication authentication,
-            @RequestBody @Valid PostRequest request) {
-        Long postId = postService.createPost(getAuthenticatedMember(authentication), request);
+            @RequestParam String title,
+            @RequestParam String content,
+            @RequestParam PostType type,
+            @RequestParam(required = false) MultipartFile image) throws IOException {
+        Long postId = postService.createPost(getAuthenticatedMember(authentication), title, content, type, image);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("postId", postId));
     }
 

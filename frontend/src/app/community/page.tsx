@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,7 @@ type Post = {
   title: string;
   content: string;
   type: PostType;
+  imageUrl: string | null;
   createdAt: string;
 };
 
@@ -169,32 +171,39 @@ export default function CommunityPage() {
           <div className="space-y-4">
             {posts.map((post) => (
               <Link key={post.id} href={`/community/${post.id}`}>
-              <article
-                className="bg-white rounded-2xl p-5 border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.08)] transition-all cursor-pointer"
-              >
-                <Badge className={`${typeColor[post.type]} border-0 text-xs mb-3`}>
-                  {typeLabel[post.type]}
-                </Badge>
-                <h3 className="font-[var(--font-display)] font-semibold text-[#1b1c18] text-base mb-2 leading-snug">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-[#75786c] leading-relaxed line-clamp-2 mb-4">
-                  {post.content}
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Avatar className="w-7 h-7">
-                      <AvatarFallback className="bg-[#d3ebac] text-[#4f6231] text-xs font-semibold">
-                        {post.memberName.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <span className="text-xs text-[#75786c]">{post.memberName}</span>
+                <article className="bg-white rounded-2xl border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.08)] transition-all cursor-pointer flex overflow-hidden">
+                  {post.imageUrl && (
+                    <div className="relative w-36 sm:w-48 shrink-0">
+                      <Image src={post.imageUrl} alt={post.title} fill className="object-cover" />
+                    </div>
+                  )}
+                  <div className="p-5 flex flex-col justify-between flex-1">
+                    <div>
+                      <Badge className={`${typeColor[post.type]} border-0 text-xs mb-3`}>
+                        {typeLabel[post.type]}
+                      </Badge>
+                      <h3 className="font-[var(--font-display)] font-semibold text-[#1b1c18] text-base mb-2 leading-snug">
+                        {post.title}
+                      </h3>
+                      <p className="text-sm text-[#75786c] leading-relaxed line-clamp-2">
+                        {post.content}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between mt-4">
+                      <div className="flex items-center gap-2">
+                        <Avatar className="w-7 h-7">
+                          <AvatarFallback className="bg-[#d3ebac] text-[#4f6231] text-xs font-semibold">
+                            {post.memberName.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="text-xs text-[#75786c]">{post.memberName}</span>
+                      </div>
+                      <span className="text-xs text-[#75786c]">
+                        {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-xs text-[#75786c]">
-                    {new Date(post.createdAt).toLocaleDateString("ko-KR")}
-                  </span>
-                </div>
-              </article>
+                </article>
               </Link>
             ))}
           </div>
