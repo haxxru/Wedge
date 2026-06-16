@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wedge.backend.domain.freelancer.dto.IntroductionGenerateRequest;
 import com.wedge.backend.domain.freelancer.dto.IntroductionGenerateResponse;
+import com.wedge.backend.global.exception.AiGenerationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,7 +79,7 @@ public class AiIntroductionService {
                     .asText();
 
             if (text == null || text.isBlank()) {
-                throw new RuntimeException("소개글 생성에 실패했습니다. 다시 시도해 주세요.");
+                throw new AiGenerationException("소개글 생성에 실패했습니다. 다시 시도해 주세요.");
             }
             return text;
 
