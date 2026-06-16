@@ -31,7 +31,7 @@ public class FreelancerProfileService {
                 .category(category)
                 .title(request.getTitle())
                 .introduction(request.getIntroduction())
-                .keywords(request.getKeywords()) // 추가
+                .keywords(request.getKeywords())
                 .region(request.getRegion())
                 .price(request.getPrice())
                 .careerYears(request.getCareerYears())

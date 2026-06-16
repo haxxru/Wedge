@@ -70,15 +70,23 @@ public class AiIntroductionService {
     private String parseResponse(String response) {
         try {
             JsonNode root = objectMapper.readTree(response);
-            return root
+            String text = root
                     .path("candidates").get(0)
                     .path("content")
                     .path("parts").get(0)
                     .path("text")
                     .asText();
+
+            if (text == null || text.isBlank()) {
+                throw new RuntimeException("소개글 생성에 실패했습니다. 다시 시도해 주세요.");
+            }
+            return text;
+
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             log.error("Gemini 응답 파싱 실패: {}", e.getMessage());
-            return "";
+            throw new RuntimeException("소개글 생성에 실패했습니다. 다시 시도해 주세요.");
         }
     }
 }
