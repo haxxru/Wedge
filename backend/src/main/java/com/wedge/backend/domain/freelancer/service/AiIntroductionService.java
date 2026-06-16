@@ -19,7 +19,18 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class AiIntroductionService {
-
+    private static final String PROMPT_TEMPLATE = """
+            당신은 웨딩 프리랜서 프로필 소개글 작성 전문가입니다.
+            아래 정보를 바탕으로 자연스럽고 신뢰감 있는 소개글을 3~4문장으로 작성해 주세요.
+            
+            - 직종: %s
+            - 스타일 키워드: %s
+            
+            규칙:
+            1. 1인칭(저는)으로 작성
+            2. 과장 없이 진솔하게
+            3. 소개글 텍스트만 반환, 다른 텍스트 절대 포함 금지
+            """;
     private final ObjectMapper objectMapper;
     private final RestClient restClient;
 
@@ -57,18 +68,7 @@ public class AiIntroductionService {
     }
 
     private String buildPrompt(IntroductionGenerateRequest request) {
-        return """
-            당신은 웨딩 프리랜서 프로필 소개글 작성 전문가입니다.
-            아래 정보를 바탕으로 자연스럽고 신뢰감 있는 소개글을 3~4문장으로 작성해 주세요.
-            
-            - 직종: %s
-            - 스타일 키워드: %s
-            
-            규칙:
-            1. 1인칭(저는)으로 작성
-            2. 과장 없이 진솔하게
-            3. 소개글 텍스트만 반환, 다른 텍스트 절대 포함 금지
-            """.formatted(request.getCategoryName(), request.getKeywords());
+        return PROMPT_TEMPLATE.formatted(request.getCategoryName(), request.getKeywords());
     }
 
     private String parseResponse(String response) {
