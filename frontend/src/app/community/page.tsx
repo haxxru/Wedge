@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { API_BASE_URL, getAccessToken } from "@/lib/auth";
 
-type PostType = "WEDDING_REVIEW" | "TIP" | "BOARD" | "TALENT";
+type PostType = "WEDDING_REVIEW" | "TIP" | "BOARD";
 
 type Post = {
   id: number;
@@ -29,21 +29,18 @@ const tabs: { label: string; type: PostType | null }[] = [
   { label: "웨딩 후기", type: "WEDDING_REVIEW" },
   { label: "꿀팁", type: "TIP" },
   { label: "게시판", type: "BOARD" },
-  { label: "재능기부", type: "TALENT" },
 ];
 
 const typeLabel: Record<PostType, string> = {
   WEDDING_REVIEW: "웨딩 후기",
   TIP: "꿀팁",
   BOARD: "게시판",
-  TALENT: "재능기부",
 };
 
 const typeColor: Record<PostType, string> = {
   WEDDING_REVIEW: "bg-[#d3ebac] text-[#4f6231]",
   TIP: "bg-[#f6d9d3] text-[#6f5a55]",
   BOARD: "bg-[#efeee7] text-[#45483d]",
-  TALENT: "bg-[#f5f4ec] text-[#4f6231]",
 };
 
 function PostSkeleton() {

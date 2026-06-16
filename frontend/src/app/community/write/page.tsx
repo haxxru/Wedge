@@ -12,13 +12,12 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 
-type PostType = "WEDDING_REVIEW" | "TIP" | "BOARD" | "TALENT";
+type PostType = "WEDDING_REVIEW" | "TIP" | "BOARD";
 
 const typeOptions: { value: PostType; label: string }[] = [
   { value: "WEDDING_REVIEW", label: "웨딩 후기" },
   { value: "TIP", label: "꿀팁" },
   { value: "BOARD", label: "게시판" },
-  { value: "TALENT", label: "재능기부" },
 ];
 
 export default function CommunityWritePage() {
