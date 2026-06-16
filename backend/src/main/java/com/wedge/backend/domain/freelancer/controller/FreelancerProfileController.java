@@ -9,6 +9,7 @@ import com.wedge.backend.domain.freelancer.service.FreelancerProfileService;
 import com.wedge.backend.global.util.AuthUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +56,7 @@ public class FreelancerProfileController {
     @Operation(summary = "AI 소개글 생성", description = "카테고리와 키워드를 기반으로 AI 소개글 초안을 생성합니다.")
     @PostMapping("/introduction/generate")
     public ResponseEntity<IntroductionGenerateResponse> generateIntroduction(
-            @RequestBody IntroductionGenerateRequest request) {
+            @Valid @RequestBody IntroductionGenerateRequest request) {
         return ResponseEntity.ok(aiIntroductionService.generateIntroduction(request));
     }
 }

@@ -30,12 +30,6 @@ public class AiIntroductionService {
     private String geminiUrl;
 
     public IntroductionGenerateResponse generateIntroduction(IntroductionGenerateRequest request) {
-        if (request.getCategoryName() == null || request.getCategoryName().isBlank()) {
-            throw new IllegalArgumentException("카테고리명은 필수입니다.");
-        }
-        if (request.getKeywords() == null || request.getKeywords().isBlank()) {
-            throw new IllegalArgumentException("키워드는 필수입니다.");
-        }
 
         Map<String, Object> requestBody = Map.of(
                 "contents", List.of(
