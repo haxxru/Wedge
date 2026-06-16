@@ -73,7 +73,11 @@ public class EstimateChatService {
     private List<MessageHistory> getHistory(String redisKey) {
         Object stored = redisTemplate.opsForValue().get(redisKey);
         if (stored == null) return new ArrayList<>();
-        return (List<MessageHistory>) stored;
+
+        List<LinkedHashMap<String, String>> rawList = (List<LinkedHashMap<String, String>>) stored;
+        return rawList.stream()
+                .map(map -> new MessageHistory(map.get("role"), map.get("content")))
+                .collect(java.util.stream.Collectors.toList());
     }
 
     private void saveHistory(String redisKey, String userMessage, String aiMessage) {
