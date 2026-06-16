@@ -31,6 +31,7 @@ public class FreelancerProfileService {
                 .category(category)
                 .title(request.getTitle())
                 .introduction(request.getIntroduction())
+                .keywords(request.getKeywords()) // 추가
                 .region(request.getRegion())
                 .price(request.getPrice())
                 .careerYears(request.getCareerYears())
@@ -57,6 +58,7 @@ public class FreelancerProfileService {
         Category category = findCategoryById(request.getCategoryId());
 
         profile.update(category, request.getTitle(), request.getIntroduction(),
+                request.getKeywords(),
                 request.getRegion(), request.getPrice(), request.getCareerYears());
         return new FreelancerProfileResponseDto(profile);
     }

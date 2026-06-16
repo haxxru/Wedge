@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PortfolioRequestDto {
-    private String description;
-    private int sortOrder;
-
+public class IntroductionGenerateRequest {
+    private String categoryName;
+    private String keywords;
 }
