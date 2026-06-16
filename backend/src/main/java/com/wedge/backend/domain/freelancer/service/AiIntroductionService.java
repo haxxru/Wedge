@@ -29,7 +29,12 @@ public class AiIntroductionService {
     private String geminiUrl;
 
     public IntroductionGenerateResponse generateIntroduction(IntroductionGenerateRequest request) {
-
+        if (request.getCategoryName() == null || request.getCategoryName().isBlank()) {
+            throw new IllegalArgumentException("카테고리명은 필수입니다.");
+        }
+        if (request.getKeywords() == null || request.getKeywords().isBlank()) {
+            throw new IllegalArgumentException("키워드는 필수입니다.");
+        }
         String prompt = """
                 당신은 웨딩 프리랜서 프로필 소개글 작성 전문가입니다.
                 아래 정보를 바탕으로 자연스럽고 신뢰감 있는 소개글을 3~4문장으로 작성해 주세요.
