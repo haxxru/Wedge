@@ -22,12 +22,25 @@ export function useChatbot() {
     ? []
     : (TURN_CONFIGS[currentTurn]?.quickReplies ?? []);
 
-  // 초기화 함수
+  const [estimateHistory, setEstimateHistory] = useState<EstimateResult[]>([]);
+
   const resetChat = () => {
     setSessionId(null);
-    setMessages([{ role: "bot", content: INITIAL_BOT_MESSAGE }]);
     setCurrentTurn(1);
     setIsCompleted(false);
+
+    if (estimate) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "estimate", content: "", estimate },
+        {
+          role: "bot",
+          content:
+            "다른 서비스도 견적을 내드릴게요!\n어떤 서비스가 필요하신가요? 💍",
+        },
+      ]);
+    }
+
     setEstimate(null);
     setIsLoading(false);
   };
@@ -63,7 +76,6 @@ export function useChatbot() {
       }
 
       const data: ChatResponse = await res.json();
-      console.log("백엔드 응답:", data);
       if (!sessionId) setSessionId(data.sessionId);
       setMessages((prev) => [...prev, { role: "bot", content: data.message }]);
 
@@ -84,6 +96,7 @@ export function useChatbot() {
     currentTurn,
     isCompleted,
     estimate,
+    estimateHistory,
     isLoading,
     sendMessage,
     resetChat,

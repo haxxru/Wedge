@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 interface Props {
   estimate: EstimateResult;
   onReset: () => void;
+  showResetButton?: boolean;
 }
 
 function parsePriceRange(priceRange: string): { min: number; max: number } {
@@ -17,7 +18,11 @@ function parsePriceRange(priceRange: string): { min: number; max: number } {
   };
 }
 
-export function EstimateResultCard({ estimate, onReset }: Props) {
+export function EstimateResultCard({
+  estimate,
+  onReset,
+  showResetButton = true,
+}: Props) {
   const router = useRouter();
 
   const handleNavigate = () => {
@@ -60,13 +65,15 @@ export function EstimateResultCard({ estimate, onReset }: Props) {
         프리랜서 탐색하기 →
       </Button>
 
-      <Button
-        onClick={onReset}
-        variant="outline"
-        className="w-full border-[#4f6231] text-[#4f6231] hover:bg-[#f5f4ec] rounded-xl"
-      >
-        다른 서비스 견적도 보기
-      </Button>
+      {showResetButton && (
+        <Button
+          onClick={onReset}
+          variant="outline"
+          className="w-full border-[#4f6231] text-[#4f6231] hover:bg-[#f5f4ec] rounded-xl"
+        >
+          다른 서비스 견적도 보기
+        </Button>
+      )}
     </div>
   );
 }

@@ -6,8 +6,9 @@ export interface QuickReply {
 }
 
 export interface ChatMessage {
-  role: "bot" | "user";
+  role: "bot" | "user" | "estimate";
   content: string;
+  estimate?: EstimateResult;
 }
 
 export interface EstimateResult {

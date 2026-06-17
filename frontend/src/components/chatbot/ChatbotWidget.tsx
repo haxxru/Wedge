@@ -15,6 +15,7 @@ export function ChatbotWidget() {
     currentQuickReplies,
     isCompleted,
     estimate,
+    estimateHistory,
     isLoading,
     sendMessage,
     resetChat,
@@ -56,9 +57,27 @@ export function ChatbotWidget() {
             ref={scrollRef}
             className="flex-1 overflow-y-auto flex flex-col min-h-0"
           >
-            <ChatbotMessageList messages={messages} isLoading={isLoading} />
+            <ChatbotMessageList
+              messages={messages}
+              isLoading={isLoading}
+              onReset={resetChat}
+            />
+            {/* 이전 견적 카드들 */}
+            {estimateHistory.map((prevEstimate, idx) => (
+              <EstimateResultCard
+                key={idx}
+                estimate={prevEstimate}
+                onReset={resetChat}
+                showResetButton={false}
+              />
+            ))}
+            {/* 현재 견적 카드 */}
             {isCompleted && estimate && (
-              <EstimateResultCard estimate={estimate} onReset={resetChat} />
+              <EstimateResultCard
+                estimate={estimate}
+                onReset={resetChat}
+                showResetButton={true}
+              />
             )}
           </div>
           <ChatbotQuickReply
