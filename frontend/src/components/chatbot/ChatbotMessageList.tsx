@@ -34,11 +34,22 @@ export function ChatbotMessageList({ messages, isLoading }: Props) {
         </div>
       ))}
 
-      {/* 로딩 중 말풍선 */}
+      {/* 로딩 중 */}
       {isLoading && (
         <div className="flex justify-start">
-          <div className="bg-gray-100 px-4 py-2.5 rounded-2xl rounded-tl-none">
-            <span className="text-sm text-gray-400">답변 작성 중...</span>
+          <div className="bg-gray-100 px-4 py-3 rounded-2xl rounded-tl-none flex items-center gap-1">
+            <span
+              className="w-1.5 h-1.5 rounded-full animate-bounce [animation-delay:0ms] bg-gray-300 [animation-name:bounce-color]"
+              style={{ animation: "bounceColor 1s ease-in-out infinite 0ms" }}
+            />
+            <span
+              className="w-1.5 h-1.5 rounded-full animate-bounce [animation-delay:150ms]"
+              style={{ animation: "bounceColor 1s ease-in-out infinite 150ms" }}
+            />
+            <span
+              className="w-1.5 h-1.5 rounded-full animate-bounce [animation-delay:300ms]"
+              style={{ animation: "bounceColor 1s ease-in-out infinite 300ms" }}
+            />
           </div>
         </div>
       )}

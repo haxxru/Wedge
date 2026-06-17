@@ -1,4 +1,4 @@
-// src/components/chatbot/ChatbotQuickReply.tsx
+import { Badge } from "@/components/ui/badge";
 import type { QuickReply } from "@/types/chatbot";
 
 interface Props {
@@ -13,14 +13,16 @@ export function ChatbotQuickReply({ quickReplies, onSelect, disabled }: Props) {
   return (
     <div className="flex flex-wrap justify-end gap-2 px-4 pt-2 pb-6">
       {quickReplies.map((reply) => (
-        <button
+        <Badge
           key={reply.value}
-          onClick={() => onSelect(reply.value)}
-          disabled={disabled}
-          className="px-3 py-1.5 rounded-full border border-[#4f6231] text-[#4f6231] text-sm hover:bg-[#4f6231] hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          onClick={() => !disabled && onSelect(reply.value)}
+          variant="outline"
+          className={`cursor-pointer border-[#4f6231] text-[#4f6231] rounded-full px-3 py-4 text-sm font-normal
+    hover:bg-[#4f6231] hover:text-white transition-colors
+    ${disabled ? "opacity-40 cursor-not-allowed pointer-events-none" : ""}`}
         >
           {reply.label}
-        </button>
+        </Badge>
       ))}
     </div>
   );
