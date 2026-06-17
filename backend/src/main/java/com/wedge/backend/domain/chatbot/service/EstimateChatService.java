@@ -128,9 +128,11 @@ public class EstimateChatService {
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) {
                 log.warn("Gemini API 요청 한도 초과: {}", e.getMessage());
-                throw new AiGenerationException("AI 요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.");
+                throw new AiGenerationException(
+                        "AI 요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.",
+                        HttpStatus.TOO_MANY_REQUESTS
+                );
             }
-            log.error("Gemini API 호출 실패: {}", e.getMessage());
             throw new AiGenerationException("AI 서비스 호출에 실패했습니다.");
         }
     }
