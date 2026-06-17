@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
@@ -115,13 +117,22 @@ public class EstimateChatService {
     }
 
     private String callGeminiApi(Map<String, Object> requestBody) {
-        return restClient
-                .post()
-                .uri(geminiUrl + "?key=" + apiKey)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(requestBody)
-                .retrieve()
-                .body(String.class);
+        try {
+            return restClient
+                    .post()
+                    .uri(geminiUrl + "?key=" + apiKey)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(requestBody)
+                    .retrieve()
+                    .body(String.class);
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) {
+                log.warn("Gemini API 요청 한도 초과: {}", e.getMessage());
+                throw new AiGenerationException("AI 요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.");
+            }
+            log.error("Gemini API 호출 실패: {}", e.getMessage());
+            throw new AiGenerationException("AI 서비스 호출에 실패했습니다.");
+        }
     }
 
     private String parseResponse(String response) {
