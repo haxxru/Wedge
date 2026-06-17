@@ -22,24 +22,19 @@ export function useChatbot() {
     ? []
     : (TURN_CONFIGS[currentTurn]?.quickReplies ?? []);
 
-  const [estimateHistory, setEstimateHistory] = useState<EstimateResult[]>([]);
-
   const resetChat = () => {
     setSessionId(null);
     setCurrentTurn(1);
     setIsCompleted(false);
 
-    if (estimate) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "estimate", content: "", estimate },
-        {
-          role: "bot",
-          content:
-            "다른 서비스도 견적을 내드릴게요!\n어떤 서비스가 필요하신가요? 💍",
-        },
-      ]);
-    }
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "bot",
+        content:
+          "다른 서비스도 견적을 내드릴게요!\n어떤 서비스가 필요하신가요? 💍",
+      },
+    ]);
 
     setEstimate(null);
     setIsLoading(false);
@@ -76,12 +71,17 @@ export function useChatbot() {
       }
 
       const data: ChatResponse = await res.json();
+
       if (!sessionId) setSessionId(data.sessionId);
       setMessages((prev) => [...prev, { role: "bot", content: data.message }]);
 
       if (data.isDone && data.estimate) {
         setIsCompleted(true);
         setEstimate(data.estimate);
+        setMessages((prev) => [
+          ...prev,
+          { role: "estimate", content: "", estimate: data.estimate },
+        ]);
       } else {
         setCurrentTurn((prev) => (prev + 1) as TurnStep);
       }
@@ -96,7 +96,6 @@ export function useChatbot() {
     currentTurn,
     isCompleted,
     estimate,
-    estimateHistory,
     isLoading,
     sendMessage,
     resetChat,

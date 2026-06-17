@@ -6,7 +6,6 @@ import { ChatbotHeader } from "./ChatbotHeader";
 import { ChatbotMessageList } from "./ChatbotMessageList";
 import { ChatbotQuickReply } from "./ChatbotQuickReply";
 import { ChatbotToggleButton } from "./ChatbotToggleButton";
-import { EstimateResultCard } from "./EstimateResultCard";
 
 export function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +14,6 @@ export function ChatbotWidget() {
     currentQuickReplies,
     isCompleted,
     estimate,
-    estimateHistory,
     isLoading,
     sendMessage,
     resetChat,
@@ -23,7 +21,6 @@ export function ChatbotWidget() {
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // 메시지 추가될 때마다 스크롤
   useEffect(() => {
     const timer = setTimeout(() => {
       if (scrollRef.current) {
@@ -33,7 +30,6 @@ export function ChatbotWidget() {
     return () => clearTimeout(timer);
   }, [messages, isLoading]);
 
-  // 견적 카드 노출 시 스크롤
   useEffect(() => {
     if (isCompleted && estimate) {
       const times = [100, 300, 500, 800, 1200];
@@ -51,7 +47,11 @@ export function ChatbotWidget() {
   return (
     <>
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-[380px] bg-white border border-[#efeee7] rounded-2xl shadow-xl flex flex-col overflow-hidden max-h-[calc(100vh-232px)] max-sm:w-full max-sm:right-0 max-sm:bottom-0 max-sm:rounded-b-none max-sm:max-h-[85vh]">
+        <div
+          className="fixed bottom-24 right-6 z-40 w-[380px] bg-white border border-[#efeee7] rounded-2xl shadow-xl flex flex-col overflow-hidden
+  max-h-[calc(100vh-180px)]
+  max-sm:w-full max-sm:right-0 max-sm:bottom-0 max-sm:rounded-b-none max-sm:max-h-[85vh]"
+        >
           <ChatbotHeader onClose={() => setIsOpen(false)} />
           <div
             ref={scrollRef}
@@ -62,23 +62,6 @@ export function ChatbotWidget() {
               isLoading={isLoading}
               onReset={resetChat}
             />
-            {/* 이전 견적 카드들 */}
-            {estimateHistory.map((prevEstimate, idx) => (
-              <EstimateResultCard
-                key={idx}
-                estimate={prevEstimate}
-                onReset={resetChat}
-                showResetButton={false}
-              />
-            ))}
-            {/* 현재 견적 카드 */}
-            {isCompleted && estimate && (
-              <EstimateResultCard
-                estimate={estimate}
-                onReset={resetChat}
-                showResetButton={true}
-              />
-            )}
           </div>
           <ChatbotQuickReply
             quickReplies={currentQuickReplies}
