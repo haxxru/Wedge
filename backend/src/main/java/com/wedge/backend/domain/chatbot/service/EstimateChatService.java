@@ -99,7 +99,13 @@ public class EstimateChatService {
 
         // 현재 사용자 메시지
         messages.add(new UserMessage(currentUserMessage));
-
+        if (history.size() >= 4) {
+            messages.add(new UserMessage(
+                    "이제 세 가지 정보를 모두 받았습니다. " +
+                            "반드시 JSON 형식으로만 응답하세요. " +
+                            "다른 텍스트는 절대 포함하지 마세요."
+            ));
+        }
         return messages;
     }
 
@@ -120,12 +126,14 @@ public class EstimateChatService {
 
 
     private ChatResponse parseEstimateResult(String aiMessage, String sessionId) {
+        log.info("AI 원본 응답: {}", aiMessage);
         try {
-            // JSON 부분만 추출!
+
             int start = aiMessage.indexOf("{");
             int end = aiMessage.lastIndexOf("}") + 1;
 
             if (start == -1 || end == 0) {
+                log.error("JSON을 찾을 수 없음. start={}, end={}", start, end);
                 throw new AiGenerationException("견적 결과를 파싱할 수 없습니다.");
             }
 
