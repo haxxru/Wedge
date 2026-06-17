@@ -74,24 +74,24 @@ export default function MySidebar({
           {sidebarMenu
             .filter(
               (item) =>
-                item.href !== "/mypage/reviews" &&
-                item.href !== "/freelancer/profile/manage" ||
+                (item.href !== "/mypage/reviews" &&
+                  item.href !== "/freelancer/profile/manage") ||
                 role === "FREELANCER",
             )
             .map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors ${
-                item.active
-                  ? "bg-[#f5f4ec] text-[#4f6231] font-medium"
-                  : "text-[#45483d] hover:bg-[#f5f4ec] hover:text-[#4f6231]"
-              }`}
-            >
-              <span>{item.icon}</span>
-              {item.label}
-            </Link>
-          ))}
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors ${
+                  item.active
+                    ? "bg-[#f5f4ec] text-[#4f6231] font-medium"
+                    : "text-[#45483d] hover:bg-[#f5f4ec] hover:text-[#4f6231]"
+                }`}
+              >
+                <span>{item.icon}</span>
+                {item.label}
+              </Link>
+            ))}
         </nav>
         <div className="p-2 border-t border-[#efeee7]">
           <button
