@@ -49,6 +49,7 @@ export default function MyPage() {
         setName(data.name ?? "");
         setEmail(data.email ?? "");
         setPhone(data.phone ?? "");
+        setProfileImg(data.profileImageUrl ?? null);
       } catch (error) {
         setErrorMessage(
           error instanceof Error
