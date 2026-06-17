@@ -1,7 +1,7 @@
 package com.wedge.backend.domain.freelancer.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import com.wedge.backend.domain.freelancer.dto.IntroductionGenerateRequest;
 import com.wedge.backend.domain.freelancer.dto.IntroductionGenerateResponse;
 import com.wedge.backend.global.exception.AiGenerationException;
