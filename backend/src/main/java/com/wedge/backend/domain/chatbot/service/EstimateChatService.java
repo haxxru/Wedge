@@ -118,14 +118,19 @@ public class EstimateChatService {
         }
     }
 
+
     private ChatResponse parseEstimateResult(String aiMessage, String sessionId) {
         try {
-            String cleaned = aiMessage
-                    .replaceAll("(?s)```json\\s*", "")
-                    .replaceAll("```", "")
-                    .trim();
+            // JSON 부분만 추출!
+            int start = aiMessage.indexOf("{");
+            int end = aiMessage.lastIndexOf("}") + 1;
 
-            JsonNode node = objectMapper.readTree(cleaned);
+            if (start == -1 || end == 0) {
+                throw new AiGenerationException("견적 결과를 파싱할 수 없습니다.");
+            }
+
+            String jsonStr = aiMessage.substring(start, end);
+            JsonNode node = objectMapper.readTree(jsonStr);
 
             List<String> services = new ArrayList<>();
             node.path("selectedServices").forEach(s -> services.add(s.asText()));
