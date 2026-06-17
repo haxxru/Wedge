@@ -11,10 +11,18 @@ const sidebarMenu = [
   { icon: "📝", label: "내 게시물", href: "/mypage/posts", active: false },
 ];
 
+type MemberRole = "CLIENT" | "FREELANCER";
+
+const ROLE_LABEL: Record<MemberRole, string> = {
+  CLIENT: "예비부부",
+  FREELANCER: "프리랜서",
+};
+
 interface MySidebarProps {
   name: string;
   email: string;
   profileImg: string | null;
+  role?: MemberRole | null;
   onLogout: () => void;
 }
 
@@ -22,6 +30,7 @@ export default function MySidebar({
   name,
   email,
   profileImg,
+  role,
   onLogout,
 }: MySidebarProps) {
   return (
@@ -47,6 +56,11 @@ export default function MySidebar({
             <div>
               <p className="font-semibold text-[#1b1c18] text-sm">{name}</p>
               <p className="text-xs text-[#75786c]">{email}</p>
+              {role && (
+                <span className="inline-block mt-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#e8f5d0] text-[#4f6231]">
+                  {ROLE_LABEL[role]}
+                </span>
+              )}
             </div>
           </div>
         </div>
