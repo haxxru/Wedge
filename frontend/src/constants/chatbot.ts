@@ -26,10 +26,9 @@ export const TURN_CONFIGS: Record<number, TurnConfig> = {
   3: {
     botMessage: "총 예산 범위를 알려주세요!",
     quickReplies: [
-      { label: "100만원 이하", value: "100만원 이하" },
-      { label: "100 ~ 200만원", value: "100~200만원" },
-      { label: "200 ~ 400만원", value: "200~400만원" },
-      { label: "400만원 이상", value: "400만원 이상" },
+      { label: "100 ~ 300만원", value: "100~300만원" },
+      { label: "300 ~ 500만원", value: "300~500만원" },
+      { label: "500만원 이상", value: "500만원 이상" },
     ],
   },
 };

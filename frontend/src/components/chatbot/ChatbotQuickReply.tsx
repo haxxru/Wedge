@@ -1,3 +1,4 @@
+// src/components/chatbot/ChatbotQuickReply.tsx
 import type { QuickReply } from "@/types/chatbot";
 
 interface Props {
@@ -10,7 +11,7 @@ export function ChatbotQuickReply({ quickReplies, onSelect, disabled }: Props) {
   if (quickReplies.length === 0) return null;
 
   return (
-    <div className="px-4 py-2 flex flex-wrap gap-2">
+    <div className="flex flex-wrap justify-end gap-2 px-4 pt-2 pb-6">
       {quickReplies.map((reply) => (
         <button
           key={reply.value}
