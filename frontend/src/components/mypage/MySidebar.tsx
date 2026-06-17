@@ -9,6 +9,12 @@ const sidebarMenu = [
   { icon: "🔖", label: "관심 프리랜서", href: "/bookmarks", active: false },
   { icon: "⭐", label: "리뷰 내역", href: "/mypage/reviews", active: false },
   { icon: "📝", label: "내 게시물", href: "/mypage/posts", active: false },
+  {
+    icon: "🎨",
+    label: "프로필 관리",
+    href: "/freelancer/profile/manage",
+    active: false,
+  },
 ];
 
 type MemberRole = "CLIENT" | "FREELANCER";
@@ -22,7 +28,7 @@ interface MySidebarProps {
   name: string;
   email: string;
   profileImg: string | null;
-  role?: MemberRole | null;
+  role: MemberRole | null;
   onLogout: () => void;
 }
 
@@ -65,7 +71,14 @@ export default function MySidebar({
           </div>
         </div>
         <nav className="p-2">
-          {sidebarMenu.map((item) => (
+          {sidebarMenu
+            .filter(
+              (item) =>
+                item.href !== "/mypage/reviews" &&
+                item.href !== "/freelancer/profile/manage" ||
+                role === "FREELANCER",
+            )
+            .map((item) => (
             <Link
               key={item.label}
               href={item.href}
