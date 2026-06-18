@@ -15,7 +15,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { API_BASE_URL } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation"; // ✅ 추가
+import { Suspense, useCallback, useEffect, useState } from "react";
 
 type Category = {
   id: number;
@@ -59,10 +60,14 @@ function SkeletonCard() {
   );
 }
 
-export default function SearchPage() {
+function SearchPageInner() {
+  const searchParams = useSearchParams();
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    null,
+    searchParams.get("categoryId")
+      ? Number(searchParams.get("categoryId"))
+      : null,
   );
   const [sortType, setSortType] = useState("ALL");
   const [keyword, setKeyword] = useState("");
@@ -75,7 +80,6 @@ export default function SearchPage() {
     const loadCategories = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/api/categories`);
-
         const data = await res.json();
         setCategories(data);
       } catch (error) {
@@ -124,6 +128,7 @@ export default function SearchPage() {
     <div className="flex flex-col min-h-screen bg-[#fbf9f2]">
       <Navbar />
 
+      {/* Header */}
       <div className="bg-[#f5f4ec] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="font-[var(--font-display)] text-3xl font-semibold text-[#1b1c18] mb-2">
@@ -150,10 +155,7 @@ export default function SearchPage() {
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
       {/* 카테고리 필터 */}
->>>>>>> 9654bf5fc5eea5c0f7afeec24a4bf6ded6aae038
       <div className="border-b border-[#efeee7] bg-white sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1">
@@ -184,10 +186,7 @@ export default function SearchPage() {
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
       {/* 정렬 바 */}
->>>>>>> 9654bf5fc5eea5c0f7afeec24a4bf6ded6aae038
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 w-full">
         <div className="flex items-center justify-between">
           <span className="text-sm text-[#75786c]">
@@ -222,10 +221,7 @@ export default function SearchPage() {
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
       {/* 프리랜서 목록 */}
->>>>>>> 9654bf5fc5eea5c0f7afeec24a4bf6ded6aae038
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -325,5 +321,19 @@ export default function SearchPage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen bg-[#fbf9f2]">
+          <Navbar />
+        </div>
+      }
+    >
+      <SearchPageInner />
+    </Suspense>
   );
 }
