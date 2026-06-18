@@ -2,6 +2,7 @@ package com.wedge.backend.domain.member.controller;
 
 import com.wedge.backend.domain.member.dto.MemberMeResponse;
 import com.wedge.backend.domain.member.dto.MemberUpdateRequest;
+import com.wedge.backend.domain.member.entity.Role;
 import com.wedge.backend.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,13 @@ public class MemberController {
             @RequestParam MultipartFile image) throws IOException {
         Long memberId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(memberService.updateProfileImage(memberId, image));
+    }
+
+    @PatchMapping("/me/role")
+    public ResponseEntity<MemberMeResponse> changeRole(Authentication authentication,
+                                                        @RequestParam Role role) {
+        Long memberId = (Long) authentication.getPrincipal();
+        return ResponseEntity.ok(memberService.changeRole(memberId, role));
     }
 
     @DeleteMapping("/me")
