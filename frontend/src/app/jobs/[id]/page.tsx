@@ -13,6 +13,24 @@ import { API_BASE_URL, createAuthHeaders, getAccessToken } from "@/lib/auth";
 import { authFetch } from "@/lib/authFetch";
 
 type RecruitStatus = "OPEN" | "CLOSED";
+type ProposalStatus = "SUBMITTED" | "ACCEPTED" | "REJECTED";
+
+type Proposal = {
+  id: number;
+  freelancerProfileId: number;
+  freelancerName: string;
+  content: string;
+  price: number | null;
+  region: string | null;
+  status: ProposalStatus;
+  createdAt: string;
+};
+
+const STATUS_STYLE: Record<ProposalStatus, { label: string; className: string }> = {
+  SUBMITTED: { label: "검토 중", className: "bg-[#fff4cc] text-[#8a6d00]" },
+  ACCEPTED: { label: "수락됨", className: "bg-[#d3ebac] text-[#4f6231]" },
+  REJECTED: { label: "거절됨", className: "bg-[#f6d9d3] text-[#6f5a55]" },
+};
 
 type RecruitPost = {
   id: number;
@@ -38,6 +56,7 @@ export default function JobDetailPage() {
   const [myMemberId, setMyMemberId] = useState<number | null>(null);
   const [myRole, setMyRole] = useState<string | null>(null);
 
+  const [proposals, setProposals] = useState<Proposal[]>([]);
   const [proposalContent, setProposalContent] = useState("");
   const [proposalPrice, setProposalPrice] = useState("");
   const [proposalRegion, setProposalRegion] = useState("");
@@ -77,6 +96,17 @@ export default function JobDetailPage() {
     fetchPost();
     fetchMe();
   }, [id, router]);
+
+  useEffect(() => {
+    if (!post || !myMemberId || post.memberId !== myMemberId) return;
+    const fetchProposals = async () => {
+      try {
+        const res = await authFetch(`${API_BASE_URL}/api/v1/jobs/${id}/proposals`);
+        if (res.ok) setProposals(await res.json());
+      } catch {}
+    };
+    fetchProposals();
+  }, [post, myMemberId, id]);
 
   const handleDelete = async () => {
     if (!confirm("구인글을 삭제하시겠습니까?")) return;
@@ -134,6 +164,29 @@ export default function JobDetailPage() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleAcceptProposal = async (proposalId: number) => {
+    if (!confirm("이 제안서를 수락하시겠습니까? 수락 시 예약이 자동 생성되고 구인글이 마감됩니다.")) return;
+    try {
+      const res = await authFetch(`${API_BASE_URL}/api/v1/proposals/${proposalId}/accept`, { method: "PATCH" });
+      if (res.ok) {
+        const updated = await res.json();
+        setProposals((prev) => prev.map((p) => (p.id === proposalId ? updated : p)));
+        setPost((prev) => prev ? { ...prev, status: "CLOSED" } : prev);
+      }
+    } catch {}
+  };
+
+  const handleRejectProposal = async (proposalId: number) => {
+    if (!confirm("이 제안서를 거절하시겠습니까?")) return;
+    try {
+      const res = await authFetch(`${API_BASE_URL}/api/v1/proposals/${proposalId}/reject`, { method: "PATCH" });
+      if (res.ok) {
+        const updated = await res.json();
+        setProposals((prev) => prev.map((p) => (p.id === proposalId ? updated : p)));
+      }
+    } catch {}
   };
 
   const isAuthor = post && myMemberId !== null && post.memberId === myMemberId;
@@ -218,6 +271,48 @@ export default function JobDetailPage() {
             <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap">{post.content}</div>
           </div>
         ) : null}
+
+        {/* 작성자: 받은 제안서 목록 */}
+        {post && !loading && isAuthor && proposals.length > 0 && (
+          <div className="bg-white rounded-2xl border border-[#efeee7] p-6 sm:p-8 mt-6">
+            <h2 className="font-[var(--font-display)] text-lg font-semibold text-[#1b1c18] mb-4">
+              받은 제안서 ({proposals.length}건)
+            </h2>
+            <div className="space-y-4">
+              {proposals.map((proposal) => (
+                <div key={proposal.id} className="border border-[#efeee7] rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Avatar className="w-8 h-8">
+                        <AvatarFallback className="bg-[#d3ebac] text-[#4f6231] text-xs font-semibold">
+                          {proposal.freelancerName.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-sm font-medium text-[#1b1c18]">{proposal.freelancerName}</span>
+                      <Badge className={`border-0 text-xs ${STATUS_STYLE[proposal.status].className}`}>
+                        {STATUS_STYLE[proposal.status].label}
+                      </Badge>
+                    </div>
+                    <span className="text-xs text-[#75786c]">{new Date(proposal.createdAt).toLocaleDateString("ko-KR")}</span>
+                  </div>
+                  <p className="text-sm text-[#45483d] whitespace-pre-wrap mb-3">{proposal.content}</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-4 text-xs text-[#75786c]">
+                      <span>제안 가격: {proposal.price != null ? `${proposal.price.toLocaleString()}원` : "협의"}</span>
+                      {proposal.region && <span>지역: {proposal.region}</span>}
+                    </div>
+                    {proposal.status === "SUBMITTED" && post.status === "OPEN" && (
+                      <div className="flex gap-2">
+                        <Button size="sm" onClick={() => handleAcceptProposal(proposal.id)} className="bg-[#4f6231] hover:bg-[#3e4e27] text-white rounded-lg text-xs">수락</Button>
+                        <Button size="sm" variant="outline" onClick={() => handleRejectProposal(proposal.id)} className="border-red-200 text-red-500 hover:bg-red-50 rounded-lg text-xs">거절</Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* 프리랜서: 제안서 제출 폼 */}
         {post && !loading && myRole === "FREELANCER" && post.memberId !== myMemberId && post.status === "OPEN" && (
