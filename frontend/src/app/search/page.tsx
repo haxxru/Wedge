@@ -146,6 +146,7 @@ function SearchPageInner() {
   }, [keyword, sortType, selectedCategoryId]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchFreelancers();
   }, [fetchFreelancers]);
 
