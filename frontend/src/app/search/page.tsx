@@ -12,10 +12,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { API_BASE_URL } from "@/lib/auth";
+import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation"; // ✅ 추가
+import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
 
 type Category = {
@@ -35,6 +35,16 @@ type FreelancerProfile = {
   careerYears: number;
   createdAt: string;
   updatedAt: string;
+};
+
+type BookmarkResponse = {
+  id: number;
+  freelancerProfileId: number;
+  memberName: string;
+  title: string;
+  region: string;
+  price: number | null;
+  createdAt: string;
 };
 
 const SORT_OPTIONS = [
@@ -62,6 +72,7 @@ function SkeletonCard() {
 
 function SearchPageInner() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
@@ -87,6 +98,25 @@ function SearchPageInner() {
       }
     };
     loadCategories();
+  }, []);
+
+  useEffect(() => {
+    const loadBookmarks = async () => {
+      const headers = createAuthHeaders();
+      console.log("북마크 요청 헤더:", headers);
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/bookmarks`, {
+          headers: createAuthHeaders(),
+        });
+        if (!res.ok) return; // 비로그인 시 401
+        const data: BookmarkResponse[] = await res.json();
+        const ids = new Set(data.map((b) => b.freelancerProfileId));
+        setBookmarked(ids);
+      } catch (error) {
+        console.error("북마크 목록 조회 실패", error);
+      }
+    };
+    loadBookmarks();
   }, []);
 
   const fetchFreelancers = useCallback(async () => {
@@ -115,13 +145,42 @@ function SearchPageInner() {
     fetchFreelancers();
   }, [fetchFreelancers]);
 
-  const toggleBookmark = (id: number) => {
+  const toggleBookmark = async (id: number) => {
+    // 1. 비로그인 체크
+    const headers = createAuthHeaders();
+    if (!headers.Authorization) {
+      router.push("/login");
+      return;
+    }
+
+    // 2. 낙관적 업데이트 — 즉시 UI 반영
+    const prevBookmarked = new Set(bookmarked);
     setBookmarked((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
       return next;
     });
+
+    try {
+      // 3. API 호출 — POST 하나로 찜/해제 토글
+      const res = await fetch(`${API_BASE_URL}/api/bookmarks/${id}`, {
+        method: "POST",
+        headers,
+      });
+      console.log("북마크 응답 상태:", res.status);
+      console.log(
+        "북마크 응답 헤더:",
+        Object.fromEntries(res.headers.entries()),
+      );
+      const body = await res.text();
+      console.log("북마크 응답 바디:", body);
+      if (!res.ok) throw new Error("북마크 API 실패");
+    } catch (error) {
+      // 4. 실패 시 롤백
+      console.error("북마크 처리 실패", error);
+      setBookmarked(prevBookmarked);
+    }
   };
 
   return (
