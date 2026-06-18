@@ -50,6 +50,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/**",
+                                "/ws",
+                                "/ws/**",
                                 "/oauth2/**",
                                 "/api/chatbot/**",
                                 "/swagger-ui/**",
@@ -61,6 +63,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/freelancers/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/jobs/*/proposals").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -85,6 +88,8 @@ public class SecurityConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/ws", config);
+        source.registerCorsConfiguration("/ws/**", config);
         return source;
     }
     @Bean
