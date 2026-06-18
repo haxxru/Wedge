@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { API_BASE_URL, createAuthHeaders, getAccessToken } from "@/lib/auth";
+import { authFetch } from "@/lib/authFetch";
 
 type RecruitStatus = "OPEN" | "CLOSED";
 
@@ -35,6 +36,14 @@ export default function JobDetailPage() {
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const [myMemberId, setMyMemberId] = useState<number | null>(null);
+  const [myRole, setMyRole] = useState<string | null>(null);
+
+  const [proposalContent, setProposalContent] = useState("");
+  const [proposalPrice, setProposalPrice] = useState("");
+  const [proposalRegion, setProposalRegion] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [proposalError, setProposalError] = useState("");
+  const [proposalSuccess, setProposalSuccess] = useState("");
 
   useEffect(() => {
     if (!getAccessToken()) {
@@ -57,7 +66,11 @@ export default function JobDetailPage() {
     const fetchMe = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/api/v1/members/me`, { headers: createAuthHeaders() });
-        if (res.ok) setMyMemberId((await res.json()).id);
+        if (res.ok) {
+          const data = await res.json();
+          setMyMemberId(data.id);
+          setMyRole(data.role);
+        }
       } catch {}
     };
 
@@ -87,6 +100,40 @@ export default function JobDetailPage() {
       });
       if (res.ok) setPost(await res.json());
     } catch {}
+  };
+
+  const handleSubmitProposal = async () => {
+    setProposalError("");
+    setProposalSuccess("");
+    if (!proposalContent.trim()) {
+      setProposalError("제안 내용을 입력해주세요.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const body: { content: string; price?: number; region?: string } = { content: proposalContent };
+      if (proposalPrice) body.price = Number(proposalPrice);
+      if (proposalRegion) body.region = proposalRegion;
+
+      const res = await authFetch(`${API_BASE_URL}/api/v1/jobs/${id}/proposals`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.message ?? "제안서 제출에 실패했습니다.");
+      }
+      setProposalSuccess("제안서가 제출되었습니다!");
+      setProposalContent("");
+      setProposalPrice("");
+      setProposalRegion("");
+    } catch (e) {
+      setProposalError(e instanceof Error ? e.message : "제안서 제출에 실패했습니다.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const isAuthor = post && myMemberId !== null && post.memberId === myMemberId;
@@ -171,6 +218,62 @@ export default function JobDetailPage() {
             <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap">{post.content}</div>
           </div>
         ) : null}
+
+        {/* 프리랜서: 제안서 제출 폼 */}
+        {post && !loading && myRole === "FREELANCER" && post.memberId !== myMemberId && post.status === "OPEN" && (
+          <div className="bg-white rounded-2xl border border-[#efeee7] p-6 sm:p-8 mt-6">
+            <h2 className="font-[var(--font-display)] text-lg font-semibold text-[#1b1c18] mb-4">제안서 작성</h2>
+
+            {proposalError && (
+              <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-500 mb-4">{proposalError}</p>
+            )}
+            {proposalSuccess && (
+              <p className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-600 mb-4">{proposalSuccess}</p>
+            )}
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-[#45483d] mb-1">제안 내용 *</label>
+                <textarea
+                  value={proposalContent}
+                  onChange={(e) => setProposalContent(e.target.value)}
+                  placeholder="자기소개와 작업 계획을 작성해주세요"
+                  rows={4}
+                  className="w-full rounded-xl border border-[#c5c8ba] bg-white px-4 py-3 text-sm text-[#1b1c18] placeholder:text-[#75786c] focus:outline-none focus:ring-2 focus:ring-[#8a9a6e] resize-none"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-[#45483d] mb-1">제안 가격 (원)</label>
+                  <input
+                    type="number"
+                    value={proposalPrice}
+                    onChange={(e) => setProposalPrice(e.target.value)}
+                    placeholder="협의 가능 시 비워두세요"
+                    className="w-full rounded-xl border border-[#c5c8ba] bg-white px-4 py-3 text-sm text-[#1b1c18] placeholder:text-[#75786c] focus:outline-none focus:ring-2 focus:ring-[#8a9a6e]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[#45483d] mb-1">활동 지역</label>
+                  <input
+                    type="text"
+                    value={proposalRegion}
+                    onChange={(e) => setProposalRegion(e.target.value)}
+                    placeholder="예: 서울, 경기"
+                    className="w-full rounded-xl border border-[#c5c8ba] bg-white px-4 py-3 text-sm text-[#1b1c18] placeholder:text-[#75786c] focus:outline-none focus:ring-2 focus:ring-[#8a9a6e]"
+                  />
+                </div>
+              </div>
+              <Button
+                onClick={handleSubmitProposal}
+                disabled={submitting}
+                className="w-full bg-[#4f6231] hover:bg-[#3e4e27] text-white rounded-xl"
+              >
+                {submitting ? "제출 중..." : "제안서 제출"}
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </div>
