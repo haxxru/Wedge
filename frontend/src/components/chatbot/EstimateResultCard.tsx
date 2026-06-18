@@ -1,21 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { API_BASE_URL } from "@/lib/auth";
 import type { EstimateResult } from "@/types/chatbot";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 interface Props {
   estimate: EstimateResult;
   onReset: () => void;
   showResetButton?: boolean;
-}
-
-function parsePriceRange(priceRange: string): { min: number; max: number } {
-  const numbers = priceRange.match(/\d+/g);
-  if (!numbers || numbers.length < 2) return { min: 0, max: 0 };
-  return {
-    min: parseInt(numbers[0]) * 10000,
-    max: parseInt(numbers[1]) * 10000,
-  };
 }
 
 export function EstimateResultCard({
@@ -24,15 +17,41 @@ export function EstimateResultCard({
   showResetButton = true,
 }: Props) {
   const router = useRouter();
+  const categoriesRef = useRef<{ id: number; name: string }[]>([]);
+
+  useEffect(() => {
+    const prefetchCategories = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/categories`);
+        categoriesRef.current = await res.json();
+      } catch {}
+    };
+    prefetchCategories();
+  }, []);
 
   const handleNavigate = () => {
-    const { min, max } = parsePriceRange(estimate.priceRange);
-    router.push(`/freelancers?minPrice=${min}&maxPrice=${max}`);
+    const serviceName = estimate.selectedServices[0] ?? "";
+
+    const matched = categoriesRef.current.find((cat) => {
+      const serviceFirst = serviceName.split(/[\s·]/)[0];
+      const catFirst = cat.name.split(/[\s·]/)[0];
+
+      return (
+        serviceName.includes(cat.name) || // 완전 포함
+        cat.name.includes(serviceName) || // 역방향 포함
+        (serviceFirst.length >= 2 && serviceFirst === catFirst)
+      );
+    });
+
+    if (matched) {
+      router.push(`/search?categoryId=${matched.id}`);
+    } else {
+      router.push("/search");
+    }
   };
 
   return (
     <div className="mx-4 my-2 p-4 border border-[#efeee7] rounded-xl bg-[#f5f4ec]">
-      {/* 선택 서비스 목록 */}
       <p className="text-xs text-[#75786c] mb-2">선택하신 서비스</p>
       <div className="flex flex-wrap gap-1.5 mb-3">
         {estimate.selectedServices.map((service) => (
@@ -46,7 +65,6 @@ export function EstimateResultCard({
         ))}
       </div>
 
-      {/* 가격 범위 */}
       <div className="flex justify-between items-center py-2 border-t border-[#efeee7] mb-2">
         <span className="text-sm text-[#45483d]">예상 견적</span>
         <span className="text-sm font-bold text-[#4f6231]">
@@ -54,10 +72,8 @@ export function EstimateResultCard({
         </span>
       </div>
 
-      {/* 요약 멘트 */}
       <p className="text-xs text-[#75786c] mb-3">{estimate.summary}</p>
 
-      {/* CTA 버튼 */}
       <Button
         onClick={handleNavigate}
         className="w-full bg-[#4f6231] hover:bg-[#677b47] text-white rounded-xl mb-2"

@@ -7,10 +7,10 @@ export const TURN_CONFIGS: Record<number, TurnConfig> = {
   1: {
     botMessage: "원하시는 웨딩 서비스를 선택해 주세요 💍\n",
     quickReplies: [
-      { label: "📸 스튜디오 촬영", value: "스튜디오 촬영" },
+      { label: "📸 스냅사진 촬영", value: "스냅사진 촬영" },
       { label: "👗 드레스 대여", value: "드레스 대여" },
       { label: "✨ 헤어메이크업", value: "헤어메이크업" },
-      { label: "💐 부케", value: "부케" },
+      { label: "💐 부케", value: "웨딩 플로리스트" },
       { label: "🎬 영상 촬영", value: "영상 촬영" },
     ],
   },
