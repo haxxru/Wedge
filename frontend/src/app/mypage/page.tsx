@@ -3,13 +3,11 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { ProfileFormValues } from "@/components/freelancer/FreelancerProfileForm";
-import BasicInfoForm from "@/components/mypage/BasicInfoForm";
 import FreelancerProfileTab from "@/components/mypage/FreelancerProfileTab";
+import InfoTab from "@/components/mypage/InfoTab";
 import MySidebar from "@/components/mypage/MySidebar";
 import PortfolioTab from "@/components/mypage/PortfolioTab";
-import ProfileImageUpload from "@/components/mypage/ProfileImageUpload";
-import SecurityForm from "@/components/mypage/SecurityForm";
-import { Button } from "@/components/ui/button";
+import ReviewTab from "@/components/mypage/ReviewTab";
 import {
   API_BASE_URL,
   clearAccessToken,
@@ -21,7 +19,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type MemberRole = "CLIENT" | "FREELANCER";
-type ActiveTab = "info" | "profile" | "portfolio";
+type ActiveTab = "info" | "profile" | "portfolio" | "reviews";
 
 export default function MyPage() {
   const router = useRouter();
@@ -45,11 +43,12 @@ export default function MyPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // URL 쿼리 파라미터로 탭 초기값 설정
   useEffect(() => {
     const tab = searchParams.get("tab");
     if (tab === "profile") setActiveTab("profile");
     else if (tab === "portfolio") setActiveTab("portfolio");
+    else if (tab === "reviews") setActiveTab("reviews");
+    else if (tab === "info") setActiveTab("info");
   }, [searchParams]);
 
   useEffect(() => {
@@ -89,9 +88,7 @@ export default function MyPage() {
                 careerYears: String(profileData.careerYears ?? ""),
               });
             }
-          } catch {
-            // profileId 없으면 무시
-          }
+          } catch {}
         }
       } catch (error) {
         setErrorMessage(
@@ -208,69 +205,35 @@ export default function MyPage() {
             role={role}
             freelancerProfileId={freelancerProfileId}
             activeTab={activeTab}
-            onTabChange={setActiveTab}
             onLogout={handleLogout}
           />
 
           <main className="flex-1 space-y-6">
             {activeTab === "info" && (
-              <>
-                <h1 className="font-[var(--font-display)] text-2xl font-semibold text-[#1b1c18]">
-                  회원 정보 수정
-                </h1>
-                {errorMessage && (
-                  <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-500">
-                    {errorMessage}
-                  </p>
-                )}
-                {successMessage && (
-                  <p className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-600">
-                    {successMessage}
-                  </p>
-                )}
-                <ProfileImageUpload
-                  name={name}
-                  profileImg={profileImg}
-                  onImageChange={setProfileImg}
-                />
-                <BasicInfoForm
-                  name={name}
-                  email={email}
-                  phone={phone}
-                  onNameChange={setName}
-                  onPhoneChange={setPhone}
-                />
-                <SecurityForm
-                  currentPw={currentPw}
-                  newPw={newPw}
-                  confirmPw={confirmPw}
-                  onCurrentPwChange={setCurrentPw}
-                  onNewPwChange={setNewPw}
-                  onConfirmPwChange={setConfirmPw}
-                  onSave={handleProfileUpdate}
-                  onCancel={() => {
-                    setCurrentPw("");
-                    setNewPw("");
-                    setConfirmPw("");
-                  }}
-                />
-                <div className="bg-white rounded-2xl border border-red-100 p-6">
-                  <h2 className="font-semibold text-[#1b1c18] text-sm mb-1">
-                    계정 삭제
-                  </h2>
-                  <p className="text-xs text-[#75786c] mb-4">
-                    계정을 삭제하면 모든 데이터가 영구적으로 삭제되며 복구할 수
-                    없습니다.
-                  </p>
-                  <Button
-                    onClick={handleWithdraw}
-                    variant="outline"
-                    className="border-red-200 text-red-500 hover:bg-red-50 rounded-xl text-sm"
-                  >
-                    계정 삭제
-                  </Button>
-                </div>
-              </>
+              <InfoTab
+                name={name}
+                email={email}
+                phone={phone}
+                profileImg={profileImg}
+                currentPw={currentPw}
+                newPw={newPw}
+                confirmPw={confirmPw}
+                errorMessage={errorMessage}
+                successMessage={successMessage}
+                onNameChange={setName}
+                onPhoneChange={setPhone}
+                onProfileImgChange={setProfileImg}
+                onCurrentPwChange={setCurrentPw}
+                onNewPwChange={setNewPw}
+                onConfirmPwChange={setConfirmPw}
+                onSave={handleProfileUpdate}
+                onCancel={() => {
+                  setCurrentPw("");
+                  setNewPw("");
+                  setConfirmPw("");
+                }}
+                onWithdraw={handleWithdraw}
+              />
             )}
 
             {activeTab === "profile" &&
@@ -295,6 +258,13 @@ export default function MyPage() {
                   setActiveTab("info");
                 }}
                 onCancel={() => setActiveTab("info")}
+              />
+            )}
+
+            {activeTab === "reviews" && (
+              <ReviewTab
+                freelancerProfileId={freelancerProfileId}
+                role={role}
               />
             )}
           </main>
