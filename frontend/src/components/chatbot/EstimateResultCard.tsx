@@ -31,6 +31,7 @@ export function EstimateResultCard({
 
   const handleNavigate = () => {
     const serviceName = (estimate.selectedServices[0] ?? "").trim();
+
     const matched = categoriesRef.current.find((cat) => {
       const catName = cat.name.trim();
       return (
@@ -39,11 +40,10 @@ export function EstimateResultCard({
         catName.includes(serviceName)
       );
     });
-    if (matched) {
-      router.push(`/search?categoryId=${matched.id}`);
-    } else {
-      router.push("/search");
-    }
+
+    const url = matched ? `/search?categoryId=${matched.id}` : "/search";
+    router.push(url);
+    router.refresh();
   };
 
   return (

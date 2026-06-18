@@ -86,6 +86,13 @@ function SearchPageInner() {
   const [loading, setLoading] = useState(false);
   const [bookmarked, setBookmarked] = useState<Set<number>>(new Set());
 
+  // searchParams 변화 감지 — 챗봇에서 같은 페이지로 이동 시 카테고리 업데이트
+  useEffect(() => {
+    const categoryId = searchParams.get("categoryId");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSelectedCategoryId(categoryId ? Number(categoryId) : null);
+  }, [searchParams]);
+
   useEffect(() => {
     const loadCategories = async () => {
       try {
@@ -105,7 +112,7 @@ function SearchPageInner() {
         const res = await fetch(`${API_BASE_URL}/api/bookmarks`, {
           headers: createAuthHeaders(),
         });
-        if (!res.ok) return; // 비로그인 시 401
+        if (!res.ok) return;
         const data: BookmarkResponse[] = await res.json();
         const ids = new Set(data.map((b) => b.freelancerProfileId));
         setBookmarked(ids);
@@ -143,14 +150,12 @@ function SearchPageInner() {
   }, [fetchFreelancers]);
 
   const toggleBookmark = async (id: number) => {
-    // 1. 비로그인 체크
     const headers = createAuthHeaders();
     if (!headers.Authorization) {
       router.push("/login");
       return;
     }
 
-    // 2. 낙관적 업데이트 — 즉시 UI 반영
     const prevBookmarked = new Set(bookmarked);
     setBookmarked((prev) => {
       const next = new Set(prev);
@@ -160,15 +165,12 @@ function SearchPageInner() {
     });
 
     try {
-      // 3. API 호출 — POST 하나로 찜/해제 토글
       const res = await fetch(`${API_BASE_URL}/api/bookmarks/${id}`, {
         method: "POST",
         headers,
       });
-
       if (!res.ok) throw new Error("북마크 API 실패");
     } catch (error) {
-      // 4. 실패 시 롤백
       console.error("북마크 처리 실패", error);
       setBookmarked(prevBookmarked);
     }
@@ -302,7 +304,7 @@ function SearchPageInner() {
                     <span className="text-[#75786c] text-sm">이미지 없음</span>
                     <button
                       onClick={(e) => {
-                        e.preventDefault(); // Link 이동 막고 북마크만 처리
+                        e.preventDefault();
                         toggleBookmark(pro.id);
                       }}
                       className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition-colors"
