@@ -30,19 +30,15 @@ export function EstimateResultCard({
   }, []);
 
   const handleNavigate = () => {
-    const serviceName = estimate.selectedServices[0] ?? "";
-
+    const serviceName = (estimate.selectedServices[0] ?? "").trim();
     const matched = categoriesRef.current.find((cat) => {
-      const serviceFirst = serviceName.split(/[\s·]/)[0];
-      const catFirst = cat.name.split(/[\s·]/)[0];
-
+      const catName = cat.name.trim();
       return (
-        serviceName.includes(cat.name) || // 완전 포함
-        cat.name.includes(serviceName) || // 역방향 포함
-        (serviceFirst.length >= 2 && serviceFirst === catFirst)
+        catName === serviceName ||
+        serviceName.includes(catName) ||
+        catName.includes(serviceName)
       );
     });
-
     if (matched) {
       router.push(`/search?categoryId=${matched.id}`);
     } else {
