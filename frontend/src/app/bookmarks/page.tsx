@@ -1,7 +1,5 @@
 "use client";
 
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import { CATEGORY } from "@/constants/category";
 import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 import Link from "next/link";
@@ -218,8 +216,6 @@ export default function BookmarksPage() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }
