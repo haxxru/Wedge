@@ -32,7 +32,7 @@ export default function RootLayout({
       lang="ko"
       className={`${playfairDisplay.variable} ${beVietnamPro.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#fbf9f2] text-[#1b1c18]">
+      <body className="min-h-dvh flex flex-col bg-[#fbf9f2] text-[#1b1c18]">
         <UserProvider>
           <AppChrome>{children}</AppChrome>
         </UserProvider>

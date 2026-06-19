@@ -21,15 +21,15 @@ export function AppChrome({ children }: AppChromeProps) {
     const isChromeDisabled = CHROME_DISABLED_PATHS.has(pathname);
 
     if (isChromeDisabled) {
-        return <>{children}</>;
+        return <div className="flex flex-1 flex-col">{children}</div>;
     }
 
     return (
-        <>
+        <div className="flex flex-1 flex-col">
             <Navbar />
             <main className="flex flex-1 flex-col">{children}</main>
             <Footer />
             <ChatbotWidget />
-        </>
+        </div>
     );
 }
