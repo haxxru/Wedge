@@ -16,11 +16,7 @@ import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
-
-type Category = {
-  id: number;
-  name: string;
-};
+import { CATEGORY } from "@/constants/category";
 
 type FreelancerProfile = {
   id: number;
@@ -52,6 +48,8 @@ const SORT_OPTIONS = [
   { value: "POPULAR", label: "인기순" },
 ];
 
+const categories = Object.values(CATEGORY);
+
 function SkeletonCard() {
   return (
     <Card className="overflow-hidden border border-[#efeee7]">
@@ -73,7 +71,6 @@ function SearchPageInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
     searchParams.get("categoryId")
       ? Number(searchParams.get("categoryId"))
@@ -93,18 +90,6 @@ function SearchPageInner() {
     setSelectedCategoryId(categoryId ? Number(categoryId) : null);
   }, [searchParams]);
 
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/categories`);
-        const data = await res.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("카테고리 목록 조회 실패", error);
-      }
-    };
-    loadCategories();
-  }, []);
 
   useEffect(() => {
     const loadBookmarks = async () => {
@@ -195,7 +180,7 @@ function SearchPageInner() {
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && fetchFreelancers()}
-              placeholder="전문가 이름, 서비스 검색"
+              placeholder="이름 또는 서비스를 검색하세요"
               className="w-72 rounded-xl border-[#c5c8ba]"
             />
             <Button
