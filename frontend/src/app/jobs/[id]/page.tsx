@@ -335,7 +335,7 @@ export default function JobDetailPage() {
               </div>
             </div>
 
-            <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap">
+            <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap break-words overflow-hidden">
               {post.content}
             </div>
           </div>
@@ -383,7 +383,7 @@ export default function JobDetailPage() {
                         )}
                       </span>
                     </div>
-                    <p className="text-sm text-[#45483d] whitespace-pre-wrap mb-4 leading-relaxed line-clamp-3">
+                    <p className="text-sm text-[#45483d] whitespace-pre-wrap break-words mb-4 leading-relaxed line-clamp-3">
                       {proposal.content}
                     </p>
                     <div className="flex items-center justify-between pt-3 border-t border-[#efeee7]">

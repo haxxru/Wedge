@@ -299,7 +299,7 @@ export default function JobsPage() {
                   <h3 className="font-[var(--font-display)] font-semibold text-[#1b1c18] text-base mb-2 leading-snug">
                     {post.title}
                   </h3>
-                  <p className="text-sm text-[#75786c] leading-relaxed line-clamp-2 mb-4 flex-1">
+                  <p className="text-sm text-[#75786c] leading-relaxed line-clamp-2 break-words mb-4 flex-1">
                     {post.content}
                   </p>
                   <div className="flex items-center justify-between mt-auto pt-3 border-t border-[#efeee7]">
