@@ -65,6 +65,11 @@ export default function MyPage() {
         if (!response.ok)
           throw new Error(data?.message ?? "회원 정보를 불러오지 못했습니다.");
 
+        if (data.status === "ONBOARDING") {
+          router.replace("/select-role");
+          return;
+        }
+
         setName(data.name ?? "");
         setEmail(data.email ?? "");
         setPhone(data.phone ?? "");
