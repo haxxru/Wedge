@@ -17,9 +17,9 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
 
   const navLinks = [
-    { href: "/search?category=photographer", label: "작가" },
+    { href: "/search", label: "전문가 탐색" },
     { href: "/community", label: "커뮤니티" },
-    { href: "/jobs", label: "전문가 찾기" },
+    { href: "/jobs", label: "구인" },
   ];
 
   useEffect(() => {
