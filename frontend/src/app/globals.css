@@ -141,17 +141,45 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    overscroll-behavior-x: none;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
   }
 }
 
 input::-ms-reveal,
 input::-ms-clear {
   display: none;
+}
+
+.swiper:not(.swiper-initialized) {
+  visibility: hidden;
+}
+
+@keyframes route-enter-deblur {
+  from { filter: blur(6px); }
+  to { filter: blur(0px); }
+}
+
+.route-shell {
+  filter: blur(0px);
+}
+
+.route-enter {
+  animation: route-enter-deblur 300ms ease-out both;
+  will-change: filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-enter {
+    animation: none;
+  }
 }
 
 @keyframes bounceColor {

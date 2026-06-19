@@ -3,6 +3,7 @@
 import { ChatbotWidget } from "@/components/chatbot/ChatbotWidget";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { PageTransition } from "@/components/layout/PageTransition";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
@@ -21,13 +22,13 @@ export function AppChrome({ children }: AppChromeProps) {
     const isChromeDisabled = CHROME_DISABLED_PATHS.has(pathname);
 
     if (isChromeDisabled) {
-        return <div className="flex flex-1 flex-col">{children}</div>;
+        return <div className="flex flex-1 flex-col"><PageTransition>{children}</PageTransition></div>;
     }
 
     return (
         <div className="flex flex-1 flex-col">
             <Navbar />
-            <main className="flex flex-1 flex-col">{children}</main>
+            <main className="flex flex-1 flex-col"><PageTransition>{children}</PageTransition></main>
             <Footer />
             <ChatbotWidget />
         </div>

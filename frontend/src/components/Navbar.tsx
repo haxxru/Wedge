@@ -1,32 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Skeleton } from "@/components/ui/skeleton";
-import { API_BASE_URL, clearAccessToken, createAuthHeaders, getAccessToken } from "@/lib/auth";
+import { API_BASE_URL, clearAccessToken, createAuthHeaders } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Heart } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
 
 export default function Navbar() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const { isLoggedIn, isLoading, clearUser } = useUser();
 
   const navLinks = [
     { href: "/search", label: "전문가 탐색" },
     { href: "/community", label: "커뮤니티" },
     { href: "/jobs", label: "구인" },
   ];
-
-  useEffect(() => {
-    setIsLoggedIn(Boolean(getAccessToken()));
-    setMounted(true);
-  }, []);
 
   const handleLogout = async () => {
     try {
@@ -40,7 +34,7 @@ export default function Navbar() {
     }
 
     clearAccessToken();
-    setIsLoggedIn(false);
+    clearUser();
     setMobileOpen(false);
     router.push("/");
     router.refresh();
@@ -73,11 +67,8 @@ export default function Navbar() {
 
           {/* Desktop Auth */}
           <div className="hidden md:flex items-center gap-3">
-            {!mounted ? (
-              <>
-                <Skeleton className="h-7 w-20 rounded-full" />
-                <Skeleton className="h-7 w-24 rounded-full" />
-              </>
+            {isLoading ? (
+              <div className="w-48" />
             ) : isLoggedIn ? (
               <>
                 <Link
@@ -175,11 +166,8 @@ export default function Navbar() {
                   ))}
                 </nav>
                 <div className="flex flex-col gap-3 pt-4 border-t border-[#c5c8ba]">
-                  {!mounted ? (
-                    <>
-                      <Skeleton className="h-9 w-full rounded-md" />
-                      <Skeleton className="h-9 w-full rounded-md" />
-                    </>
+                  {isLoading ? (
+                    <div className="h-9" />
                   ) : isLoggedIn ? (
                     <>
                       <Link

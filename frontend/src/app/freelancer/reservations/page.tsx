@@ -73,6 +73,7 @@ export default function FreelancerReservationsPage() {
 
         <ReservationList
           reservations={reservations}
+          profileImageUrls={{}}
           isLoading={isLoading}
           errorMessage={errorMessage}
           userRole={userRole}

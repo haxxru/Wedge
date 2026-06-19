@@ -16,7 +16,7 @@ import { authFetch } from "@/lib/authFetch";
 import { useUser } from "@/contexts/UserContext";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 
 type ActiveTab = "info" | "profile" | "portfolio" | "reviews";
 
@@ -39,7 +39,19 @@ function NoFreelancerProfileNotice() {
   );
 }
 
-export default function MyPage() {
+export default function MyPageWrapper() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-full items-center justify-center bg-[#fbf9f2] text-[#45483d]">
+        회원 정보를 불러오는 중입니다...
+      </div>
+    }>
+      <MyPage />
+    </Suspense>
+  );
+}
+
+function MyPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, isLoading: userLoading, refreshUser, clearUser } = useUser();

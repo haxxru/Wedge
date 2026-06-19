@@ -72,7 +72,7 @@ export default function ReservePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fbf9f2]">
+    <div className="flex flex-1 flex-col bg-[#fbf9f2]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
         <div className="mb-8">
           <Link
