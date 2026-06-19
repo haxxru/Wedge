@@ -1,9 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { API_BASE_URL } from "@/lib/auth";
+import { SERVICE_TO_CATEGORY_ID } from "@/constants/category";
 import type { EstimateResult } from "@/types/chatbot";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
 
 interface Props {
   estimate: EstimateResult;
@@ -11,55 +10,18 @@ interface Props {
   showResetButton?: boolean;
 }
 
-const SERVICE_TO_CATEGORY_MAP: Record<string, number> = {
-  "웨딩 스냅사진": 1,
-  "스냅사진 촬영": 1,
-  "웨딩 영상": 2,
-  "영상 촬영": 2,
-  "축가": 4,
-  "헤어·메이크업": 5,
-  "헤어메이크업": 5,
-  "헤어 메이크업": 5,
-  "웨딩 플로리스트": 6,
-  "부케": 6,
-  "사회자": 7,
-  "드레스·정장": 8,
-  "드레스 대여": 8,
-  "하객알바": 9,
-  "기타": 10,
-};
-
 export function EstimateResultCard({
   estimate,
   onReset,
   showResetButton = true,
 }: Props) {
   const router = useRouter();
-  const categoriesRef = useRef<{ id: number; name: string }[]>([]);
-
-  useEffect(() => {
-    const prefetchCategories = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/categories`);
-        categoriesRef.current = await res.json();
-      } catch {}
-    };
-    prefetchCategories();
-  }, []);
 
   const handleNavigate = () => {
     const serviceName = (estimate.selectedServices[0] ?? "").trim();
-  
-    const categoryId = SERVICE_TO_CATEGORY_MAP[serviceName];
-  
-    const matched =
-      categoryId ??
-      categoriesRef.current.find((cat) => {
-        const catName = cat.name.trim();
-        return catName === serviceName || serviceName.includes(catName) || catName.includes(serviceName);
-      })?.id;
-  
-    const url = matched ? `/search?categoryId=${matched}` : "/search";
+    const categoryId = SERVICE_TO_CATEGORY_ID[serviceName];
+
+    const url = categoryId ? `/search?categoryId=${categoryId}` : "/search";
     router.push(url);
     router.refresh();
   };
