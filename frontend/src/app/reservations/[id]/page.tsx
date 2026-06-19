@@ -18,7 +18,7 @@ import {
   type ReservationResponse,
 } from "@/lib/reservations";
 import { formatReservationDate, reservationStatusView } from "../reservationView";
-import { createAuthHeaders } from "@/lib/auth";
+import { createAuthHeaders, getAccessToken } from "@/lib/auth";
 
 function getErrorMessage(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
@@ -32,6 +32,7 @@ export default function ReservationDetailPage({
   const { id } = use(params);
   const router = useRouter();
   const reservationId = Number(id);
+  const hasAccessToken = getAccessToken() !== null;
 
   const [reservation, setReservation] = useState<ReservationResponse | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
@@ -39,6 +40,12 @@ export default function ReservationDetailPage({
   const [updating, setUpdating] = useState(false);
   const [chatStarting, setChatStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!hasAccessToken) {
+      router.replace(`/login?redirect=${encodeURIComponent(`/reservations/${id}`)}`);
+    }
+  }, [hasAccessToken, id, router]);
 
   const loadData = useCallback(async () => {
     try {
@@ -64,11 +71,16 @@ export default function ReservationDetailPage({
   }, [reservationId]);
 
   useEffect(() => {
+    if (!hasAccessToken) return;
     const timer = window.setTimeout(() => {
       void loadData();
     }, 0);
     return () => window.clearTimeout(timer);
-  }, [loadData]);
+  }, [hasAccessToken, loadData]);
+
+  if (!hasAccessToken) {
+    return null;
+  }
 
   const handleStatusChange = async (
     action: (id: number) => Promise<unknown>,
@@ -217,16 +229,30 @@ export default function ReservationDetailPage({
               {chatStarting ? "채팅방 여는 중..." : "실시간 채팅하기"}
             </Button>
 
-            {!isFreelancer && (reservation.status === "REQUESTED" || reservation.status === "ACCEPTED") && (
-              <Button
-                variant="outline"
-                disabled={updating}
-                className="bg-white border-red-200 text-red-600 hover:bg-red-50 rounded-xl"
-                onClick={() => handleStatusChange(cancelReservation, "취소")}
-              >
-                예약 취소하기
-              </Button>
+            {/* 의뢰자: 요청 상태에서만 취소 가능 */}
+            {!isFreelancer && reservation.status === "REQUESTED" && (
+                <Button
+                    variant="outline"
+                    disabled={updating}
+                    className="bg-white border-red-200 text-red-600 hover:bg-red-50 rounded-xl"
+                    onClick={() => handleStatusChange(cancelReservation, "취소")}
+                >
+                  예약 취소하기
+                </Button>
             )}
+
+            {/* 프리랜서: 수락 상태에서 취소 가능 */}
+            {isFreelancer &&
+                (reservation.status === "ACCEPTED") && (
+                    <Button
+                        variant="outline"
+                        disabled={updating}
+                        className="bg-white border-red-200 text-red-600 hover:bg-red-50 rounded-xl"
+                        onClick={() => handleStatusChange(cancelReservation, "취소")}
+                    >
+                      예약 취소하기
+                    </Button>
+                )}
 
             {isFreelancer && reservation.status === "REQUESTED" && (
               <>
