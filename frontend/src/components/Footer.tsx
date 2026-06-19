@@ -4,9 +4,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#1b1c18] text-[#c5c8ba]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
-          <div className="md:col-span-1">
+          <div>
             <Link
               href="/"
               className="font-display text-2xl font-semibold text-white mb-3 block"
@@ -20,7 +20,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Platform */}
+          {/* 플랫폼 */}
           <div>
             <h4 className="text-sm font-semibold text-white mb-4">플랫폼</h4>
             <ul className="space-y-2">
@@ -34,33 +34,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/faq"
-                  className="text-sm text-[#75786c] hover:text-white transition-colors"
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/terms"
                   className="text-sm text-[#75786c] hover:text-white transition-colors"
                 >
                   이용약관
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-4">고객지원</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-sm text-[#75786c] hover:text-white transition-colors"
-                >
-                  문의하기
                 </Link>
               </li>
               <li>
@@ -71,14 +48,6 @@ export default function Footer() {
                   개인정보 처리방침
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/careers"
-                  className="text-sm text-[#75786c] hover:text-white transition-colors"
-                >
-                  채용
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -87,28 +56,19 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-white mb-4">소셜</h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
-                  className="text-sm text-[#75786c] hover:text-white transition-colors"
-                >
+                <span className="text-sm text-[#75786c] cursor-default">
                   Instagram
-                </a>
+                </span>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-sm text-[#75786c] hover:text-white transition-colors"
-                >
+                <span className="text-sm text-[#75786c] cursor-default">
                   Pinterest
-                </a>
+                </span>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-sm text-[#75786c] hover:text-white transition-colors"
-                >
+                <span className="text-sm text-[#75786c] cursor-default">
                   Twitter
-                </a>
+                </span>
               </li>
             </ul>
           </div>

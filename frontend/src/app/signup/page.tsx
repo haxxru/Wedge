@@ -313,10 +313,6 @@ export default function SignupPage() {
         </p>
       </div>
 
-      <div className="flex gap-5 mt-8 text-xs text-[#75786c]">
-        <a href="#" className="hover:text-[#45483d]">도움말 센터</a>
-        <a href="#" className="hover:text-[#45483d]">안전 가이드</a>
-      </div>
     </div>
   );
 }
