@@ -195,7 +195,7 @@ function SearchPageInner() {
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && fetchFreelancers()}
-              placeholder="전문가 이름, 서비스 검색"
+              placeholder="이름 또는 서비스를 검색하세요"
               className="w-72 rounded-xl border-[#c5c8ba]"
             />
             <Button
