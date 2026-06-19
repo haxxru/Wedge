@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { API_BASE_URL, clearAccessToken, createAuthHeaders, getAccessToken } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 
 export default function Navbar() {
   const router = useRouter();
@@ -79,6 +80,15 @@ export default function Navbar() {
               </>
             ) : isLoggedIn ? (
               <>
+                <Link
+                  href="/bookmarks"
+                  className={cn(
+                    buttonVariants({ variant: "ghost", size: "sm" }),
+                    "text-[#45483d] hover:text-[#e85454] hover:bg-[#f5f4ec] p-2"
+                  )}
+                >
+                  <Heart className="w-6 h-6" />
+                </Link>
                 <Link
                   href="/mypage"
                   className={cn(
@@ -172,6 +182,17 @@ export default function Navbar() {
                     </>
                   ) : isLoggedIn ? (
                     <>
+                      <Link
+                        href="/bookmarks"
+                        onClick={() => setMobileOpen(false)}
+                        className={cn(
+                          buttonVariants({ variant: "outline" }),
+                          "w-full justify-center gap-2"
+                        )}
+                      >
+                        <Heart className="w-4 h-4" />
+                        찜목록
+                      </Link>
                       <Link
                         href="/mypage"
                         onClick={() => setMobileOpen(false)}
