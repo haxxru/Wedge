@@ -31,22 +31,22 @@ const featured = [
 
 const platformValues = [
   {
-    icon: <Search className="w-8 h-8 text-[#4f6231]" />,
+    img: "/icons/search.png",
     title: "전문가를 한 곳에서",
     desc: "스냅 작가부터 플래너까지\n키워드 검색으로 바로 비교하세요",
   },
   {
-    icon: <MessageSquare className="w-8 h-8 text-[#4f6231]" />,
+    img: "/icons/phone.png",
     title: "견적 문의, 바로 여기서",
     desc: "AI 챗봇으로 사전 견적을 받고\n원하는 전문가에게 바로 연결하세요",
   },
   {
-    icon: <CalendarCheck className="w-8 h-8 text-[#4f6231]" />,
+    img: "/icons/calendar.png",
     title: "예약까지 한 번에",
     desc: "날짜 조율부터 예약 확정까지\n플랫폼 안에서 모두 완결됩니다",
   },
   {
-    icon: <Star className="w-8 h-8 text-[#4f6231]" />,
+    img: "/icons/portfolio.png",
     title: "검증된 포트폴리오",
     desc: "실제 작업물과 리뷰로 확인하고\n믿고 맡길 수 있는 전문가를 선택하세요",
   },
@@ -55,8 +55,7 @@ const platformValues = [
 const platformFeatures = [
   {
     bg: "#e8edd6",
-    iconBg: "#4f6231",
-    icon: <FileText className="w-8 h-8 text-white" />,
+    img: "/icons/card1-freelancer.svg",
     title: "프리랜서가 나를 찾아옵니다",
     desc: "원하는 조건과 예산을 올리면\n관심 있는 프리랜서가 직접 제안서를 보내 드려요.\n여러 제안을 비교하고 최적의 전문가를 선택하세요.",
     cta: "구인글 올리기",
@@ -64,8 +63,7 @@ const platformFeatures = [
   },
   {
     bg: "#fdf3e7",
-    iconBg: "#b07d4a",
-    icon: <Users className="w-8 h-8 text-white" />,
+    img: "/icons/card2-community.svg",
     title: "웨딩 후기와 꿀팁을 나눠요",
     desc: "실제 결혼을 준비한 예비부부들의\n생생한 후기와 알짜 꿀팁을 한 곳에서 만나 보세요.",
     cta: "커뮤니티 보기",
@@ -73,8 +71,7 @@ const platformFeatures = [
   },
   {
     bg: "#e6ede3",
-    iconBg: "#3d6b5e",
-    icon: <Bot className="w-8 h-8 text-white" />,
+    img: "/icons/card3-ai-quote.svg",
     title: "AI로 사전 견적을 받아 보세요",
     desc: "원하는 서비스와 예산을 입력하면\nAI가 맞춤 견적을 먼저 제안해드려요.\n견적 후 바로 전문가 탐색까지 연결됩니다.",
     cta: "전문가 탐색하기",
@@ -280,34 +277,40 @@ export default function HomePage() {
       </section>
 
       {/* 플랫폼 가치 섹션 */}
-      <section className="py-20 bg-[#fbf9f2]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
-              쉽고, 믿을 수 있는 <span className="text-[#4f6231]">웨딩 준비</span>
-            </h2>
-            <p className="mt-4 text-sm text-[#75786c]">
-              Wedge가 처음부터 끝까지 함께합니다
+<section className="py-20 bg-[#fbf9f2]">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
+        쉽고, 믿을 수 있는 <span className="text-[#4f6231]">웨딩 준비</span>
+      </h2>
+    </div>
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      {platformValues.map((item, i) => (
+        <div key={i} className="flex flex-col items-center text-center gap-4">
+          {/* 이미지 */}
+          <div className="w-32 h-32 flex items-center justify-center">
+            <Image
+              src={item.img}
+              alt={item.title}
+              width={120}
+              height={120}
+              className="object-contain drop-shadow-md"
+            />
+          </div>
+          {/* 텍스트 */}
+          <div>
+            <h3 className="font-semibold text-[#1b1c18] text-base mb-2">
+              {item.title}
+            </h3>
+            <p className="text-sm text-[#75786c] leading-relaxed whitespace-pre-line">
+              {item.desc}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {platformValues.map((item, i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center text-center gap-5 p-8 rounded-2xl bg-white border border-[#efeee7] hover:border-[#4f6231] hover:shadow-[0px_4px_20px_rgba(79,98,49,0.08)] transition-all"
-              >
-                <div className="w-20 h-20 rounded-full bg-[#f0f3eb] flex items-center justify-center">
-                  {item.icon}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-[#1b1c18] text-base mb-2">{item.title}</h3>
-                  <p className="text-sm text-[#75786c] leading-relaxed whitespace-pre-line">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Wedge 활용 섹션 */}
       <section className="py-20 bg-[#fbf9f2]">
@@ -321,16 +324,17 @@ export default function HomePage() {
             {platformFeatures.map((feat, i) => (
               <div key={i} className="flex flex-col rounded-2xl overflow-hidden bg-white border border-[#efeee7] hover:shadow-[0px_8px_30px_rgba(79,98,49,0.1)] transition-all group">
                 <div
-                  className="relative h-48 flex items-center justify-center"
-                  style={{ backgroundColor: feat.bg }}
-                >
-                  <div
-                    className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300"
-                    style={{ backgroundColor: feat.iconBg }}
-                  >
-                    {feat.icon}
-                  </div>
-                </div>
+  className="relative h-48 flex items-center justify-center overflow-hidden"
+  style={{ backgroundColor: feat.bg }}
+>
+  <Image
+    src={feat.img}
+    alt={feat.title}
+    width={140}
+    height={140}
+    className="object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+  />
+</div>
                 <div className="flex flex-col flex-1 p-6 gap-3">
                   <h3 className="font-semibold text-[#1b1c18] text-lg leading-snug">{feat.title}</h3>
                   <p className="text-sm text-[#75786c] leading-relaxed whitespace-pre-line flex-1">{feat.desc}</p>
