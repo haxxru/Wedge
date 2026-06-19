@@ -144,8 +144,8 @@ export default function Navbar() {
                 </Button>
               }
             />
-            <SheetContent side="right" className="bg-[#fbf9f2] w-72">
-              <div className="flex flex-col gap-6 mt-8">
+            <SheetContent side="right" className="!w-72 bg-[#fbf9f2] p-6">
+              <div className="flex flex-col gap-6 mt-6">
                 <Link
                   href="/"
                   className="font-[var(--font-display)] text-2xl font-semibold text-[#4f6231]"
