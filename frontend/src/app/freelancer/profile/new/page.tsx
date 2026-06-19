@@ -4,6 +4,7 @@ import FreelancerProfileForm, {
   NewPortfolioItem,
   ProfileFormValues,
 } from "@/components/freelancer/FreelancerProfileForm";
+import { useUser } from "@/contexts/UserContext";
 import { API_BASE_URL, getAccessToken } from "@/lib/auth";
 import { authFetch } from "@/lib/authFetch";
 import { useRouter } from "next/navigation";
@@ -20,18 +21,32 @@ const EMPTY_VALUES: ProfileFormValues = {
 
 export default function FreelancerProfileNewPage() {
   const router = useRouter();
+  const { refreshUser } = useUser();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (!getAccessToken()) {
-      router.push("/login?redirect=/freelancer/profile/new");
+      router.push("/login?redirect=/freelancer/profile/manage");
+      return;
     }
+
+    const checkExistingProfile = async () => {
+      try {
+        const res = await authFetch(`${API_BASE_URL}/api/freelancers/me`);
+        if (res.ok) {
+          const data = await res.json();
+          router.replace(`/freelancer/profile/edit/${data.id}`);
+        }
+      } catch {}
+    };
+
+    void checkExistingProfile();
   }, [router]);
 
   const handleSubmit = async (
     values: ProfileFormValues,
-    newPortfolios: NewPortfolioItem[],
+    newPortfolios: NewPortfolioItem[] = [],
   ) => {
     setErrorMessage("");
 
@@ -88,6 +103,7 @@ export default function FreelancerProfileNewPage() {
         });
       }
 
+      await refreshUser();
       router.push(`/profile/${profileId}`);
     } catch (error) {
       setErrorMessage(

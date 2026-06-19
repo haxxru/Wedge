@@ -1,47 +1,37 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
+import { getRoleTheme, MemberRole } from "@/lib/roleTheme";
 
 interface ProfileImageUploadProps {
   name: string;
+  role: MemberRole | null;
   profileImg: string | null;
-  onImageChange: (img: string | null) => void;
+  onImageSelected: (file: File, previewUrl: string) => void;
+  onImageRemoved: () => void;
+  disabled?: boolean;
 }
 
 export default function ProfileImageUpload({
   name,
+  role,
   profileImg,
-  onImageChange,
+  onImageSelected,
+  onImageRemoved,
+  disabled = false,
 }: ProfileImageUploadProps) {
   const fileRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
+  const { avatarBgClass, avatarTextClass } = getRoleTheme(role);
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    setUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      const res = await fetch(`${API_BASE_URL}/api/v1/members/me/image`, {
-        method: "PATCH",
-        headers: createAuthHeaders(),
-        body: formData,
-      });
-
-      if (!res.ok) throw new Error();
-      const data = await res.json();
-      onImageChange(data.profileImageUrl);
-    } catch {
-      alert("이미지 업로드에 실패했습니다.");
-    } finally {
-      setUploading(false);
-      if (fileRef.current) fileRef.current.value = "";
+    const previewUrl = URL.createObjectURL(file);
+    onImageSelected(file, previewUrl);
+    if (fileRef.current) {
+      fileRef.current.value = "";
     }
   };
 
@@ -51,7 +41,9 @@ export default function ProfileImageUpload({
         프로필 이미지
       </h2>
       <div className="flex items-center gap-6">
-        <div className="relative w-24 h-24 rounded-full overflow-hidden bg-[#d3ebac] shrink-0">
+        <div
+          className={`relative w-24 h-24 rounded-full overflow-hidden shrink-0 ${avatarBgClass}`}
+        >
           {profileImg ? (
             <Image
               src={profileImg}
@@ -61,13 +53,15 @@ export default function ProfileImageUpload({
               className="object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-[#4f6231] font-bold text-3xl">
+            <div
+              className={`w-full h-full flex items-center justify-center font-bold text-3xl ${avatarTextClass}`}
+            >
               {name.charAt(0)}
             </div>
           )}
           <button
             onClick={() => fileRef.current?.click()}
-            disabled={uploading}
+            disabled={disabled}
             className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity disabled:cursor-not-allowed"
           >
             <svg
@@ -97,17 +91,17 @@ export default function ProfileImageUpload({
               size="sm"
               variant="outline"
               onClick={() => fileRef.current?.click()}
-              disabled={uploading}
+              disabled={disabled}
               className="border-[#c5c8ba] text-[#45483d] hover:border-[#4f6231] hover:text-[#4f6231] rounded-xl text-xs"
             >
-              {uploading ? "업로드 중..." : "이미지 업로드"}
+              이미지 업로드
             </Button>
             {profileImg && (
               <Button
                 size="sm"
                 variant="ghost"
-                onClick={() => onImageChange(null)}
-                disabled={uploading}
+                onClick={onImageRemoved}
+                disabled={disabled}
                 className="text-xs text-[#75786c] hover:text-red-500 rounded-xl"
               >
                 제거

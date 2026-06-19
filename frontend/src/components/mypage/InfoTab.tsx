@@ -4,20 +4,24 @@ import BasicInfoForm from "@/components/mypage/BasicInfoForm";
 import ProfileImageUpload from "@/components/mypage/ProfileImageUpload";
 import SecurityForm from "@/components/mypage/SecurityForm";
 import { Button } from "@/components/ui/button";
+import { MemberRole } from "@/lib/roleTheme";
 
 interface InfoTabProps {
   name: string;
   email: string;
   phone: string;
+  role: MemberRole | null;
   profileImg: string | null;
   currentPw: string;
   newPw: string;
   confirmPw: string;
   errorMessage: string;
   successMessage: string;
+  isSaving: boolean;
   onNameChange: (v: string) => void;
   onPhoneChange: (v: string) => void;
-  onProfileImgChange: (v: string | null) => void;
+  onProfileImageSelected: (file: File, previewUrl: string) => void;
+  onProfileImageRemoved: () => void;
   onCurrentPwChange: (v: string) => void;
   onNewPwChange: (v: string) => void;
   onConfirmPwChange: (v: string) => void;
@@ -30,6 +34,7 @@ export default function InfoTab({
   name,
   email,
   phone,
+  role,
   profileImg,
   currentPw,
   newPw,
@@ -38,13 +43,15 @@ export default function InfoTab({
   successMessage,
   onNameChange,
   onPhoneChange,
-  onProfileImgChange,
+  onProfileImageSelected,
+  onProfileImageRemoved,
   onCurrentPwChange,
   onNewPwChange,
   onConfirmPwChange,
   onSave,
   onCancel,
   onWithdraw,
+  isSaving,
 }: InfoTabProps) {
   return (
     <>
@@ -63,8 +70,11 @@ export default function InfoTab({
       )}
       <ProfileImageUpload
         name={name}
+        role={role}
         profileImg={profileImg}
-        onImageChange={onProfileImgChange}
+        onImageSelected={onProfileImageSelected}
+        onImageRemoved={onProfileImageRemoved}
+        disabled={isSaving}
       />
       <BasicInfoForm
         name={name}

@@ -1,15 +1,9 @@
 "use client";
 
 import { useUser } from "@/contexts/UserContext";
+import { getRoleTheme, ROLE_LABEL } from "@/lib/roleTheme";
 import Image from "next/image";
 import Link from "next/link";
-
-type MemberRole = "CLIENT" | "FREELANCER";
-
-const ROLE_LABEL: Record<MemberRole, string> = {
-  CLIENT: "예비부부",
-  FREELANCER: "프리랜서",
-};
 
 interface MySidebarProps {
   onLogout: () => void;
@@ -23,6 +17,8 @@ export default function MySidebar({ onLogout }: MySidebarProps) {
   const profileImg = user?.profileImageUrl ?? null;
   const role = user?.role ?? null;
   const freelancerProfileId = user?.freelancerProfileId ?? null;
+  const isFreelancerWithoutProfile = role === "FREELANCER" && !freelancerProfileId;
+  const { badgeClass, avatarBgClass, avatarTextClass } = getRoleTheme(role);
 
   const allMenu = [
     { icon: "👤", label: "회원 정보 수정", href: "/mypage?tab=info" },
@@ -41,11 +37,22 @@ export default function MySidebar({ onLogout }: MySidebarProps) {
           },
         ]
       : []),
+    ...(isFreelancerWithoutProfile
+      ? [
+          {
+            icon: "✨",
+            label: "프로필 등록하기",
+            href: "/freelancer/profile/manage",
+          },
+        ]
+      : []),
   ];
 
   const profileContent = (
     <div className="flex items-center gap-3">
-      <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[#d3ebac]">
+      <div
+        className={`relative w-12 h-12 rounded-full overflow-hidden ${avatarBgClass}`}
+      >
         {profileImg ? (
           <Image
             src={profileImg}
@@ -55,7 +62,9 @@ export default function MySidebar({ onLogout }: MySidebarProps) {
             className="object-cover"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-[#4f6231] font-bold text-lg">
+          <div
+            className={`w-full h-full flex items-center justify-center font-bold text-lg ${avatarTextClass}`}
+          >
             {name.charAt(0)}
           </div>
         )}
@@ -81,7 +90,9 @@ export default function MySidebar({ onLogout }: MySidebarProps) {
         </div>
         <p className="text-xs text-[#75786c]">{email}</p>
         {role && (
-          <span className="inline-block mt-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-[#e8f5d0] text-[#4f6231]">
+          <span
+            className={`inline-block mt-1 text-[10px] font-medium px-2 py-0.5 rounded-full ${badgeClass}`}
+          >
             {ROLE_LABEL[role]}
           </span>
         )}
@@ -101,7 +112,22 @@ export default function MySidebar({ onLogout }: MySidebarProps) {
               {profileContent}
             </Link>
           ) : (
-            profileContent
+            <div>
+              {profileContent}
+              {isFreelancerWithoutProfile && (
+                <div className="mt-3 rounded-xl bg-[#f5f4ec] px-3 py-2.5">
+                  <p className="text-xs text-[#75786c] leading-relaxed">
+                    프로필 등록 후 내 페이지로 이동할 수 있어요.
+                  </p>
+                  <Link
+                    href="/freelancer/profile/manage"
+                    className="mt-1.5 inline-block text-xs font-semibold text-[#4f6231] hover:underline"
+                  >
+                    프로필 등록하기 →
+                  </Link>
+                </div>
+              )}
+            </div>
           )}
         </div>
         <nav className="p-2">

@@ -4,7 +4,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useUser } from "@/contexts/UserContext";
 import { API_BASE_URL, createAuthHeaders, getAccessToken } from "@/lib/auth";
+import { getRoleTheme } from "@/lib/roleTheme";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -17,6 +19,7 @@ type Post = {
   memberId: number;
   memberName: string;
   memberImageUrl?: string | null;
+  memberRole?: "CLIENT" | "FREELANCER" | null;
   title: string;
   content: string;
   type: PostType;
@@ -40,6 +43,7 @@ const typeColor: Record<PostType, string> = {
 export default function CommunityDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const { user } = useUser();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
@@ -94,7 +98,18 @@ export default function CommunityDetailPage() {
     }
   };
 
-  const isAuthor = post && myMemberId !== null && post.memberId === myMemberId;
+  const isAuthor =
+    !!post &&
+    myMemberId !== null &&
+    Number(post.memberId) === Number(myMemberId);
+  const isMyPost =
+    !!post && !!user && Number(post.memberId) === Number(user.id);
+  const roleForTheme = post?.memberRole ?? (isMyPost ? user.role : null);
+  const { avatarBgClass, avatarTextClass } = getRoleTheme(
+    roleForTheme,
+  );
+  const memberImageUrl =
+    post?.memberImageUrl || (isMyPost ? user?.profileImageUrl : null);
 
   return (
     <div className="flex flex-col min-h-full bg-[#fbf9f2]">
@@ -169,13 +184,12 @@ export default function CommunityDetailPage() {
 
             <div className="flex items-center gap-2 pb-6 border-b border-[#efeee7]">
               <Avatar className="w-8 h-8">
-                {post.memberImageUrl && (
-                  <AvatarImage
-                    src={post.memberImageUrl}
-                    alt={post.memberName}
-                  />
+                {memberImageUrl && (
+                  <AvatarImage src={memberImageUrl} alt={post.memberName} />
                 )}
-                <AvatarFallback className="bg-[#d3ebac] text-[#4f6231] text-xs font-semibold">
+                <AvatarFallback
+                  className={`${avatarBgClass} ${avatarTextClass} text-xs font-semibold`}
+                >
                   {post.memberName.charAt(0)}
                 </AvatarFallback>
               </Avatar>
