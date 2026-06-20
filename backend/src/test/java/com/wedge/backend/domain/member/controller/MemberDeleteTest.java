@@ -120,7 +120,7 @@ class MemberDeleteTest {
     }
 
     @Test
-    @DisplayName("[방어 로직] refresh token이 DB에 남아있어도 DELETED 상태 회원의 재발급은 423으로 차단된다")
+    @DisplayName("[방어 로직] refresh token이 DB에 남아있어도 DELETED 상태 회원의 재발급은 403으로 차단된다")
     void deletedMemberReissueBlockedEvenIfTokenRemains() throws Exception {
         String email = "deleted_" + System.nanoTime() + "@test.com";
         String password = "password1234";
@@ -148,10 +148,10 @@ class MemberDeleteTest {
         memberRepository.save(member);
         assertThat(refreshTokenRepository.findById(member.getId())).isPresent();
 
-        // refresh token이 DB에 남아있더라도 탈퇴 회원의 재발급은 차단된다 (423 Locked)
+        // refresh token이 DB에 남아있더라도 탈퇴 회원의 재발급은 차단된다 (403 Forbidden)
         mockMvc.perform(post("/api/v1/auth/refresh")
                         .cookie(new Cookie("refreshToken", refreshToken)))
-                .andExpect(status().isLocked());
+                .andExpect(status().isForbidden());
 
         // 차단과 동시에 잔존 refresh token도 정리된다
         assertThat(refreshTokenRepository.findById(member.getId())).isEmpty();
