@@ -15,6 +15,8 @@ import {
   formatReservationDate,
   reservationStatusView,
 } from "../reservationView";
+import { getReservationReviewHref } from "../reservation-review-link.js";
+import { ReservationChatButton } from "./ReservationChatButton";
 
 type ReservationCardProps = {
   readonly reservation: ReservationResponse;
@@ -142,11 +144,17 @@ export function ReservationCard({
           )}
         </div>
         <div className="flex gap-2">
+          <ReservationChatButton
+            reservationId={reservation.id}
+            status={reservation.status}
+            className="h-8 rounded-xl bg-[#4f6231] px-3 text-xs text-white hover:bg-[#677b47]"
+          />
           {reservation.status === "COMPLETED" && (
             <Link
-              href={
-                isFreelancer ? "/mypage/reviews" : `/review/${reservation.id}`
-              }
+              href={getReservationReviewHref({
+                isFreelancer,
+                reservationId: reservation.id,
+              })}
               className={cn(
                 buttonVariants({ variant: "outline", size: "sm" }),
                 "text-xs h-8 border-[#c5c8ba] text-[#45483d] rounded-xl hover:border-[#4f6231] hover:text-[#4f6231]",
