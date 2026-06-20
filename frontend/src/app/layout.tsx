@@ -37,7 +37,7 @@ export default function RootLayout({
           <UserProvider>
             <AppChrome>{children}</AppChrome>
           </UserProvider>
-        </QueryProvider>b2aa2b4 (Refactor : 탐색 페이지에서 카테고리/정렬/검색 변경 시 잔상 발생 해결)
+        </QueryProvider>
       </body>
     </html>
   );
