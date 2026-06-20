@@ -1,5 +1,7 @@
 "use client";
 
+import { API_BASE_URL } from "@/lib/auth";
+import { useQuery } from "@tanstack/react-query";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
@@ -13,116 +15,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const featured = [
-  {
-    id: "1",
-    name: "Julian Moore",
-    title: "에디토리얼 포토그래퍼",
-    rating: 4.9,
-    reviews: 128,
-    price: "₩2,400,000~",
-    img: "https://picsum.photos/seed/julian/400/400",
-  },
-  {
-    id: "2",
-    name: "Arlo Sterling",
-    title: "보태니컬 아티스트",
-    rating: 4.8,
-    reviews: 96,
-    price: "₩1,200,000~",
-    img: "https://picsum.photos/seed/arlo/400/400",
-  },
-  {
-    id: "3",
-    name: "Evelyn Barnes",
-    title: "수석 플래너",
-    rating: 5.0,
-    reviews: 214,
-    price: "₩3,800,000~",
-    img: "https://picsum.photos/seed/evelyn/400/400",
-  },
-  {
-    id: "4",
-    name: "Marcus Thorn",
-    title: "컬리너리 아키텍트",
-    rating: 4.7,
-    reviews: 87,
-    price: "커스텀 견적",
-    img: "https://picsum.photos/seed/marcus/400/400",
-  },
-  {
-    id: "5",
-    name: "Sophia Chen",
-    title: "웨딩 플로리스트",
-    rating: 4.9,
-    reviews: 152,
-    price: "₩800,000~",
-    img: "https://picsum.photos/seed/sophia/400/400",
-  },
-  {
-    id: "6",
-    name: "Lucas Park",
-    title: "시네마틱 영상 감독",
-    rating: 4.8,
-    reviews: 73,
-    price: "₩3,200,000~",
-    img: "https://picsum.photos/seed/lucas/400/400",
-  },
-  {
-    id: "7",
-    name: "Emma Wilson",
-    title: "브라이덜 메이크업",
-    rating: 4.9,
-    reviews: 201,
-    price: "₩500,000~",
-    img: "https://picsum.photos/seed/emma/400/400",
-  },
-  {
-    id: "8",
-    name: "James Kim",
-    title: "웨딩 밴드 리더",
-    rating: 4.7,
-    reviews: 64,
-    price: "₩2,000,000~",
-    img: "https://picsum.photos/seed/james/400/400",
-  },
-  {
-    id: "9",
-    name: "Olivia Park",
-    title: "드레스 디자이너",
-    rating: 5.0,
-    reviews: 178,
-    price: "₩3,500,000~",
-    img: "https://picsum.photos/seed/olivia/400/400",
-  },
-  {
-    id: "10",
-    name: "Daniel Lee",
-    title: "웨딩 케이크 아티스트",
-    rating: 4.8,
-    reviews: 92,
-    price: "₩800,000~",
-    img: "https://picsum.photos/seed/daniel/400/400",
-  },
-  {
-    id: "11",
-    name: "Hana Yoon",
-    title: "한복 스타일리스트",
-    rating: 4.9,
-    reviews: 110,
-    price: "₩600,000~",
-    img: "https://picsum.photos/seed/hana/400/400",
-  },
-  {
-    id: "12",
-    name: "Ethan Rowe",
-    title: "야외 세리머니 플래너",
-    rating: 4.8,
-    reviews: 88,
-    price: "₩2,800,000~",
-    img: "https://picsum.photos/seed/ethan/400/400",
-  },
-];
+type FeaturedFreelancer = {
+  freelancerProfileId: number;
+  memberName: string;
+  title: string;
+  price: number | null;
+  portfolioImageUrl: string | null;
+};
+
+async function fetchFeaturedFreelancers(): Promise<FeaturedFreelancer[]> {
+  const res = await fetch(`${API_BASE_URL}/api/freelancers/featured`);
+  if (!res.ok) throw new Error("추천 프리랜서 목록 조회 실패");
+  return res.json();
+}
 
 const platformValues = [
   {
@@ -194,6 +99,11 @@ const calcArc = (swiper: any) => {
 export default function HomePage() {
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
+
+  const { data: featured = [] } = useQuery({
+    queryKey: ["featuredFreelancers"],
+    queryFn: fetchFeaturedFreelancers,
+  });
 
   const handleSearch = () => {
     if (keyword.trim()) {
