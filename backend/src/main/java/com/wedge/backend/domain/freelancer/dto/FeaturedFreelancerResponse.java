@@ -12,6 +12,14 @@ public class FeaturedFreelancerResponse {
     private final Integer price;
     private final String portfolioImageUrl;
 
+    private FeaturedFreelancerResponse() {
+        this.freelancerProfileId = null;
+        this.memberName = null;
+        this.title = null;
+        this.price = null;
+        this.portfolioImageUrl = null;
+    }
+
     private FeaturedFreelancerResponse(FreelancerProfile profile, String portfolioImageUrl) {
         this.freelancerProfileId = profile.getId();
         this.memberName = profile.getMember().getName();
