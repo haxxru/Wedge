@@ -10,4 +10,6 @@ public interface PortfolioRepository extends JpaRepository<Portfolio, Long> {
     List<Portfolio> findByFreelancerProfileIdOrderBySortOrder(Long freelancerProfileId);
     Optional<Portfolio> findFirstByFreelancerProfileIdOrderBySortOrderAscIdAsc(Long freelancerProfileId);
     void deleteByFreelancerProfileId(Long freelancerProfileId);
+    List<Portfolio> findByFreelancerProfileIdInOrderByFreelancerProfileIdAscSortOrderAscIdAsc(
+            List<Long> freelancerProfileIds);
 }
