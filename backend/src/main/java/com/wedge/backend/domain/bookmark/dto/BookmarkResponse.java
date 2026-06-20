@@ -16,8 +16,9 @@ public class BookmarkResponse {
     private final Integer price;
     private final LocalDateTime createdAt;
     private final Long categoryId;
+    private final String portfolioImageUrl;
 
-    private BookmarkResponse(Bookmark bookmark) {
+    private BookmarkResponse(Bookmark bookmark, String portfolioImageUrl) {
         this.id = bookmark.getId();
         this.freelancerProfileId = bookmark.getFreelancerProfile().getId();
         this.memberName = bookmark.getFreelancerProfile().getMember().getName();
@@ -26,9 +27,10 @@ public class BookmarkResponse {
         this.price = bookmark.getFreelancerProfile().getPrice();
         this.createdAt = bookmark.getCreatedAt();
         this.categoryId = bookmark.getFreelancerProfile().getCategory().getId();
+        this.portfolioImageUrl = portfolioImageUrl;
     }
 
-    public static BookmarkResponse from(Bookmark bookmark) {
-        return new BookmarkResponse(bookmark);
+    public static BookmarkResponse from(Bookmark bookmark, String portfolioImageUrl) {
+        return new BookmarkResponse(bookmark, portfolioImageUrl);
     }
 }
