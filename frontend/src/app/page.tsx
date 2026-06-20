@@ -1,32 +1,127 @@
 "use client";
 
-import { Navigation, EffectCoverflow, Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
+import { Autoplay, EffectCoverflow, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import Link from "next/link";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { Search, MessageSquare, CalendarCheck, Star, FileText, Users, Bot } from "lucide-react";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const featured = [
-  { id: "1",  name: "Julian Moore",  title: "에디토리얼 포토그래퍼", rating: 4.9, reviews: 128, price: "₩2,400,000~", img: "https://picsum.photos/seed/julian/400/400" },
-  { id: "2",  name: "Arlo Sterling", title: "보태니컬 아티스트",      rating: 4.8, reviews: 96,  price: "₩1,200,000~", img: "https://picsum.photos/seed/arlo/400/400" },
-  { id: "3",  name: "Evelyn Barnes", title: "수석 플래너",            rating: 5.0, reviews: 214, price: "₩3,800,000~", img: "https://picsum.photos/seed/evelyn/400/400" },
-  { id: "4",  name: "Marcus Thorn",  title: "컬리너리 아키텍트",      rating: 4.7, reviews: 87,  price: "커스텀 견적",   img: "https://picsum.photos/seed/marcus/400/400" },
-  { id: "5",  name: "Sophia Chen",   title: "웨딩 플로리스트",        rating: 4.9, reviews: 152, price: "₩800,000~",   img: "https://picsum.photos/seed/sophia/400/400" },
-  { id: "6",  name: "Lucas Park",    title: "시네마틱 영상 감독",      rating: 4.8, reviews: 73,  price: "₩3,200,000~", img: "https://picsum.photos/seed/lucas/400/400" },
-  { id: "7",  name: "Emma Wilson",   title: "브라이덜 메이크업",       rating: 4.9, reviews: 201, price: "₩500,000~",   img: "https://picsum.photos/seed/emma/400/400" },
-  { id: "8",  name: "James Kim",     title: "웨딩 밴드 리더",          rating: 4.7, reviews: 64,  price: "₩2,000,000~", img: "https://picsum.photos/seed/james/400/400" },
-  { id: "9",  name: "Olivia Park",   title: "드레스 디자이너",         rating: 5.0, reviews: 178, price: "₩3,500,000~", img: "https://picsum.photos/seed/olivia/400/400" },
-  { id: "10", name: "Daniel Lee",    title: "웨딩 케이크 아티스트",    rating: 4.8, reviews: 92,  price: "₩800,000~",   img: "https://picsum.photos/seed/daniel/400/400" },
-  { id: "11", name: "Hana Yoon",     title: "한복 스타일리스트",       rating: 4.9, reviews: 110, price: "₩600,000~",   img: "https://picsum.photos/seed/hana/400/400" },
-  { id: "12", name: "Ethan Rowe",    title: "야외 세리머니 플래너",    rating: 4.8, reviews: 88,  price: "₩2,800,000~", img: "https://picsum.photos/seed/ethan/400/400" },
+  {
+    id: "1",
+    name: "Julian Moore",
+    title: "에디토리얼 포토그래퍼",
+    rating: 4.9,
+    reviews: 128,
+    price: "₩2,400,000~",
+    img: "https://picsum.photos/seed/julian/400/400",
+  },
+  {
+    id: "2",
+    name: "Arlo Sterling",
+    title: "보태니컬 아티스트",
+    rating: 4.8,
+    reviews: 96,
+    price: "₩1,200,000~",
+    img: "https://picsum.photos/seed/arlo/400/400",
+  },
+  {
+    id: "3",
+    name: "Evelyn Barnes",
+    title: "수석 플래너",
+    rating: 5.0,
+    reviews: 214,
+    price: "₩3,800,000~",
+    img: "https://picsum.photos/seed/evelyn/400/400",
+  },
+  {
+    id: "4",
+    name: "Marcus Thorn",
+    title: "컬리너리 아키텍트",
+    rating: 4.7,
+    reviews: 87,
+    price: "커스텀 견적",
+    img: "https://picsum.photos/seed/marcus/400/400",
+  },
+  {
+    id: "5",
+    name: "Sophia Chen",
+    title: "웨딩 플로리스트",
+    rating: 4.9,
+    reviews: 152,
+    price: "₩800,000~",
+    img: "https://picsum.photos/seed/sophia/400/400",
+  },
+  {
+    id: "6",
+    name: "Lucas Park",
+    title: "시네마틱 영상 감독",
+    rating: 4.8,
+    reviews: 73,
+    price: "₩3,200,000~",
+    img: "https://picsum.photos/seed/lucas/400/400",
+  },
+  {
+    id: "7",
+    name: "Emma Wilson",
+    title: "브라이덜 메이크업",
+    rating: 4.9,
+    reviews: 201,
+    price: "₩500,000~",
+    img: "https://picsum.photos/seed/emma/400/400",
+  },
+  {
+    id: "8",
+    name: "James Kim",
+    title: "웨딩 밴드 리더",
+    rating: 4.7,
+    reviews: 64,
+    price: "₩2,000,000~",
+    img: "https://picsum.photos/seed/james/400/400",
+  },
+  {
+    id: "9",
+    name: "Olivia Park",
+    title: "드레스 디자이너",
+    rating: 5.0,
+    reviews: 178,
+    price: "₩3,500,000~",
+    img: "https://picsum.photos/seed/olivia/400/400",
+  },
+  {
+    id: "10",
+    name: "Daniel Lee",
+    title: "웨딩 케이크 아티스트",
+    rating: 4.8,
+    reviews: 92,
+    price: "₩800,000~",
+    img: "https://picsum.photos/seed/daniel/400/400",
+  },
+  {
+    id: "11",
+    name: "Hana Yoon",
+    title: "한복 스타일리스트",
+    rating: 4.9,
+    reviews: 110,
+    price: "₩600,000~",
+    img: "https://picsum.photos/seed/hana/400/400",
+  },
+  {
+    id: "12",
+    name: "Ethan Rowe",
+    title: "야외 세리머니 플래너",
+    rating: 4.8,
+    reviews: 88,
+    price: "₩2,800,000~",
+    img: "https://picsum.photos/seed/ethan/400/400",
+  },
 ];
 
 const platformValues = [
@@ -86,7 +181,8 @@ const calcArc = (swiper: any) => {
 
   swiper.slides.forEach((slide: any) => {
     const progress = slide.progress;
-    const translateY = progress * progress * depth - lift * Math.max(0, 1 - Math.abs(progress));
+    const translateY =
+      progress * progress * depth - lift * Math.max(0, 1 - Math.abs(progress));
     const rotate = progress * -3.5;
     const innerEl = slide.querySelector(".card-inner") as HTMLElement;
     if (innerEl) {
@@ -109,23 +205,34 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-full bg-[#fbf9f2]">
-
       {/* 히어로 섹션 */}
       <section className="bg-[#fbf9f2] pt-16 pb-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center">
-          <div className="w-full max-w-2xl">
+          <div className="flex flex-col items-center text-center">
+            <div className="w-full max-w-2xl">
               <h1 className="font-[var(--font-display)] text-4xl sm:text-5xl font-semibold text-[#1b1c18] leading-tight mb-8">
-                설렘부터 완성까지,<br />
-                <span className="text-[#4f6231]">딱 맞는 웨딩 전문가</span>를<br />
+                설렘부터 완성까지,
+                <br />
+                <span className="text-[#4f6231]">딱 맞는 웨딩 전문가</span>를
+                <br />
                 찾아보세요
               </h1>
 
               {/* 검색바 */}
               <div className="flex items-center gap-2 bg-white rounded-2xl shadow-[0px_4px_20px_rgba(108,129,76,0.12)] p-2 mb-6">
                 <div className="flex-1 flex items-center gap-2 px-4 py-2">
-                  <svg className="w-5 h-5 text-[#75786c] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <svg
+                    className="w-5 h-5 text-[#75786c] shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
                   </svg>
                   <input
                     value={keyword}
@@ -137,7 +244,10 @@ export default function HomePage() {
                 </div>
                 <button
                   onClick={handleSearch}
-                  className={cn(buttonVariants(), "bg-[#4f6231] text-white hover:bg-[#677b47] rounded-xl px-6 shrink-0")}
+                  className={cn(
+                    buttonVariants(),
+                    "bg-[#4f6231] text-white hover:bg-[#677b47] rounded-xl px-6 shrink-0",
+                  )}
                 >
                   전문가 찾기
                 </button>
@@ -146,12 +256,12 @@ export default function HomePage() {
               {/* 빠른 카테고리 태그 */}
               <div className="flex flex-wrap gap-2 justify-center">
                 {[
-                  { label: "웨딩 사진작가",   href: "/search?categoryId=1" },
-                  { label: "웨딩 영상",       href: "/search?categoryId=2" },
-                  { label: "헤어·메이크업",   href: "/search?categoryId=3" },
+                  { label: "웨딩 사진작가", href: "/search?categoryId=1" },
+                  { label: "웨딩 영상", href: "/search?categoryId=2" },
+                  { label: "헤어·메이크업", href: "/search?categoryId=3" },
                   { label: "웨딩 플로리스트", href: "/search?categoryId=4" },
-                  { label: "웨딩 플래너",     href: "/search?categoryId=5" },
-                  { label: "사회자",          href: "/search?categoryId=9" },
+                  { label: "웨딩 플래너", href: "/search?categoryId=5" },
+                  { label: "사회자", href: "/search?categoryId=9" },
                 ].map((tag) => (
                   <Link
                     key={tag.label}
@@ -163,9 +273,6 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-
-            
-
           </div>
         </div>
       </section>
@@ -175,18 +282,28 @@ export default function HomePage() {
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[#f5f4ec] rounded-t-[100px] -z-10 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
           <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
-            이번 달 가장 사랑받은 <span className="text-[#4f6231]">웨딩 전문가</span>
+            최근 가장 사랑받은{" "}
+            <span className="text-[#4f6231]">웨딩 전문가</span>
           </h2>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div style={{ height: 'clamp(240px, 32vw, 440px)' }} className="relative">
+          <div
+            style={{ height: "clamp(240px, 32vw, 440px)" }}
+            className="relative"
+          >
             <div
               className="absolute pointer-events-none"
               style={{
-                width: '50%', height: '120%', bottom: '-10%', left: '50%',
-                transform: 'translateX(-50%)',
-                background: 'radial-gradient(ellipse, #e8c9a0 0%, #f0d4b0 30%, transparent 70%)',
-                filter: 'blur(64px)', opacity: 0.7, zIndex: 0,
+                width: "50%",
+                height: "120%",
+                bottom: "-10%",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background:
+                  "radial-gradient(ellipse, #e8c9a0 0%, #f0d4b0 30%, transparent 70%)",
+                filter: "blur(64px)",
+                opacity: 0.7,
+                zIndex: 0,
               }}
             />
             <Swiper
@@ -199,32 +316,46 @@ export default function HomePage() {
               initialSlide={Math.floor(featured.length / 2)}
               spaceBetween={16}
               breakpoints={{
-                0:    { slidesPerView: 3 },
-                640:  { slidesPerView: 4 },
+                0: { slidesPerView: 3 },
+                640: { slidesPerView: 4 },
                 1024: { slidesPerView: 5 },
               }}
-              coverflowEffect={{ rotate: 0, stretch: 0, depth: 0, modifier: 1, slideShadows: false }}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 0,
+                modifier: 1,
+                slideShadows: false,
+              }}
               navigation={{ prevEl: ".feat-prev", nextEl: ".feat-next" }}
               onProgress={(swiper) => calcArc(swiper)}
               onResize={(swiper) => calcArc(swiper)}
               onSetTransition={(swiper, speed) => {
                 swiper.slides.forEach((slide) => {
-                  const innerEl = slide.querySelector(".card-inner") as HTMLElement;
+                  const innerEl = slide.querySelector(
+                    ".card-inner",
+                  ) as HTMLElement;
                   if (innerEl) innerEl.style.transitionDuration = `${speed}ms`;
                 });
               }}
               className="w-full !overflow-visible h-full"
-              style={{ position: 'relative', zIndex: 1 }}
+              style={{ position: "relative", zIndex: 1 }}
             >
               {featured.map((pro, i) => (
-                <SwiperSlide key={i} className="!flex !items-center !overflow-visible">
+                <SwiperSlide
+                  key={i}
+                  className="!flex !items-center !overflow-visible"
+                >
                   {({ isActive }) => (
                     <div className="relative w-full">
                       <div className="card-inner transition-all duration-500 origin-center w-full">
-                        <Link href={`/profile/${pro.id}`} className="group block">
+                        <Link
+                          href={`/profile/${pro.id}`}
+                          className="group block"
+                        >
                           <div
                             className="relative overflow-hidden rounded-2xl transition-all duration-500"
-                            style={{ aspectRatio: isActive ? '3/4' : '1/1' }}
+                            style={{ aspectRatio: isActive ? "3/4" : "1/1" }}
                           >
                             <Image
                               src={pro.img}
@@ -238,9 +369,15 @@ export default function HomePage() {
                               <>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                                 <div className="absolute bottom-4 left-4 right-4">
-                                  <p className="text-[#f59e0b] text-xs font-medium mb-1">{pro.title}</p>
-                                  <h3 className="text-white font-bold text-base mb-1">{pro.name}</h3>
-                                  <p className="text-white/80 text-xs">{pro.price}</p>
+                                  <p className="text-[#f59e0b] text-xs font-medium mb-1">
+                                    {pro.title}
+                                  </p>
+                                  <h3 className="text-white font-bold text-base mb-1">
+                                    {pro.name}
+                                  </h3>
+                                  <p className="text-white/80 text-xs">
+                                    {pro.price}
+                                  </p>
                                 </div>
                               </>
                             )}
@@ -248,8 +385,12 @@ export default function HomePage() {
                         </Link>
                         {!isActive && (
                           <div className="mt-2 text-center">
-                            <p className="text-[#75786c] text-xs mb-0.5 truncate">{pro.title}</p>
-                            <h3 className="text-[#1b1c18] font-semibold text-xs sm:text-sm truncate">{pro.name}</h3>
+                            <p className="text-[#75786c] text-xs mb-0.5 truncate">
+                              {pro.title}
+                            </p>
+                            <h3 className="text-[#1b1c18] font-semibold text-xs sm:text-sm truncate">
+                              {pro.name}
+                            </h3>
                           </div>
                         )}
                       </div>
@@ -262,14 +403,40 @@ export default function HomePage() {
           <div className="flex items-center justify-center gap-8 mt-1">
             <button className="feat-prev p-2 rounded-full border border-[#1b1c18] hover:bg-[#1b1c18]/5 transition-colors">
               <svg width="32" height="16" viewBox="0 0 48 24" fill="none">
-                <line x1="48" y1="12" x2="8" y2="12" stroke="#1b1c18" strokeWidth="1.5" />
-                <polyline points="20,2 8,12 20,22" fill="none" stroke="#1b1c18" strokeWidth="1.5" strokeLinejoin="round" />
+                <line
+                  x1="48"
+                  y1="12"
+                  x2="8"
+                  y2="12"
+                  stroke="#1b1c18"
+                  strokeWidth="1.5"
+                />
+                <polyline
+                  points="20,2 8,12 20,22"
+                  fill="none"
+                  stroke="#1b1c18"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
             <button className="feat-next p-2 rounded-full border border-[#1b1c18] hover:bg-[#1b1c18]/5 transition-colors">
               <svg width="32" height="16" viewBox="0 0 48 24" fill="none">
-                <line x1="0" y1="12" x2="40" y2="12" stroke="#1b1c18" strokeWidth="1.5" />
-                <polyline points="28,2 40,12 28,22" fill="none" stroke="#1b1c18" strokeWidth="1.5" strokeLinejoin="round" />
+                <line
+                  x1="0"
+                  y1="12"
+                  x2="40"
+                  y2="12"
+                  stroke="#1b1c18"
+                  strokeWidth="1.5"
+                />
+                <polyline
+                  points="28,2 40,12 28,22"
+                  fill="none"
+                  stroke="#1b1c18"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
@@ -277,40 +444,44 @@ export default function HomePage() {
       </section>
 
       {/* 플랫폼 가치 섹션 */}
-<section className="py-20 bg-[#fbf9f2]">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
-        쉽고, 믿을 수 있는 <span className="text-[#4f6231]">웨딩 준비</span>
-      </h2>
-    </div>
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-      {platformValues.map((item, i) => (
-        <div key={i} className="flex flex-col items-center text-center gap-4">
-          {/* 이미지 */}
-          <div className="w-32 h-32 flex items-center justify-center">
-            <Image
-              src={item.img}
-              alt={item.title}
-              width={120}
-              height={120}
-              className="object-contain drop-shadow-md"
-            />
+      <section className="py-20 bg-[#fbf9f2]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
+              쉽고, 믿을 수 있는{" "}
+              <span className="text-[#4f6231]">웨딩 준비</span>
+            </h2>
           </div>
-          {/* 텍스트 */}
-          <div>
-            <h3 className="font-semibold text-[#1b1c18] text-base mb-2">
-              {item.title}
-            </h3>
-            <p className="text-sm text-[#75786c] leading-relaxed whitespace-pre-line">
-              {item.desc}
-            </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {platformValues.map((item, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center text-center gap-4"
+              >
+                {/* 이미지 */}
+                <div className="w-32 h-32 flex items-center justify-center">
+                  <Image
+                    src={item.img}
+                    alt={item.title}
+                    width={120}
+                    height={120}
+                    className="object-contain drop-shadow-md"
+                  />
+                </div>
+                {/* 텍스트 */}
+                <div>
+                  <h3 className="font-semibold text-[#1b1c18] text-base mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-[#75786c] leading-relaxed whitespace-pre-line">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Wedge 활용 섹션 */}
       <section className="py-20 bg-[#fbf9f2]">
@@ -322,22 +493,29 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {platformFeatures.map((feat, i) => (
-              <div key={i} className="flex flex-col rounded-2xl overflow-hidden bg-white border border-[#efeee7] hover:shadow-[0px_8px_30px_rgba(79,98,49,0.1)] transition-all group">
+              <div
+                key={i}
+                className="flex flex-col rounded-2xl overflow-hidden bg-white border border-[#efeee7] hover:shadow-[0px_8px_30px_rgba(79,98,49,0.1)] transition-all group"
+              >
                 <div
-  className="relative h-48 flex items-center justify-center overflow-hidden"
-  style={{ backgroundColor: feat.bg }}
->
-  <Image
-    src={feat.img}
-    alt={feat.title}
-    width={140}
-    height={140}
-    className="object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110"
-  />
-</div>
+                  className="relative h-48 flex items-center justify-center overflow-hidden"
+                  style={{ backgroundColor: feat.bg }}
+                >
+                  <Image
+                    src={feat.img}
+                    alt={feat.title}
+                    width={140}
+                    height={140}
+                    className="object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
                 <div className="flex flex-col flex-1 p-6 gap-3">
-                  <h3 className="font-semibold text-[#1b1c18] text-lg leading-snug">{feat.title}</h3>
-                  <p className="text-sm text-[#75786c] leading-relaxed whitespace-pre-line flex-1">{feat.desc}</p>
+                  <h3 className="font-semibold text-[#1b1c18] text-lg leading-snug">
+                    {feat.title}
+                  </h3>
+                  <p className="text-sm text-[#75786c] leading-relaxed whitespace-pre-line flex-1">
+                    {feat.desc}
+                  </p>
                   <Link
                     href={feat.href}
                     className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-[#4f6231] border border-[#4f6231] rounded-lg px-4 py-2 hover:bg-[#4f6231] hover:text-white transition-colors w-fit"
@@ -350,7 +528,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }
