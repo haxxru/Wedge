@@ -44,8 +44,11 @@ export default function MyPageWrapper() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-full items-center justify-center bg-[#fbf9f2] text-[#45483d]">
-          회원 정보를 불러오는 중입니다...
+        <div className="flex flex-1 min-h-[60vh] items-center justify-center bg-[#fbf9f2]">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-8 h-8 border-2 border-[#4f6231] border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm text-[#75786c]">회원 정보를 불러오는 중입니다</p>
+          </div>
         </div>
       }
     >
@@ -325,8 +328,11 @@ function MyPage() {
 
   if (isLoading || userLoading) {
     return (
-      <div className="flex min-h-full items-center justify-center bg-[#fbf9f2] text-[#45483d]">
-        회원 정보를 불러오는 중입니다...
+      <div className="flex flex-1 min-h-[60vh] items-center justify-center bg-[#fbf9f2]">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-[#4f6231] border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm text-[#75786c]">회원 정보를 불러오는 중입니다</p>
+        </div>
       </div>
     );
   }
