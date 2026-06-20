@@ -1,4 +1,4 @@
-# Wedge - 웨딩 프리랜서 매칭 플랫폼
+# 💍 Wedge - 웨딩 프리랜서 매칭 플랫폼
 
 예비부부와 웨딩 프리랜서를 연결하는 매칭 플랫폼입니다.  
 전문가 탐색부터 견적 문의, 예약, 리뷰까지 웨딩 준비의 전 과정을 하나의 서비스에서 제공합니다.
@@ -292,3 +292,14 @@ npm run dev    # http://localhost:3000
 | `R2_ENDPOINT` / `BUCKET` / `ACCESS_KEY` / `SECRET_KEY` | Cloudflare R2 스토리지 |
 | `MAIL_USERNAME` / `MAIL_PASSWORD` | Gmail SMTP (이메일 인증) |
 | `FRONTEND_URL` | 프론트엔드 URL (CORS) |
+
+---
+
+## 팀원 소개
+
+| 이름 | GitHub | 담당 |
+|------|--------|------|
+| 윤하빈 | <a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@yunabin](https://github.com/yunabin) | |
+| 정민혁 | <a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@haxxru](https://github.com/haxxru) | |
+| 이창민 | <a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@changmin41](https://github.com/changmin41) | |
+| 이민서 | <a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@p7548296-afk](https://github.com/p7548296-afk) | |

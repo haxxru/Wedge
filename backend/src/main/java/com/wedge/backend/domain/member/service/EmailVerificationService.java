@@ -1,5 +1,6 @@
 package com.wedge.backend.domain.member.service;
 
+import com.wedge.backend.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,12 +16,17 @@ public class EmailVerificationService {
 
     private final JavaMailSender mailSender;
     private final StringRedisTemplate redisTemplate;
+    private final MemberRepository memberRepository;
 
     private static final String PREFIX = "email:verify:";
     private static final Duration TTL = Duration.ofMinutes(5);
     private static final SecureRandom RANDOM = new SecureRandom();
 
     public void sendCode(String email) {
+        if (memberRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+        }
+
         String code = String.format("%06d", RANDOM.nextInt(1_000_000));
 
         redisTemplate.opsForValue().set(PREFIX + email, code, TTL);
