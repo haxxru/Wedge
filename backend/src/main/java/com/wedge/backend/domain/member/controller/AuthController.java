@@ -5,6 +5,7 @@ import com.wedge.backend.domain.member.dto.LoginRequest;
 import com.wedge.backend.domain.member.dto.SignUpRequest;
 import com.wedge.backend.domain.member.dto.TokenDto;
 import com.wedge.backend.domain.member.service.AuthService;
+import com.wedge.backend.domain.member.service.EmailVerificationService;
 import com.wedge.backend.global.exception.LoginFailedException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,25 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final EmailVerificationService emailVerificationService;
+
+    @PostMapping("/email/send-code")
+    public ResponseEntity<Void> sendEmailCode(@RequestBody java.util.Map<String, String> body) {
+        String email = body.get("email");
+        if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("이메일을 입력해주세요.");
+        }
+        emailVerificationService.sendCode(email);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/email/verify")
+    public ResponseEntity<java.util.Map<String, Boolean>> verifyEmail(@RequestBody java.util.Map<String, String> body) {
+        String email = body.get("email");
+        String code = body.get("code");
+        boolean verified = emailVerificationService.verify(email, code);
+        return ResponseEntity.ok(java.util.Map.of("verified", verified));
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest request) {

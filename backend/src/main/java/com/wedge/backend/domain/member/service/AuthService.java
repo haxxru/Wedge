@@ -26,9 +26,14 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final EmailVerificationService emailVerificationService;
 
     @Transactional
     public void signUp(SignUpRequest request) {
+        if (!emailVerificationService.isVerified(request.getEmail())) {
+            throw new IllegalArgumentException("이메일 인증이 완료되지 않았습니다.");
+        }
+
         if (memberRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
         }
@@ -43,6 +48,7 @@ public class AuthService {
                 .build();
 
         memberRepository.save(member);
+        emailVerificationService.clearVerification(request.getEmail());
     }
 
     @Transactional
