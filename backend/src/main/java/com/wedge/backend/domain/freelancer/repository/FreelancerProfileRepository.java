@@ -4,6 +4,8 @@ import com.wedge.backend.domain.freelancer.entity.FreelancerProfile;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +20,11 @@ public interface FreelancerProfileRepository
     List<FreelancerProfile> findByIdNotInOrderByBookmarkCountDescCreatedAtDesc(
             List<Long> excludedIds,
             Pageable pageable);
+    @Query("""
+        SELECT p
+        FROM FreelancerProfile p
+        JOIN FETCH p.member
+        WHERE p.id IN :ids
+        """)
+    List<FreelancerProfile> findByIdInWithMember(@Param("ids") List<Long> ids);
 }
