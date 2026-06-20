@@ -20,6 +20,9 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -182,46 +185,110 @@ export default function SignupPage() {
             <p className="text-sm text-[#75786c] mb-8">
               기본 정보를 입력해주세요
             </p>
-            <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); setStep(3); }}>
+            <form className="space-y-5" onSubmit={(e) => {
+              e.preventDefault();
+              setErrorMessage("");
+              if (!name.trim()) { setErrorMessage("성함을 입력해주세요."); return; }
+              if (!email.trim()) { setErrorMessage("이메일을 입력해주세요."); return; }
+              if (!phone.trim()) { setErrorMessage("전화번호를 입력해주세요."); return; }
+              if (password.length < 8) { setErrorMessage("비밀번호는 8자 이상이어야 합니다."); return; }
+              if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) { setErrorMessage("비밀번호에 특수문자를 1개 이상 포함해주세요."); return; }
+              if (password !== passwordConfirm) { setErrorMessage("비밀번호가 일치하지 않습니다."); return; }
+              setStep(3);
+            }}>
               <div className="space-y-1.5">
-                <Label className="text-sm font-medium text-[#45483d]">성함</Label>
+                <Label className="text-sm font-medium text-[#45483d]">성함 <span className="text-red-500">*</span></Label>
                 <Input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="홍길동"
+                  required
                   className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231]"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-sm font-medium text-[#45483d]">이메일 주소</Label>
+                <Label className="text-sm font-medium text-[#45483d]">이메일 주소 <span className="text-red-500">*</span></Label>
                 <Input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="hello@example.com"
+                  required
                   className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231]"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-sm font-medium text-[#45483d]">전화번호</Label>
+                <Label className="text-sm font-medium text-[#45483d]">전화번호 <span className="text-red-500">*</span></Label>
                 <Input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="010-0000-0000"
+                  required
                   className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231]"
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-sm font-medium text-[#45483d]">비밀번호</Label>
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="8자 이상 입력해주세요"
-                  className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231]"
-                />
+                <Label className="text-sm font-medium text-[#45483d]">비밀번호 <span className="text-red-500">*</span></Label>
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="8자 이상, 특수문자 1개 포함"
+                    required
+                    className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] pr-11"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#75786c] hover:text-[#45483d]"
+                  >
+                    {showPassword ? (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium text-[#45483d]">비밀번호 확인 <span className="text-red-500">*</span></Label>
+                <div className="relative">
+                  <Input
+                    type={showPasswordConfirm ? "text" : "password"}
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    placeholder="비밀번호를 다시 입력해주세요"
+                    required
+                    className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] pr-11"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#75786c] hover:text-[#45483d]"
+                  >
+                    {showPasswordConfirm ? (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+              {errorMessage && (
+                <p className="text-sm text-red-500">{errorMessage}</p>
+              )}
               <Button type="submit" className="w-full h-11 bg-[#4f6231] hover:bg-[#677b47] text-white rounded-xl">
                 다음 단계
               </Button>
