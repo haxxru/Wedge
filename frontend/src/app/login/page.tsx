@@ -106,9 +106,9 @@ function LoginForm() {
                 >
                   비밀번호
                 </Label>
-                <Link href="#" className="text-xs text-[#4f6231] hover:underline">
+                <span className="text-xs text-[#75786c]">
                   비밀번호를 잊으셨나요?
-                </Link>
+                </span>
               </div>
               <div className="relative">
                 <Input
@@ -174,7 +174,7 @@ function LoginForm() {
                 disabled={isSubmitting}
                 className="w-full h-11 bg-[#4f6231] hover:bg-[#677b47] text-white font-medium rounded-xl"
             >
-              로그인
+              {isSubmitting ? "로그인 중..." : "로그인"}
             </Button>
           </form>
 
@@ -245,15 +245,15 @@ function LoginForm() {
 
         {/* Page Footer Links */}
         <div className="flex gap-5 mt-8 text-xs text-[#75786c]">
-          <a href="#" className="hover:text-[#45483d]">
-            도움말
-          </a>
-          <a href="#" className="hover:text-[#45483d]">
+          <Link href="/about" className="hover:text-[#45483d]">
+            소개
+          </Link>
+          <Link href="/privacy" className="hover:text-[#45483d]">
             개인정보 처리방침
-          </a>
-          <a href="#" className="hover:text-[#45483d]">
+          </Link>
+          <Link href="/terms" className="hover:text-[#45483d]">
             이용약관
-          </a>
+          </Link>
         </div>
       </div>
   );

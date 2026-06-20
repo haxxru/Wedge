@@ -39,11 +39,16 @@ function OAuth2CallbackContent() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#fbf9f2] px-4 text-center">
-      <p className="text-sm text-[#45483d]">
-        {hasToken
-          ? "소셜 로그인 처리 중입니다..."
-          : "토큰 정보를 찾을 수 없습니다. 다시 로그인해주세요."}
-      </p>
+      <div className="flex flex-col items-center gap-3">
+        {hasToken && (
+          <div className="w-8 h-8 border-2 border-[#4f6231] border-t-transparent rounded-full animate-spin" />
+        )}
+        <p className="text-sm text-[#45483d]">
+          {hasToken
+            ? "소셜 로그인 처리 중입니다..."
+            : "토큰 정보를 찾을 수 없습니다. 다시 로그인해주세요."}
+        </p>
+      </div>
     </div>
   );
 }

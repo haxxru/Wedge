@@ -189,8 +189,8 @@ export default function SignupPage() {
               e.preventDefault();
               setErrorMessage("");
               if (!name.trim()) { setErrorMessage("성함을 입력해주세요."); return; }
-              if (!email.trim()) { setErrorMessage("이메일을 입력해주세요."); return; }
-              if (!phone.trim()) { setErrorMessage("전화번호를 입력해주세요."); return; }
+              if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErrorMessage("올바른 이메일 형식을 입력해주세요."); return; }
+              if (!phone.trim() || !/^01[016789]-?\d{3,4}-?\d{4}$/.test(phone)) { setErrorMessage("올바른 전화번호를 입력해주세요. (예: 010-1234-5678)"); return; }
               if (password.length < 8) { setErrorMessage("비밀번호는 8자 이상이어야 합니다."); return; }
               if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) { setErrorMessage("비밀번호에 특수문자를 1개 이상 포함해주세요."); return; }
               if (password !== passwordConfirm) { setErrorMessage("비밀번호가 일치하지 않습니다."); return; }
