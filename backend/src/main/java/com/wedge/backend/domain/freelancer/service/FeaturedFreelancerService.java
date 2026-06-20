@@ -7,6 +7,7 @@ import com.wedge.backend.domain.freelancer.repository.FreelancerProfileRepositor
 import com.wedge.backend.domain.freelancer.repository.PortfolioRepository;
 import com.wedge.backend.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -42,10 +44,13 @@ public class FeaturedFreelancerService {
                 .stream()
                 .map(count -> count.getFreelancerProfile().getId())
                 .toList();
+        log.info("[FEATURED] reviewBasedIds = {}", reviewBasedIds);
 
         List<Long> finalIds = fillWithFallback(reviewBasedIds);
+        log.info("[FEATURED] finalIds = {}", finalIds);
 
         if (finalIds.isEmpty()) {
+            log.info("[FEATURED] finalIds가 비어서 빈 리스트 반환");
             return new ArrayList<>();
         }
 
@@ -53,6 +58,7 @@ public class FeaturedFreelancerService {
                 .findByIdInWithMember(finalIds)
                 .stream()
                 .collect(Collectors.toMap(FreelancerProfile::getId, profile -> profile));
+        log.info("[FEATURED] profileMap.size() = {}, keys = {}", profileMap.size(), profileMap.keySet());
 
         Map<Long, String> imageMap = portfolioRepository
                 .findByFreelancerProfileIdInOrderByFreelancerProfileIdAscSortOrderAscIdAsc(finalIds)
@@ -62,12 +68,16 @@ public class FeaturedFreelancerService {
                         Portfolio::getImageUrl,
                         (first, second) -> first
                 ));
+        log.info("[FEATURED] imageMap.size() = {}", imageMap.size());
 
-        return finalIds.stream()
+        List<FeaturedFreelancerResponse> result = finalIds.stream()
                 .map(profileMap::get)
                 .filter(Objects::nonNull)
                 .map(profile -> FeaturedFreelancerResponse.from(profile, imageMap.get(profile.getId())))
                 .collect(Collectors.toCollection(ArrayList::new));
+        log.info("[FEATURED] result.size() = {}", result.size());
+
+        return result;
     }
 
     private List<Long> fillWithFallback(List<Long> reviewBasedIds) {
@@ -85,6 +95,7 @@ public class FeaturedFreelancerService {
                 .stream()
                 .map(FreelancerProfile::getId)
                 .toList();
+        log.info("[FEATURED] fallbackIds = {} (excludedIds={}, remaining={})", fallbackIds, excludedIds, remaining);
 
         List<Long> combined = new ArrayList<>(reviewBasedIds);
         combined.addAll(fallbackIds);

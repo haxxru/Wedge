@@ -1,5 +1,6 @@
 package com.wedge.backend.global.config;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.wedge.backend.domain.freelancer.dto.FeaturedFreelancerResponse;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,14 @@ public class RedisCacheConfig {
     @Bean
     public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
 
-        ObjectMapper objectMapper = JsonMapper.builder().build();
+        ObjectMapper objectMapper = JsonMapper.builder()
+                .changeDefaultVisibility(vc -> vc
+                        .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
+                        .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
+                        .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE)
+                        .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
+                        .withCreatorVisibility(JsonAutoDetect.Visibility.NONE))
+                .build();
 
         JacksonJsonRedisSerializer<List<FeaturedFreelancerResponse>> featuredFreelancerSerializer =
                 new JacksonJsonRedisSerializer<>(

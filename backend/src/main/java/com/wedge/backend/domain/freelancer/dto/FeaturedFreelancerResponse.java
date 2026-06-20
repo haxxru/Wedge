@@ -1,5 +1,7 @@
 package com.wedge.backend.domain.freelancer.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wedge.backend.domain.freelancer.entity.FreelancerProfile;
 import lombok.Getter;
 
@@ -12,12 +14,18 @@ public class FeaturedFreelancerResponse {
     private final Integer price;
     private final String portfolioImageUrl;
 
-    private FeaturedFreelancerResponse() {
-        this.freelancerProfileId = null;
-        this.memberName = null;
-        this.title = null;
-        this.price = null;
-        this.portfolioImageUrl = null;
+    @JsonCreator
+    private FeaturedFreelancerResponse(
+            @JsonProperty("freelancerProfileId") Long freelancerProfileId,
+            @JsonProperty("memberName") String memberName,
+            @JsonProperty("title") String title,
+            @JsonProperty("price") Integer price,
+            @JsonProperty("portfolioImageUrl") String portfolioImageUrl) {
+        this.freelancerProfileId = freelancerProfileId;
+        this.memberName = memberName;
+        this.title = title;
+        this.price = price;
+        this.portfolioImageUrl = portfolioImageUrl;
     }
 
     private FeaturedFreelancerResponse(FreelancerProfile profile, String portfolioImageUrl) {
