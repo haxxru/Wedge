@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -51,22 +50,6 @@ const SORT_OPTIONS = [
 
 const categories = Object.values(CATEGORY);
 
-function SkeletonCard() {
-  return (
-    <Card className="overflow-hidden border border-[#efeee7]">
-      <Skeleton className="aspect-[4/5] w-full" />
-      <CardContent className="p-4 space-y-2">
-        <Skeleton className="h-4 w-3/4" />
-        <Skeleton className="h-3 w-1/2" />
-        <Skeleton className="h-3 w-1/3" />
-        <div className="flex justify-between items-center pt-1">
-          <Skeleton className="h-4 w-16" />
-          <Skeleton className="h-8 w-20" />
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
 
 function SearchPageInner() {
   const searchParams = useSearchParams();
@@ -81,7 +64,7 @@ function SearchPageInner() {
   const [keyword, setKeyword] = useState(searchParams.get("keyword") ?? "");
   const [freelancers, setFreelancers] = useState<FreelancerProfile[]>([]);
   const [totalElements, setTotalElements] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [bookmarked, setBookmarked] = useState<Set<number>>(new Set());
 
   // searchParams 변화 감지 — 챗봇에서 같은 페이지로 이동 시 카테고리 업데이트
@@ -259,15 +242,14 @@ function SearchPageInner() {
       </div>
 
       {/* 프리랜서 목록 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full min-h-[50vh]">
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <SkeletonCard key={i} />
-            ))}
+          <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
+            <div className="w-8 h-8 border-2 border-[#4f6231] border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm text-[#75786c]">전문가 목록을 불러오는 중입니다</p>
           </div>
         ) : freelancers.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 gap-3">
+          <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
             <p className="text-[#75786c]">등록된 전문가가 없습니다.</p>
             <Button
               variant="outline"
