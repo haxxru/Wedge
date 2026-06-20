@@ -63,7 +63,17 @@ jobs:
           DB_URL: jdbc:mysql://localhost:3306/wedge?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
           DB_USERNAME: root
           DB_PASSWORD: test1234
-          JWT_SECRET: ci-test-jwt-secret-key-that-is-long-enough
+          JWT_SECRET: ci-test-jwt-secret-key-that-is-long-enough-for-384-bit-hmac-signing
           REDIS_HOST: localhost
           REDIS_PORT: 6379
+          KAKAO_CLIENT_ID: ci-test-kakao-id
+          KAKAO_CLIENT_SECRET: ci-test-kakao-secret
+          GOOGLE_CLIENT_ID: ci-test-google-id
+          GOOGLE_CLIENT_SECRET: ci-test-google-secret
+          OPENAI_API_KEY: ci-test-openai-key
+          R2_ENDPOINT: https://test.r2.cloudflarestorage.com
+          R2_BUCKET: test-bucket
+          R2_ACCESS_KEY: ci-test-r2-access
+          R2_SECRET_KEY: ci-test-r2-secret
+          FRONTEND_URL: http://localhost:3000
         run: ./gradlew build --no-daemon
