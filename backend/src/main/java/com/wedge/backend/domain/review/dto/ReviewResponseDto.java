@@ -1,0 +1,29 @@
+package com.wedge.backend.domain.review.dto;
+
+import com.wedge.backend.domain.review.entity.Review;
+import lombok.Getter;
+
+@Getter
+public class ReviewResponseDto {
+    private Long id;
+    private Long reservationId;
+    private Long memberId;
+    private String memberName;
+    private String memberImageUrl;
+    private Long freelancerProfileId;
+    private int rating;
+    private String content;
+    private String createdAt;
+
+    public ReviewResponseDto(Review review) {
+        this.id = review.getId();
+        this.reservationId = review.getReservation().getId();
+        this.memberId = review.getMember().getId();
+        this.memberName = review.getMember().getName();
+        this.memberImageUrl = review.getMember().getProfileImageUrl();
+        this.freelancerProfileId = review.getFreelancerProfile().getId();
+        this.rating = review.getRating();
+        this.content = review.getContent();
+        this.createdAt = review.getCreatedAt().toString();
+    }
+}

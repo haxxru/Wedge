@@ -1,5 +1,8 @@
+import { AppChrome } from "@/components/layout/AppChrome";
+import { UserProvider } from "@/contexts/UserContext";
+import QueryProvider from "@/providers/QueryProvider"; 
 import type { Metadata } from "next";
-import { Playfair_Display, Be_Vietnam_Pro } from "next/font/google";
+import { Be_Vietnam_Pro, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -30,7 +33,11 @@ export default function RootLayout({
       className={`${playfairDisplay.variable} ${beVietnamPro.variable} antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#fbf9f2] text-[#1b1c18]">
-        {children}
+        <QueryProvider>
+          <UserProvider>
+            <AppChrome>{children}</AppChrome>
+          </UserProvider>
+        </QueryProvider>
       </body>
     </html>
   );

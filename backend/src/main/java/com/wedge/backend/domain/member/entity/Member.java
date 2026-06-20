@@ -41,15 +41,18 @@ public class Member extends BaseTimeEntity {
     @Column(length = 255)
     private String providerId;
 
+    @Column(name = "profile_image_url", length = 1000)
+    private String profileImageUrl;
+
     @Builder
     public Member(String email, String password, String name, String phone,
-                  Role role, Provider provider, String providerId) {
+                  Role role, MemberStatus status, Provider provider, String providerId) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phone = phone;
         this.role = role != null ? role : Role.CLIENT;
-        this.status = MemberStatus.ACTIVE;
+        this.status = status != null ? status : MemberStatus.ACTIVE;
         this.provider = provider != null ? provider : Provider.LOCAL;
         this.providerId = providerId;
     }
@@ -59,8 +62,19 @@ public class Member extends BaseTimeEntity {
         this.phone = phone;
     }
 
+    public void updateProfileImage(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
     public void updatePassword(String encodedPassword) {
         this.password = encodedPassword;
+    }
+
+    public void changeRole(Role role) {
+        this.role = role;
+        if (this.status == MemberStatus.ONBOARDING) {
+            this.status = MemberStatus.ACTIVE;
+        }
     }
 
     public void withdraw() {
