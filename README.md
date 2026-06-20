@@ -299,7 +299,7 @@ npm run dev    # http://localhost:3000
 
 | 이름 | GitHub | 담당 |
 |------|--------|------|
-| 윤하빈 | [@yunabin](https://github.com/yunabin) | |
-| 정민혁 | [@haxxru](https://github.com/haxxru) | |
-| 이창민 | [@changmin41](https://github.com/changmin41) | |
-| 이민서 | [@p7548296-afk](https://github.com/p7548296-afk) | |
+| 윤하빈 | <img src="https://github.com/yunabin.png" width="24" style="border-radius:50%"/> [@yunabin](https://github.com/yunabin) | |
+| 정민혁 | <img src="https://github.com/haxxru.png" width="24" style="border-radius:50%"/> [@haxxru](https://github.com/haxxru) | |
+| 이창민 | <img src="https://github.com/changmin41.png" width="24" style="border-radius:50%"/> [@changmin41](https://github.com/changmin41) | |
+| 이민서 | <img src="https://github.com/p7548296-afk.png" width="24" style="border-radius:50%"/> [@p7548296-afk](https://github.com/p7548296-afk) | |
