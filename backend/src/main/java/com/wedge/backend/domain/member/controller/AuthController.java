@@ -23,6 +23,16 @@ public class AuthController {
     private final AuthService authService;
     private final EmailVerificationService emailVerificationService;
 
+    @PostMapping("/password/reset")
+    public ResponseEntity<Void> resetPassword(@RequestBody java.util.Map<String, String> body) {
+        String email = body.get("email");
+        if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("이메일을 입력해주세요.");
+        }
+        authService.resetPassword(email);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/email/send-code")
     public ResponseEntity<Void> sendEmailCode(@RequestBody java.util.Map<String, String> body) {
         String email = body.get("email");

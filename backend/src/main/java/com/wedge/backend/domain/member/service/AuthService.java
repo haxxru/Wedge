@@ -13,9 +13,13 @@ import com.wedge.backend.global.exception.LoginFailedException;
 import com.wedge.backend.global.exception.MemberNotFoundException;
 import com.wedge.backend.global.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.security.SecureRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +31,8 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final RefreshTokenRepository refreshTokenRepository;
     private final EmailVerificationService emailVerificationService;
+    private final JavaMailSender mailSender;
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     @Transactional
     public void signUp(SignUpRequest request) {
@@ -121,5 +127,34 @@ public class AuthService {
     public void logoutByRefreshToken(String refreshToken) {
         refreshTokenRepository.findByToken(refreshToken)
                 .ifPresent(token -> refreshTokenRepository.deleteById(token.getMemberId()));
+    }
+
+    @Transactional
+    public void resetPassword(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다."));
+
+        if (member.getProvider() != Provider.LOCAL) {
+            throw new IllegalArgumentException("소셜 로그인 회원은 비밀번호를 재설정할 수 없습니다.");
+        }
+
+        String tempPassword = generateTempPassword();
+        member.updatePassword(passwordEncoder.encode(tempPassword));
+        memberRepository.save(member);
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("[Wedge] 임시 비밀번호 발급");
+        message.setText("임시 비밀번호: " + tempPassword + "\n\n로그인 후 반드시 비밀번호를 변경해주세요.");
+        mailSender.send(message);
+    }
+
+    private String generateTempPassword() {
+        String chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789!@#$";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            sb.append(chars.charAt(RANDOM.nextInt(chars.length())));
+        }
+        return sb.toString();
     }
 }
