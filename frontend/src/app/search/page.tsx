@@ -326,7 +326,7 @@ function SearchPageInner() {
                 href={`/profile/${pro.id}`}
                 className="block animate-in fade-in duration-500"
               >
-                <Card className="group overflow-hidden border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.1)] transition-all rounded-2xl cursor-pointer">
+                <Card className="group overflow-hidden border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.1)] transition-all rounded-2xl cursor-pointer p-0 gap-0">
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#f5f4ec] flex items-center justify-center">
                     {pro.portfolioImageUrl ? (
                       <Image
