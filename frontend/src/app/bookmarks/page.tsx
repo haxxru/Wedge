@@ -2,6 +2,7 @@
 
 import { CATEGORY } from "@/constants/category";
 import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -134,7 +135,7 @@ export default function BookmarksPage() {
                 {filtered.map((b) => (
                   <div
                     key={b.id}
-                    className="relative bg-white rounded-2xl overflow-hidden border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.08)] transition-all"
+                    className="group relative bg-white rounded-2xl overflow-hidden border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.08)] transition-all"
                   >
                     {/* 하트 버튼 */}
                     <button
@@ -152,10 +153,20 @@ export default function BookmarksPage() {
 
                     {/* 이미지 영역 */}
                     <Link href={`/profile/${b.freelancerProfileId}`}>
-                      <div className="aspect-[4/3] bg-[#f5f4ec] flex items-center justify-center">
-                        <span className="text-[#75786c] text-sm">
-                          이미지 없음
-                        </span>
+                      <div className="relative aspect-[4/3] bg-[#f5f4ec] flex items-center justify-center overflow-hidden">
+                        {b.portfolioImageUrl ? (
+                          <Image
+                            src={b.portfolioImageUrl}
+                            alt={`${b.memberName} 포트폴리오`}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        ) : (
+                          <span className="text-[#75786c] text-sm">
+                            이미지 없음
+                          </span>
+                        )}
                       </div>
                     </Link>
 
