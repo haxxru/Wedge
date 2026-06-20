@@ -299,7 +299,7 @@ npm run dev    # http://localhost:3000
 
 | 이름 | GitHub | 담당 |
 |------|--------|------|
-| 윤하빈 | <img src="https://github.com/yunabin.png" width="24" style="border-radius:50%"/> [@yunabin](https://github.com/yunabin) | |
-| 정민혁 | <img src="https://github.com/haxxru.png" width="24" style="border-radius:50%"/> [@haxxru](https://github.com/haxxru) | |
-| 이창민 | <img src="https://github.com/changmin41.png" width="24" style="border-radius:50%"/> [@changmin41](https://github.com/changmin41) | |
-| 이민서 | <img src="https://github.com/p7548296-afk.png" width="24" style="border-radius:50%"/> [@p7548296-afk](https://github.com/p7548296-afk) | |
+| 윤하빈 | <a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@yunabin](https://github.com/yunabin) | |
+| 정민혁 | <a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@haxxru](https://github.com/haxxru) | |
+| 이창민 | <a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@changmin41](https://github.com/changmin41) | |
+| 이민서 | <a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@p7548296-afk](https://github.com/p7548296-afk) | |
