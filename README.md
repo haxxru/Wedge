@@ -292,3 +292,14 @@ npm run dev    # http://localhost:3000
 | `R2_ENDPOINT` / `BUCKET` / `ACCESS_KEY` / `SECRET_KEY` | Cloudflare R2 스토리지 |
 | `MAIL_USERNAME` / `MAIL_PASSWORD` | Gmail SMTP (이메일 인증) |
 | `FRONTEND_URL` | 프론트엔드 URL (CORS) |
+
+---
+
+## 팀원 소개
+
+| 이름 | GitHub | 담당 |
+|------|--------|------|
+| 윤하빈 | [@yunabin](https://github.com/yunabin) | |
+| 정민혁 | [@haxxru](https://github.com/haxxru) | |
+| 이창민 | [@changmin41](https://github.com/changmin41) | |
+| 이민서 | [@p7548296-afk](https://github.com/p7548296-afk) | |
