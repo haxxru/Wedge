@@ -20,6 +20,10 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
+  const [resetSending, setResetSending] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -106,9 +110,13 @@ function LoginForm() {
                 >
                   비밀번호
                 </Label>
-                <span className="text-xs text-[#75786c]">
+                <button
+                    type="button"
+                    onClick={() => { setResetOpen(true); setResetMessage(""); setResetEmail(""); }}
+                    className="text-xs text-[#4f6231] hover:underline"
+                >
                   비밀번호를 잊으셨나요?
-                </span>
+                </button>
               </div>
               <div className="relative">
                 <Input
@@ -242,6 +250,60 @@ function LoginForm() {
             </Link>
           </p>
         </div>
+
+        {/* Password Reset Modal */}
+        {resetOpen && (
+          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4" onClick={() => setResetOpen(false)}>
+            <div className="bg-white rounded-2xl p-6 w-full max-w-sm" onClick={(e) => e.stopPropagation()}>
+              <h2 className="font-[var(--font-display)] text-lg font-semibold text-[#1b1c18] mb-2">비밀번호 찾기</h2>
+              <p className="text-sm text-[#75786c] mb-4">가입한 이메일 주소를 입력하면 임시 비밀번호를 보내드립니다.</p>
+              <Input
+                type="email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                placeholder="hello@example.com"
+                className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] mb-3"
+              />
+              {resetMessage && (
+                <p className={`text-sm mb-3 ${resetMessage.includes("발송") ? "text-[#4f6231]" : "text-red-500"}`}>{resetMessage}</p>
+              )}
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setResetOpen(false)}
+                  className="flex-1 h-10 rounded-xl border-[#c5c8ba]"
+                >
+                  취소
+                </Button>
+                <Button
+                  onClick={async () => {
+                    if (!resetEmail.trim()) { setResetMessage("이메일을 입력해주세요."); return; }
+                    setResetSending(true);
+                    setResetMessage("");
+                    try {
+                      const res = await fetch(`${API_BASE_URL}/api/v1/auth/password/reset`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: resetEmail }),
+                      });
+                      const data = await res.json().catch(() => null);
+                      if (!res.ok) throw new Error(data?.message ?? "발송에 실패했습니다.");
+                      setResetMessage("임시 비밀번호가 발송되었습니다. 이메일을 확인해주세요.");
+                    } catch (error) {
+                      setResetMessage(error instanceof Error ? error.message : "발송에 실패했습니다.");
+                    } finally {
+                      setResetSending(false);
+                    }
+                  }}
+                  disabled={resetSending}
+                  className="flex-1 h-10 bg-[#4f6231] hover:bg-[#677b47] text-white rounded-xl"
+                >
+                  {resetSending ? "발송 중..." : "임시 비밀번호 발송"}
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Page Footer Links */}
         <div className="flex gap-5 mt-8 text-xs text-[#75786c]">

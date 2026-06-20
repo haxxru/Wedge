@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -40,14 +41,22 @@ class AuthFlowTest {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
     private static final String PASSWORD = "password1234";
+
+    private void markEmailVerified(String email) {
+        redisTemplate.opsForValue().set("email:verify:" + email + ":verified", "true");
+    }
 
     @Test
     @DisplayName("회원가입 -> 로그인 -> refresh(RTR) -> logout -> 토큰 재사용은 모두 실패한다")
     void signupLoginRefreshLogoutFlow() throws Exception {
         String email = "authflow_" + System.nanoTime() + "@test.com";
 
-        // 1. 회원가입
+        // 1. 이메일 인증 후 회원가입
+        markEmailVerified(email);
         mockMvc.perform(post("/api/v1/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(signUpJson(email)))
@@ -104,6 +113,7 @@ class AuthFlowTest {
     void logoutWithoutAccessTokenStillInvalidatesRefreshToken() throws Exception {
         String email = "logoutfallback_" + System.nanoTime() + "@test.com";
 
+        markEmailVerified(email);
         mockMvc.perform(post("/api/v1/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(signUpJson(email)))

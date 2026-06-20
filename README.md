@@ -26,7 +26,7 @@
 ### 사용자
 | 기능 | 설명 |
 |------|------|
-| **회원가입/로그인** | 이메일 가입 + 카카오/구글 소셜 로그인 |
+| **회원가입/로그인** | 이메일 인증(코드 발송) + 카카오/구글 소셜 로그인 |
 | **역할 기반 접근** | 예비부부(CLIENT)와 프리랜서(FREELANCER) 역할 분리 |
 | **JWT 인증** | Access Token + Refresh Token 기반 인증, 자동 갱신 |
 
@@ -83,6 +83,7 @@
 | Real-time | WebSocket / STOMP |
 | AI | Spring AI + OpenAI (GPT-4o-mini) |
 | Storage | Cloudflare R2 (S3 호환) |
+| Mail | Gmail SMTP (이메일 인증) |
 | API Docs | SpringDoc OpenAPI (Swagger) |
 
 ### Frontend
@@ -289,4 +290,5 @@ npm run dev    # http://localhost:3000
 | `GOOGLE_CLIENT_ID` / `SECRET` | 구글 OAuth |
 | `OPENAI_API_KEY` | OpenAI API 키 |
 | `R2_ENDPOINT` / `BUCKET` / `ACCESS_KEY` / `SECRET_KEY` | Cloudflare R2 스토리지 |
+| `MAIL_USERNAME` / `MAIL_PASSWORD` | Gmail SMTP (이메일 인증) |
 | `FRONTEND_URL` | 프론트엔드 URL (CORS) |
