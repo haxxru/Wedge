@@ -10,6 +10,7 @@ on:
 jobs:
   deploy:
     name: Build & Deploy Backend
+    if: github.repository == 'haxxru/Wedge'
     runs-on: ubuntu-latest
 
     steps:
