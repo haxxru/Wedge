@@ -7,6 +7,7 @@ import com.wedge.backend.domain.freelancer.repository.FreelancerProfileRepositor
 import com.wedge.backend.domain.freelancer.repository.PortfolioRepository;
 import com.wedge.backend.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,12 +26,13 @@ public class FeaturedFreelancerService {
 
     private static final int FEATURED_LIMIT = 12;
     private static final int RECENT_DAYS = 30;
-    private static final long NON_EXISTENT_ID = -1L; // IDENTITY PK는 1부터 시작 → 실존할 수 없는 값
+    private static final long NON_EXISTENT_ID = -1L;
 
     private final ReviewRepository reviewRepository;
     private final FreelancerProfileRepository freelancerProfileRepository;
     private final PortfolioRepository portfolioRepository;
 
+    @Cacheable("featuredFreelancers")
     public List<FeaturedFreelancerResponse> getFeaturedFreelancers() {
 
         LocalDateTime since = LocalDateTime.now().minusDays(RECENT_DAYS);
@@ -44,7 +46,7 @@ public class FeaturedFreelancerService {
         List<Long> finalIds = fillWithFallback(reviewBasedIds);
 
         if (finalIds.isEmpty()) {
-            return List.of();
+            return new ArrayList<>();
         }
 
         Map<Long, FreelancerProfile> profileMap = freelancerProfileRepository
@@ -65,7 +67,7 @@ public class FeaturedFreelancerService {
                 .map(profileMap::get)
                 .filter(Objects::nonNull)
                 .map(profile -> FeaturedFreelancerResponse.from(profile, imageMap.get(profile.getId())))
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private List<Long> fillWithFallback(List<Long> reviewBasedIds) {
