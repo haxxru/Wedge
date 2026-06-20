@@ -31,6 +31,7 @@ public class MemberController {
         return ResponseEntity.ok(memberService.getMyInfo(memberId));
     }
 
+
     @PatchMapping("/me")
     public ResponseEntity<MemberMeResponse> updateMyInfo(Authentication authentication,
         @RequestBody 
