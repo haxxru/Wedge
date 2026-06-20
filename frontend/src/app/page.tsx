@@ -29,6 +29,10 @@ async function fetchFeaturedFreelancers(): Promise<FeaturedFreelancer[]> {
   return res.json();
 }
 
+function formatPrice(price: number | null): string {
+  return price ? `₩${price.toLocaleString()}~` : "협의";
+}
+
 const platformValues = [
   {
     img: "/icons/search.png",
@@ -100,7 +104,7 @@ export default function HomePage() {
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 
-  const { data: featured = [] } = useQuery({
+  const { data: featured = [], isLoading: isFeaturedLoading } = useQuery({
     queryKey: ["featuredFreelancers"],
     queryFn: fetchFeaturedFreelancers,
   });
@@ -188,170 +192,179 @@ export default function HomePage() {
       </section>
 
       {/* 인기 전문가 캐러셀 섹션 */}
-      <section className="py-20 bg-white overflow-hidden relative">
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[#f5f4ec] rounded-t-[100px] -z-10 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-          <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
-            최근 가장 사랑받은{" "}
-            <span className="text-[#4f6231]">웨딩 전문가</span>
-          </h2>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div
-            style={{ height: "clamp(240px, 32vw, 440px)" }}
-            className="relative"
-          >
+      {!isFeaturedLoading && featured.length > 0 && (
+        <section className="py-20 bg-white overflow-hidden relative">
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[#f5f4ec] rounded-t-[100px] -z-10 pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
+            <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
+              이번 달 가장 사랑받은{" "}
+              <span className="text-[#4f6231]">웨딩 전문가</span>
+            </h2>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div
-              className="absolute pointer-events-none"
-              style={{
-                width: "50%",
-                height: "120%",
-                bottom: "-10%",
-                left: "50%",
-                transform: "translateX(-50%)",
-                background:
-                  "radial-gradient(ellipse, #e8c9a0 0%, #f0d4b0 30%, transparent 70%)",
-                filter: "blur(64px)",
-                opacity: 0.7,
-                zIndex: 0,
-              }}
-            />
-            <Swiper
-              modules={[Navigation, EffectCoverflow, Autoplay]}
-              effect="coverflow"
-              grabCursor={true}
-              centeredSlides={true}
-              loop={true}
-              autoplay={{ delay: 4000, disableOnInteraction: false }}
-              initialSlide={Math.floor(featured.length / 2)}
-              spaceBetween={16}
-              breakpoints={{
-                0: { slidesPerView: 3 },
-                640: { slidesPerView: 4 },
-                1024: { slidesPerView: 5 },
-              }}
-              coverflowEffect={{
-                rotate: 0,
-                stretch: 0,
-                depth: 0,
-                modifier: 1,
-                slideShadows: false,
-              }}
-              navigation={{ prevEl: ".feat-prev", nextEl: ".feat-next" }}
-              onProgress={(swiper) => calcArc(swiper)}
-              onResize={(swiper) => calcArc(swiper)}
-              onSetTransition={(swiper, speed) => {
-                swiper.slides.forEach((slide) => {
-                  const innerEl = slide.querySelector(
-                    ".card-inner",
-                  ) as HTMLElement;
-                  if (innerEl) innerEl.style.transitionDuration = `${speed}ms`;
-                });
-              }}
-              className="w-full !overflow-visible h-full"
-              style={{ position: "relative", zIndex: 1 }}
+              style={{ height: "clamp(240px, 32vw, 440px)" }}
+              className="relative"
             >
-              {featured.map((pro, i) => (
-                <SwiperSlide
-                  key={i}
-                  className="!flex !items-center !overflow-visible"
-                >
-                  {({ isActive }) => (
-                    <div className="relative w-full">
-                      <div className="card-inner transition-all duration-500 origin-center w-full">
-                        <Link
-                          href={`/profile/${pro.id}`}
-                          className="group block"
-                        >
-                          <div
-                            className="relative overflow-hidden rounded-2xl transition-all duration-500"
-                            style={{ aspectRatio: isActive ? "3/4" : "1/1" }}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  width: "50%",
+                  height: "120%",
+                  bottom: "-10%",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background:
+                    "radial-gradient(ellipse, #e8c9a0 0%, #f0d4b0 30%, transparent 70%)",
+                  filter: "blur(64px)",
+                  opacity: 0.7,
+                  zIndex: 0,
+                }}
+              />
+              <Swiper
+                modules={[Navigation, EffectCoverflow, Autoplay]}
+                effect="coverflow"
+                grabCursor={true}
+                centeredSlides={true}
+                loop={true}
+                autoplay={{ delay: 4000, disableOnInteraction: false }}
+                initialSlide={Math.floor(featured.length / 2)}
+                spaceBetween={16}
+                breakpoints={{
+                  0: { slidesPerView: 3 },
+                  640: { slidesPerView: 4 },
+                  1024: { slidesPerView: 5 },
+                }}
+                coverflowEffect={{
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 0,
+                  modifier: 1,
+                  slideShadows: false,
+                }}
+                navigation={{ prevEl: ".feat-prev", nextEl: ".feat-next" }}
+                onProgress={(swiper) => calcArc(swiper)}
+                onResize={(swiper) => calcArc(swiper)}
+                onSetTransition={(swiper, speed) => {
+                  swiper.slides.forEach((slide) => {
+                    const innerEl = slide.querySelector(
+                      ".card-inner",
+                    ) as HTMLElement;
+                    if (innerEl)
+                      innerEl.style.transitionDuration = `${speed}ms`;
+                  });
+                }}
+                className="w-full !overflow-visible h-full"
+                style={{ position: "relative", zIndex: 1 }}
+              >
+                {featured.map((pro, i) => (
+                  <SwiperSlide
+                    key={pro.freelancerProfileId}
+                    className="!flex !items-center !overflow-visible"
+                  >
+                    {({ isActive }) => (
+                      <div className="relative w-full">
+                        <div className="card-inner transition-all duration-500 origin-center w-full">
+                          <Link
+                            href={`/profile/${pro.freelancerProfileId}`}
+                            className="group block"
                           >
-                            <Image
-                              src={pro.img}
-                              alt={pro.name}
-                              fill
-                              sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 20vw"
-                              loading={i === 0 ? "eager" : "lazy"}
-                              className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                            {isActive && (
-                              <>
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                                <div className="absolute bottom-4 left-4 right-4">
-                                  <p className="text-[#f59e0b] text-xs font-medium mb-1">
-                                    {pro.title}
-                                  </p>
-                                  <h3 className="text-white font-bold text-base mb-1">
-                                    {pro.name}
-                                  </h3>
-                                  <p className="text-white/80 text-xs">
-                                    {pro.price}
-                                  </p>
-                                </div>
-                              </>
-                            )}
-                          </div>
-                        </Link>
-                        {!isActive && (
-                          <div className="mt-2 text-center">
-                            <p className="text-[#75786c] text-xs mb-0.5 truncate">
-                              {pro.title}
-                            </p>
-                            <h3 className="text-[#1b1c18] font-semibold text-xs sm:text-sm truncate">
-                              {pro.name}
-                            </h3>
-                          </div>
-                        )}
+                            <div
+                              className="relative overflow-hidden rounded-2xl transition-all duration-500 bg-[#f5f4ec] flex items-center justify-center"
+                              style={{ aspectRatio: isActive ? "3/4" : "1/1" }}
+                            >
+                              {pro.portfolioImageUrl ? (
+                                <Image
+                                  src={pro.portfolioImageUrl}
+                                  alt={pro.memberName}
+                                  fill
+                                  sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                                  loading={i === 0 ? "eager" : "lazy"}
+                                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                              ) : (
+                                <span className="text-[#75786c] text-xs">
+                                  이미지 없음
+                                </span>
+                              )}
+                              {isActive && (
+                                <>
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                                  <div className="absolute bottom-4 left-4 right-4">
+                                    <p className="text-[#f59e0b] text-xs font-medium mb-1">
+                                      {pro.title}
+                                    </p>
+                                    <h3 className="text-white font-bold text-base mb-1">
+                                      {pro.memberName}
+                                    </h3>
+                                    <p className="text-white/80 text-xs">
+                                      {formatPrice(pro.price)}
+                                    </p>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          </Link>
+                          {!isActive && (
+                            <div className="mt-2 text-center">
+                              <p className="text-[#75786c] text-xs mb-0.5 truncate">
+                                {pro.title}
+                              </p>
+                              <h3 className="text-[#1b1c18] font-semibold text-xs sm:text-sm truncate">
+                                {pro.memberName}
+                              </h3>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                    )}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+            <div className="flex items-center justify-center gap-8 mt-1">
+              <button className="feat-prev p-2 rounded-full border border-[#1b1c18] hover:bg-[#1b1c18]/5 transition-colors">
+                <svg width="32" height="16" viewBox="0 0 48 24" fill="none">
+                  <line
+                    x1="48"
+                    y1="12"
+                    x2="8"
+                    y2="12"
+                    stroke="#1b1c18"
+                    strokeWidth="1.5"
+                  />
+                  <polyline
+                    points="20,2 8,12 20,22"
+                    fill="none"
+                    stroke="#1b1c18"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button className="feat-next p-2 rounded-full border border-[#1b1c18] hover:bg-[#1b1c18]/5 transition-colors">
+                <svg width="32" height="16" viewBox="0 0 48 24" fill="none">
+                  <line
+                    x1="0"
+                    y1="12"
+                    x2="40"
+                    y2="12"
+                    stroke="#1b1c18"
+                    strokeWidth="1.5"
+                  />
+                  <polyline
+                    points="28,2 40,12 28,22"
+                    fill="none"
+                    stroke="#1b1c18"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
-          <div className="flex items-center justify-center gap-8 mt-1">
-            <button className="feat-prev p-2 rounded-full border border-[#1b1c18] hover:bg-[#1b1c18]/5 transition-colors">
-              <svg width="32" height="16" viewBox="0 0 48 24" fill="none">
-                <line
-                  x1="48"
-                  y1="12"
-                  x2="8"
-                  y2="12"
-                  stroke="#1b1c18"
-                  strokeWidth="1.5"
-                />
-                <polyline
-                  points="20,2 8,12 20,22"
-                  fill="none"
-                  stroke="#1b1c18"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-            <button className="feat-next p-2 rounded-full border border-[#1b1c18] hover:bg-[#1b1c18]/5 transition-colors">
-              <svg width="32" height="16" viewBox="0 0 48 24" fill="none">
-                <line
-                  x1="0"
-                  y1="12"
-                  x2="40"
-                  y2="12"
-                  stroke="#1b1c18"
-                  strokeWidth="1.5"
-                />
-                <polyline
-                  points="28,2 40,12 28,22"
-                  fill="none"
-                  stroke="#1b1c18"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 플랫폼 가치 섹션 */}
       <section className="py-20 bg-[#fbf9f2]">
