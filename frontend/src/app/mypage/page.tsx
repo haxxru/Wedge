@@ -1,11 +1,11 @@
 "use client";
 
 import { ProfileFormValues } from "@/components/freelancer/FreelancerProfileForm";
-import FreelancerProfileTab from "@/components/mypage/FreelancerProfileTab";
 import InfoTab from "@/components/mypage/InfoTab";
 import MySidebar from "@/components/mypage/MySidebar";
 import PortfolioTab from "@/components/mypage/PortfolioTab";
 import ReviewTab from "@/components/mypage/ReviewTab";
+import { useUser } from "@/contexts/UserContext";
 import {
   API_BASE_URL,
   clearAccessToken,
@@ -13,7 +13,6 @@ import {
   getAccessToken,
 } from "@/lib/auth";
 import { authFetch } from "@/lib/authFetch";
-import { useUser } from "@/contexts/UserContext";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
@@ -41,11 +40,13 @@ function NoFreelancerProfileNotice() {
 
 export default function MyPageWrapper() {
   return (
-    <Suspense fallback={
-      <div className="flex min-h-full items-center justify-center bg-[#fbf9f2] text-[#45483d]">
-        회원 정보를 불러오는 중입니다...
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex min-h-full items-center justify-center bg-[#fbf9f2] text-[#45483d]">
+          회원 정보를 불러오는 중입니다...
+        </div>
+      }
+    >
       <MyPage />
     </Suspense>
   );
@@ -135,6 +136,7 @@ function MyPage() {
                 categoryId: profileData.categoryId,
                 title: profileData.title ?? "",
                 introduction: profileData.introduction ?? "",
+                selfIntroduction: profileData.selfIntroduction ?? "",
                 region: profileData.region ?? "",
                 price: String(profileData.price ?? ""),
                 careerYears: String(profileData.careerYears ?? ""),
@@ -192,10 +194,13 @@ function MyPage() {
       if (pendingProfileImageFile) {
         const formData = new FormData();
         formData.append("image", pendingProfileImageFile);
-        const imageRes = await authFetch(`${API_BASE_URL}/api/v1/members/me/image`, {
-          method: "PATCH",
-          body: formData,
-        });
+        const imageRes = await authFetch(
+          `${API_BASE_URL}/api/v1/members/me/image`,
+          {
+            method: "PATCH",
+            body: formData,
+          },
+        );
         const imageData = await imageRes.json().catch(() => null);
         if (!imageRes.ok) {
           throw new Error(
@@ -206,9 +211,12 @@ function MyPage() {
         setServerProfileImg(imageData.profileImageUrl ?? null);
         setLocalProfileImg(imageData.profileImageUrl ?? null);
       } else if (pendingProfileImageRemoval) {
-        const removeRes = await authFetch(`${API_BASE_URL}/api/v1/members/me/image`, {
-          method: "DELETE",
-        });
+        const removeRes = await authFetch(
+          `${API_BASE_URL}/api/v1/members/me/image`,
+          {
+            method: "DELETE",
+          },
+        );
         const removeData = await removeRes.json().catch(() => null);
         if (!removeRes.ok) {
           throw new Error(
@@ -335,30 +343,9 @@ function MyPage() {
                 isSaving={isSaving}
               />
             )}
-            {activeTab === "profile" &&
-              (user?.freelancerProfileId && profileInitialValues ? (
-                <FreelancerProfileTab
-                  freelancerProfileId={user.freelancerProfileId}
-                  initialValues={profileInitialValues}
-                  onSuccess={() => {
-                    setSuccessMessage("프로필이 저장되었습니다.");
-                    setActiveTab("info");
-                  }}
-                  onCancel={() => setActiveTab("info")}
-                />
-              ) : (
-                <NoFreelancerProfileNotice />
-              ))}
             {activeTab === "portfolio" &&
               (user?.freelancerProfileId ? (
-                <PortfolioTab
-                  freelancerProfileId={user.freelancerProfileId}
-                  onSuccess={() => {
-                    setSuccessMessage("포트폴리오가 저장되었습니다.");
-                    setActiveTab("info");
-                  }}
-                  onCancel={() => setActiveTab("info")}
-                />
+                <PortfolioTab freelancerProfileId={user.freelancerProfileId} />
               ) : (
                 <NoFreelancerProfileNotice />
               ))}
