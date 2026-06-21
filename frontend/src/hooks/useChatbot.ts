@@ -5,6 +5,7 @@ import type {
   EstimateResult,
   TurnStep,
 } from "@/types/chatbot";
+import { API_BASE_URL } from "@/lib/auth";
 import { useState } from "react";
 
 export function useChatbot() {
@@ -47,7 +48,7 @@ export function useChatbot() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/chatbot/estimate", {
+      const res = await fetch(`${API_BASE_URL}/api/chatbot/estimate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

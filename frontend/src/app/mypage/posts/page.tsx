@@ -39,6 +39,7 @@ export default function MyPostsPage() {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [filter, setFilter] = useState<RecruitStatus | null>(null);
   const [page, setPage] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (!getAccessToken()) {
@@ -48,8 +49,13 @@ export default function MyPostsPage() {
     const fetchPosts = async () => {
       try {
         const res = await authFetch(`${API_BASE_URL}/api/v1/members/me/jobs`);
-        if (res.ok) setPosts(await res.json());
+        if (res.ok) {
+          setPosts(await res.json());
+        } else {
+          setErrorMessage("구인글을 불러오지 못했습니다.");
+        }
       } catch {
+        setErrorMessage("구인글을 불러오지 못했습니다.");
       } finally {
         setLoading(false);
       }
@@ -78,8 +84,13 @@ export default function MyPostsPage() {
       const res = await authFetch(`${API_BASE_URL}/api/v1/jobs/${postId}`, {
         method: "DELETE",
       });
-      if (res.ok) setPosts((prev) => prev.filter((p) => p.id !== postId));
+      if (res.ok) {
+        setPosts((prev) => prev.filter((p) => p.id !== postId));
+      } else {
+        alert("삭제에 실패했습니다.");
+      }
     } catch {
+      alert("삭제에 실패했습니다.");
     } finally {
       setDeletingId(null);
     }
@@ -94,11 +105,16 @@ export default function MyPostsPage() {
         `${API_BASE_URL}/api/v1/jobs/${post.id}/status?status=${newStatus}`,
         { method: "PATCH", headers: createAuthHeaders() },
       );
-      if (res.ok)
+      if (res.ok) {
         setPosts((prev) =>
           prev.map((p) => (p.id === post.id ? { ...p, status: newStatus } : p)),
         );
-    } catch {}
+      } else {
+        alert("상태 변경에 실패했습니다.");
+      }
+    } catch {
+      alert("상태 변경에 실패했습니다.");
+    }
   };
 
   const filtered = filter ? posts.filter((p) => p.status === filter) : posts;
