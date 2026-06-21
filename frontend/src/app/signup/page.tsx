@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -23,8 +23,66 @@ export default function SignupPage() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const [emailCode, setEmailCode] = useState("");
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
+  const [emailTimer, setEmailTimer] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (emailTimer > 0) {
+      timerRef.current = setTimeout(() => setEmailTimer(emailTimer - 1), 1000);
+    }
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [emailTimer]);
+
+  const handleSendCode = async () => {
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorMessage("올바른 이메일 형식을 입력해주세요.");
+      return;
+    }
+    setEmailSending(true);
+    setErrorMessage("");
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/v1/auth/email/send-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.message ?? "인증 코드 발송에 실패했습니다.");
+      }
+      setEmailTimer(300);
+      setErrorMessage("");
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "인증 코드 발송에 실패했습니다.");
+    } finally {
+      setEmailSending(false);
+    }
+  };
+
+  const handleVerifyCode = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/v1/auth/email/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code: emailCode }),
+      });
+      const data = await res.json();
+      if (data.verified) {
+        setEmailVerified(true);
+        setErrorMessage("");
+      } else {
+        setErrorMessage("인증 코드가 일치하지 않습니다.");
+      }
+    } catch {
+      setErrorMessage("인증 확인에 실패했습니다.");
+    }
+  };
 
   const role = userType === "freelancer" ? "FREELANCER" : "CLIENT";
 
@@ -189,8 +247,9 @@ export default function SignupPage() {
               e.preventDefault();
               setErrorMessage("");
               if (!name.trim()) { setErrorMessage("성함을 입력해주세요."); return; }
-              if (!email.trim()) { setErrorMessage("이메일을 입력해주세요."); return; }
-              if (!phone.trim()) { setErrorMessage("전화번호를 입력해주세요."); return; }
+              if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErrorMessage("올바른 이메일 형식을 입력해주세요."); return; }
+              if (!emailVerified) { setErrorMessage("이메일 인증을 완료해주세요."); return; }
+              if (!phone.trim() || !/^01[016789]-?\d{3,4}-?\d{4}$/.test(phone)) { setErrorMessage("올바른 전화번호를 입력해주세요. (예: 010-1234-5678)"); return; }
               if (password.length < 8) { setErrorMessage("비밀번호는 8자 이상이어야 합니다."); return; }
               if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) { setErrorMessage("비밀번호에 특수문자를 1개 이상 포함해주세요."); return; }
               if (password !== passwordConfirm) { setErrorMessage("비밀번호가 일치하지 않습니다."); return; }
@@ -208,14 +267,50 @@ export default function SignupPage() {
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-[#45483d]">이메일 주소 <span className="text-red-500">*</span></Label>
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="hello@example.com"
-                  required
-                  className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231]"
-                />
+                <div className="flex gap-2">
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); setEmailVerified(false); }}
+                    placeholder="hello@example.com"
+                    required
+                    disabled={emailVerified}
+                    className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] flex-1"
+                  />
+                  <Button
+                    type="button"
+                    onClick={handleSendCode}
+                    disabled={emailSending || emailVerified}
+                    className="h-11 px-4 bg-[#4f6231] hover:bg-[#677b47] text-white rounded-xl text-sm shrink-0"
+                  >
+                    {emailVerified ? "인증완료" : emailSending ? "발송중..." : emailTimer > 0 ? "재발송" : "인증번호"}
+                  </Button>
+                </div>
+                {emailTimer > 0 && !emailVerified && (
+                  <div className="flex gap-2 mt-2">
+                    <Input
+                      value={emailCode}
+                      onChange={(e) => setEmailCode(e.target.value)}
+                      placeholder="인증 코드 6자리"
+                      maxLength={6}
+                      className="h-10 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] flex-1"
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleVerifyCode}
+                      variant="outline"
+                      className="h-10 px-4 border-[#4f6231] text-[#4f6231] rounded-xl text-sm shrink-0"
+                    >
+                      확인
+                    </Button>
+                    <span className="text-xs text-[#75786c] flex items-center shrink-0">
+                      {Math.floor(emailTimer / 60)}:{String(emailTimer % 60).padStart(2, '0')}
+                    </span>
+                  </div>
+                )}
+                {emailVerified && (
+                  <p className="text-xs text-[#4f6231] mt-1">이메일 인증이 완료되었습니다.</p>
+                )}
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-[#45483d]">전화번호 <span className="text-red-500">*</span></Label>

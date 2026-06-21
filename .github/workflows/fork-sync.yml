@@ -1,0 +1,25 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    if: github.repository == 'haxxru/Wedge'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+      - name: Sync all branches
+        run: |
+          git remote add upstream https://github.com/prgrms-aibe-devcourse/AIBE6_Project2_Team05.git
+          git fetch upstream
+          git checkout dev
+          git reset --hard upstream/dev
+          git push origin dev --force
+          git checkout -B main upstream/main
+          git push origin main --force

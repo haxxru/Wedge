@@ -76,4 +76,6 @@ jobs:
           R2_ACCESS_KEY: ci-test-r2-access
           R2_SECRET_KEY: ci-test-r2-secret
           FRONTEND_URL: http://localhost:3000
+          MAIL_USERNAME: test@test.com
+          MAIL_PASSWORD: test-password
         run: ./gradlew build --no-daemon
