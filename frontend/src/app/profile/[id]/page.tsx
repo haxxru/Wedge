@@ -8,7 +8,7 @@ import ReviewTab from "@/components/profile/ReviewTab";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getAccessToken } from "@/lib/auth";
+import { API_BASE_URL, getAccessToken } from "@/lib/auth";
 import { authFetch } from "@/lib/authFetch";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -102,11 +102,11 @@ export default function ProfilePage({
         const token = getAccessToken();
 
         const [profileRes, portfolioRes, reviewRes, meRes] = await Promise.all([
-          fetch(`/api/freelancers/${id}`),
-          fetch(`/api/freelancers/${id}/portfolios`),
-          fetch(`/api/freelancers/${id}/reviews`),
+          fetch(`${API_BASE_URL}/api/freelancers/${id}`),
+          fetch(`${API_BASE_URL}/api/freelancers/${id}/portfolios`),
+          fetch(`${API_BASE_URL}/api/freelancers/${id}/reviews`),
           token
-            ? fetch("/api/v1/members/me", {
+            ? fetch(`${API_BASE_URL}/api/v1/members/me`, {
                 headers: { Authorization: `Bearer ${token}` },
               })
             : Promise.resolve(null),

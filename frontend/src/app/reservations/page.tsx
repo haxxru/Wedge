@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createAuthHeaders, getAccessToken } from "@/lib/auth";
+import { API_BASE_URL, createAuthHeaders, getAccessToken } from "@/lib/auth";
 import {
   fetchFreelancerProfile,
   fetchReservations,
@@ -45,7 +45,7 @@ export default function ReservationsPage() {
     try {
       const [resData, meRes] = await Promise.all([
         fetchReservations(),
-        fetch("/api/v1/members/me", {
+        fetch(`${API_BASE_URL}/api/v1/members/me`, {
           headers: createAuthHeaders(),
         }),
       ]);

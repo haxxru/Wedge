@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { createAuthHeaders } from "@/lib/auth";
+import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 import {
   fetchReservations,
   ReservationApiError,
@@ -32,7 +32,7 @@ export default function FreelancerReservationsPage() {
     try {
       const [reservationData, meRes] = await Promise.all([
         fetchReservations(),
-        fetch("/api/v1/members/me", {
+        fetch(`${API_BASE_URL}/api/v1/members/me`, {
           headers: createAuthHeaders(),
         }),
       ]);

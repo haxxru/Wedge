@@ -15,7 +15,7 @@ import {
   type ReservationResponse,
 } from "@/lib/reservations";
 import { formatReservationDate, reservationStatusView } from "../reservationView";
-import { createAuthHeaders, getAccessToken } from "@/lib/auth";
+import { API_BASE_URL, createAuthHeaders, getAccessToken } from "@/lib/auth";
 
 function getErrorMessage(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
@@ -49,7 +49,7 @@ export default function ReservationDetailPage({
       setError(null);
       const [resData, meRes] = await Promise.all([
         fetchReservationById(reservationId),
-        fetch("/api/v1/members/me", {
+        fetch(`${API_BASE_URL}/api/v1/members/me`, {
           headers: createAuthHeaders(),
         }),
       ]);
