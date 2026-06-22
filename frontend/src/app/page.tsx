@@ -58,12 +58,12 @@ const platformValues = [
 
 const platformFeatures = [
   {
-    bg: "#e8edd6",
-    img: "/icons/card1-freelancer.svg",
-    title: "프리랜서가 나를 찾아옵니다",
-    desc: "원하는 조건과 예산을 올리면\n관심 있는 프리랜서가 직접 제안서를 보내 드려요.\n여러 제안을 비교하고 최적의 전문가를 선택하세요.",
-    cta: "구인글 올리기",
-    href: "/jobs",
+    bg: "#e6ede3",
+    img: "/icons/card3-ai-quote.svg",
+    title: "AI로 사전 견적을 받아 보세요",
+    desc: "원하는 서비스와 예산을 입력하면\nAI가 맞춤 견적을 먼저 제안해드려요.\n견적 후 바로 전문가 탐색까지 연결됩니다.",
+    cta: "전문가 탐색하기",
+    href: "/search",
   },
   {
     bg: "#fdf3e7",
@@ -74,12 +74,12 @@ const platformFeatures = [
     href: "/community",
   },
   {
-    bg: "#e6ede3",
-    img: "/icons/card3-ai-quote.svg",
-    title: "AI로 사전 견적을 받아 보세요",
-    desc: "원하는 서비스와 예산을 입력하면\nAI가 맞춤 견적을 먼저 제안해드려요.\n견적 후 바로 전문가 탐색까지 연결됩니다.",
-    cta: "전문가 탐색하기",
-    href: "/search",
+    bg: "#e8edd6",
+    img: "/icons/card1-freelancer.svg",
+    title: "프리랜서가 나를 찾아옵니다",
+    desc: "원하는 조건과 예산을 올리면\n관심 있는 프리랜서가 직접 제안서를 보내 드려요.\n여러 제안을 비교하고 최적의 전문가를 선택하세요.",
+    cta: "구인글 올리기",
+    href: "/jobs",
   },
 ];
 
