@@ -151,6 +151,9 @@
     @apply bg-background text-foreground h-full;
     overflow-x: hidden;
   }
+  button, [role="button"], a, [onclick], label[for], select, summary {
+    cursor: pointer;
+  }
 }
 
 input::-ms-reveal,

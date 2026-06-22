@@ -109,7 +109,7 @@ export default function JobsPage() {
               className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border ${
                 categoryId === null
                   ? "bg-[#4f6231] text-white border-[#4f6231] shadow-sm"
-                  : "bg-white text-[#45483d] border-[#c5c8ba] hover:border-[#4f6231] hover:-translate-y-0.5 hover:shadow-sm"
+                  : "bg-white text-[#45483d] border-[#c5c8ba] hover:border-[#4f6231] hover:shadow-sm hover:brightness-95"
               }`}
             >
               전체
@@ -124,7 +124,7 @@ export default function JobsPage() {
                 className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border ${
                   categoryId === c.id
                     ? "bg-[#4f6231] text-white border-[#4f6231] shadow-sm"
-                    : "bg-white text-[#45483d] border-[#c5c8ba] hover:border-[#4f6231] hover:-translate-y-0.5 hover:shadow-sm"
+                    : "bg-white text-[#45483d] border-[#c5c8ba] hover:border-[#4f6231] hover:shadow-sm hover:brightness-95"
                 }`}
               >
                 {c.name}
