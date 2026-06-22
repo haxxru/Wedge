@@ -46,7 +46,8 @@ export default function PortfoliosPage({
   const [freelancer, setFreelancer] = useState<FreelancerInfo | null>(null);
   const [currentMemberId, setCurrentMemberId] = useState<number | null>(null);
 
-  const selectedPortfolio = selectedIndex !== null ? portfolios[selectedIndex] : null;
+  const selectedPortfolio =
+    selectedIndex !== null ? portfolios[selectedIndex] : null;
   const isOwner = freelancer?.memberId === currentMemberId;
 
   const parseHashtags = (text: string) => {
@@ -54,6 +55,14 @@ export default function PortfoliosPage({
     const plain = text.replace(/#[\w가-힣]+/g, "").trim();
     return { plain, tags };
   };
+
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      window.dispatchEvent(new CustomEvent("portfolioModalOpen"));
+    } else {
+      window.dispatchEvent(new CustomEvent("portfolioModalClose"));
+    }
+  }, [selectedIndex]);
 
   useEffect(() => {
     const token = getAccessToken();
