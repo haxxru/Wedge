@@ -120,7 +120,8 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-full bg-[#fbf9f2]">
       {/* 히어로 섹션 */}
-      <section className="relative pt-16 pb-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {" "}
         <div className="absolute inset-0">
           <Image
             src="/hero.jpg"
