@@ -120,8 +120,18 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-full bg-[#fbf9f2]">
       {/* 히어로 섹션 */}
-      <section className="bg-[#fbf9f2] pt-16 pb-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-16 pb-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/hero.jpg"
+            alt="웨딩 테이블 데코레이션"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[#fbf9f2]/75" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center">
             <div className="w-full max-w-2xl">
               <h1 className="font-[var(--font-display)] text-4xl sm:text-5xl font-semibold text-[#1b1c18] leading-tight mb-8">
