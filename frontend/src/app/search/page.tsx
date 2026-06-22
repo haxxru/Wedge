@@ -281,10 +281,10 @@ function SearchPageInner() {
           <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1">
             <button
               onClick={() => setSelectedCategoryId(null)}
-              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                 selectedCategoryId === null
-                  ? "bg-[#4f6231] text-white"
-                  : "bg-[#f5f4ec] text-[#45483d] hover:bg-[#efeee7]"
+                  ? "bg-[#4f6231] text-white shadow-sm"
+                  : "bg-[#f5f4ec] text-[#45483d] hover:bg-[#e9e8e1] hover:-translate-y-0.5 hover:shadow-sm"
               }`}
             >
               전체
@@ -293,10 +293,10 @@ function SearchPageInner() {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategoryId(category.id)}
-                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   selectedCategoryId === category.id
-                    ? "bg-[#4f6231] text-white"
-                    : "bg-[#f5f4ec] text-[#45483d] hover:bg-[#efeee7]"
+                    ? "bg-[#4f6231] text-white shadow-sm"
+                    : "bg-[#f5f4ec] text-[#45483d] hover:bg-[#e9e8e1] hover:-translate-y-0.5 hover:shadow-sm"
                 }`}
               >
                 {category.name}
