@@ -166,11 +166,11 @@ export default function ProfilePage({
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      {/* 프로필 헤더 카드 — 커버 이미지 아래로 완전 분리 */}
+      {/* 프로필 헤더 카드 */}
       <div className="bg-white border-b border-[#efeee7]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
           <div className="flex flex-col sm:flex-row sm:items-start gap-5">
-            {/* 프로필 사진 — 커버 이미지와 살짝 겹치게 */}
+            {/* 프로필 사진 */}
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 -mt-16">
               <div className="w-full h-full rounded-2xl overflow-hidden border-4 border-white shadow-lg">
                 <Image
@@ -189,9 +189,25 @@ export default function ProfilePage({
             <div className="flex-1">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <Badge className="bg-[#f5f4ec] text-[#45483d] border-0 text-xs mb-2">
-                    {profile.categoryName}
-                  </Badge>
+                  {/* 카테고리 배지 + 브레드크럼 */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge className="bg-[#f5f4ec] text-[#45483d] border-0 text-xs">
+                      {profile.categoryName}
+                    </Badge>
+                    <div className="flex items-center gap-1 text-xs text-[#b0b3a8]">
+                      <Link
+                        href="/search"
+                        className="hover:text-[#4f6231] transition-colors"
+                      >
+                        전문가 탐색
+                      </Link>
+                      <span>/</span>
+                      <span className="text-[#1b1c18] font-medium truncate max-w-[200px]">
+                        {profile.title}
+                      </span>
+                    </div>
+                  </div>
+
                   <h1 className="font-[var(--font-display)] text-2xl sm:text-3xl font-semibold text-[#1b1c18]">
                     {profile.title}
                   </h1>
