@@ -300,15 +300,17 @@ export default function JobDetailPage() {
               </div>
               {isAuthor && (
                 <div className="flex flex-col gap-2 shrink-0">
-                  <Link href={`/jobs/${id}/edit`}>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full border-[#c5c8ba] text-[#45483d]"
-                    >
-                      수정
-                    </Button>
-                  </Link>
+                  {post.status === "OPEN" && (
+                    <Link href={`/jobs/${id}/edit`}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full border-[#c5c8ba] text-[#45483d]"
+                      >
+                        수정
+                      </Button>
+                    </Link>
+                  )}
                   <Button
                     variant="outline"
                     size="sm"

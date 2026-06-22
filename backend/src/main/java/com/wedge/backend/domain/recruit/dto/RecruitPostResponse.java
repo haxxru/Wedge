@@ -22,6 +22,7 @@ public class RecruitPostResponse {
     private final LocalDate weddingDate;
     private final RecruitStatus status;
     private final String region;
+    private final String imageUrl;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
     private final int proposalCount;
@@ -43,6 +44,7 @@ public class RecruitPostResponse {
         this.weddingDate = post.getWeddingDate();
         this.status = post.getStatus();
         this.region = post.getRegion();
+        this.imageUrl = post.getImageUrl();
         this.createdAt = post.getCreatedAt();
         this.updatedAt = post.getUpdatedAt();
         this.proposalCount = proposalCount;
