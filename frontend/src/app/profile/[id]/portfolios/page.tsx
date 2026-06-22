@@ -58,11 +58,23 @@ export default function PortfoliosPage({
 
   useEffect(() => {
     if (selectedIndex !== null) {
+      sessionStorage.setItem("portfolioModalOpen", "true");
       window.dispatchEvent(new CustomEvent("portfolioModalOpen"));
     } else {
+      sessionStorage.removeItem("portfolioModalOpen");
       window.dispatchEvent(new CustomEvent("portfolioModalClose"));
     }
   }, [selectedIndex]);
+
+  useEffect(() => {
+    sessionStorage.setItem("portfolioModalOpen", "true");
+    window.dispatchEvent(new CustomEvent("portfolioModalOpen"));
+
+    return () => {
+      sessionStorage.removeItem("portfolioModalOpen");
+      window.dispatchEvent(new CustomEvent("portfolioModalClose"));
+    };
+  }, []);
 
   useEffect(() => {
     const token = getAccessToken();
