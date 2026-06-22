@@ -21,11 +21,10 @@ export default function MySidebar({ onLogout }: MySidebarProps) {
         headers: createAuthHeaders(),
       })
         .then((res) => (res.ok ? res.json() : []))
-        .then((posts: { proposalCount?: number }[]) => {
-          const total = posts.reduce(
-            (sum, p) => sum + (p.proposalCount ?? 0),
-            0,
-          );
+        .then((posts: { proposalCount?: number; status?: string }[]) => {
+          const total = posts
+            .filter((p) => p.status === "OPEN")
+            .reduce((sum, p) => sum + (p.proposalCount ?? 0), 0);
           setTotalProposalCount(total);
         })
         .catch(() => {});

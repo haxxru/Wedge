@@ -22,5 +22,7 @@ public interface ProposalRepository extends JpaRepository<Proposal, Long> {
 
     int countByRecruitPost(RecruitPost recruitPost);
 
+    int countByRecruitPostAndStatus(RecruitPost recruitPost, ProposalStatus status);
+
     List<Proposal> findByRecruitPostIn(List<RecruitPost> recruitPosts);
 }

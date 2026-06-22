@@ -43,7 +43,7 @@ public class RecruitPostService {
     public RecruitPostResponse getRecruitPost(Long postId) {
         RecruitPost post = recruitPostRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 구인글입니다."));
-        return new RecruitPostResponse(post, proposalRepository.countByRecruitPost(post));
+        return new RecruitPostResponse(post, proposalRepository.countByRecruitPostAndStatus(post, ProposalStatus.SUBMITTED));
     }
 
     @Transactional(readOnly = true)
@@ -58,6 +58,7 @@ public class RecruitPostService {
     private Map<Long, Integer> buildProposalCountMap(List<RecruitPost> posts) {
         if (posts.isEmpty()) return Map.of();
         return proposalRepository.findByRecruitPostIn(posts).stream()
+                .filter(p -> p.getStatus() == ProposalStatus.SUBMITTED)
                 .collect(java.util.stream.Collectors.groupingBy(
                         p -> p.getRecruitPost().getId(),
                         java.util.stream.Collectors.collectingAndThen(java.util.stream.Collectors.counting(), Long::intValue)
