@@ -1,26 +1,23 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useUser } from "@/contexts/UserContext";
 import { API_BASE_URL, clearAccessToken, createAuthHeaders } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import { Heart } from "lucide-react";
-import { useUser } from "@/contexts/UserContext";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 const mypageMenu = [
   { label: "회원 정보 수정", href: "/mypage?tab=info" },
   { label: "예약 현황", href: "/reservations" },
-  { label: "관심 프리랜서", href: "/bookmarks" },
+  { label: "나의 찜목록", href: "/bookmarks" },
   { label: "리뷰 내역", href: "/mypage?tab=reviews" },
 ];
 
-const clientMenu = [
-  { label: "내 구인글", href: "/mypage/posts" },
-];
+const clientMenu = [{ label: "내 구인글", href: "/mypage/posts" }];
 
 const freelancerMenu = [
   { label: "내 제안서", href: "/mypage/proposals" },
@@ -86,7 +83,7 @@ export default function Navbar() {
                   "text-sm font-medium transition-colors relative py-5",
                   isActive(link.href)
                     ? "text-[#4f6231]"
-                    : "text-[#45483d] hover:text-[#4f6231]"
+                    : "text-[#45483d] hover:text-[#4f6231]",
                 )}
               >
                 {link.label}
@@ -106,30 +103,23 @@ export default function Navbar() {
               </div>
             ) : isLoggedIn ? (
               <>
-                <Link
-                  href="/bookmarks"
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "sm" }),
-                    "text-[#45483d] hover:text-[#e85454] hover:bg-[#f5f4ec] p-2"
-                  )}
-                >
-                  <Heart className="w-6 h-6" />
-                </Link>
                 <div className="relative group">
                   <Link
                     href="/mypage"
                     className={cn(
                       buttonVariants({ variant: "ghost", size: "sm" }),
-                      "text-[#45483d] hover:text-[#4f6231] hover:bg-[#f5f4ec] gap-1.5"
+                      "text-[#45483d] hover:text-[#4f6231] hover:bg-[#f5f4ec] gap-1.5",
                     )}
                   >
                     마이페이지
                     {user?.role && (
-                      <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
-                        user.role === "FREELANCER"
-                          ? "bg-[#d3ebac] text-[#4f6231]"
-                          : "bg-[#f6d9d3] text-[#6f5a55]"
-                      }`}>
+                      <span
+                        className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
+                          user.role === "FREELANCER"
+                            ? "bg-[#d3ebac] text-[#4f6231]"
+                            : "bg-[#f6d9d3] text-[#6f5a55]"
+                        }`}
+                      >
                         {user.role === "FREELANCER" ? "프리랜서" : "예비부부"}
                       </span>
                     )}
@@ -171,7 +161,7 @@ export default function Navbar() {
                   href="/login"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "sm" }),
-                    "text-[#45483d] hover:text-[#4f6231] hover:bg-[#f5f4ec]"
+                    "text-[#45483d] hover:text-[#4f6231] hover:bg-[#f5f4ec]",
                   )}
                 >
                   로그인
@@ -180,7 +170,7 @@ export default function Navbar() {
                   href="/signup"
                   className={cn(
                     buttonVariants({ size: "sm" }),
-                    "bg-[#4f6231] text-white hover:bg-[#677b47] rounded-full px-5"
+                    "bg-[#4f6231] text-white hover:bg-[#677b47] rounded-full px-5",
                   )}
                 >
                   회원가입
@@ -229,7 +219,7 @@ export default function Navbar() {
                         "text-base font-medium transition-colors",
                         isActive(link.href)
                           ? "text-[#4f6231]"
-                          : "text-[#45483d] hover:text-[#4f6231]"
+                          : "text-[#45483d] hover:text-[#4f6231]",
                       )}
                       onClick={() => setMobileOpen(false)}
                     >
@@ -250,7 +240,7 @@ export default function Navbar() {
                         onClick={() => setMobileOpen(false)}
                         className={cn(
                           buttonVariants({ variant: "outline" }),
-                          "w-full justify-center gap-2"
+                          "w-full justify-center gap-2",
                         )}
                       >
                         <Heart className="w-4 h-4" />
@@ -261,17 +251,21 @@ export default function Navbar() {
                         onClick={() => setMobileOpen(false)}
                         className={cn(
                           buttonVariants({ variant: "outline" }),
-                          "w-full justify-center gap-1.5"
+                          "w-full justify-center gap-1.5",
                         )}
                       >
                         마이페이지
                         {user?.role && (
-                          <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
-                            user.role === "FREELANCER"
-                              ? "bg-[#d3ebac] text-[#4f6231]"
-                              : "bg-[#f6d9d3] text-[#6f5a55]"
-                          }`}>
-                            {user.role === "FREELANCER" ? "프리랜서" : "예비부부"}
+                          <span
+                            className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
+                              user.role === "FREELANCER"
+                                ? "bg-[#d3ebac] text-[#4f6231]"
+                                : "bg-[#f6d9d3] text-[#6f5a55]"
+                            }`}
+                          >
+                            {user.role === "FREELANCER"
+                              ? "프리랜서"
+                              : "예비부부"}
                           </span>
                         )}
                       </Link>
@@ -289,7 +283,7 @@ export default function Navbar() {
                         onClick={() => setMobileOpen(false)}
                         className={cn(
                           buttonVariants({ variant: "outline" }),
-                          "w-full justify-center"
+                          "w-full justify-center",
                         )}
                       >
                         로그인
@@ -299,7 +293,7 @@ export default function Navbar() {
                         onClick={() => setMobileOpen(false)}
                         className={cn(
                           buttonVariants(),
-                          "w-full justify-center bg-[#4f6231] text-white hover:bg-[#677b47]"
+                          "w-full justify-center bg-[#4f6231] text-white hover:bg-[#677b47]",
                         )}
                       >
                         회원가입
