@@ -370,6 +370,18 @@ export default function JobDetailPage() {
             <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap break-words overflow-hidden">
               {post.content}
             </div>
+
+            {isAuthor && post.status === "CLOSED" && (
+              <div className="mt-6 p-4 bg-[#f5f4ec] rounded-xl">
+                <p className="text-sm text-[#45483d] mb-2">이 구인글은 마감되었습니다. 예약이 진행 중이라면 예약 관리에서 리뷰를 남길 수 있습니다.</p>
+                <Link
+                  href="/reservations"
+                  className="text-sm font-medium text-[#4f6231] hover:underline"
+                >
+                  예약 관리로 이동 →
+                </Link>
+              </div>
+            )}
           </div>
         ) : null}
 
@@ -462,14 +474,24 @@ export default function JobDetailPage() {
                           </div>
                         )}
                       {proposal.status === "ACCEPTED" && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleCancelAccept(proposal.id)}
-                          className="border-[#c5c8ba] text-[#45483d] hover:bg-[#f5f4ec] rounded-xl text-xs px-4"
-                        >
-                          수락 취소
-                        </Button>
+                        <div className="flex gap-2">
+                          <Link href="/reservations">
+                            <Button
+                              size="sm"
+                              className="bg-[#4f6231] hover:bg-[#3e4e27] text-white rounded-xl text-xs px-4"
+                            >
+                              예약 관리 / 리뷰 작성
+                            </Button>
+                          </Link>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleCancelAccept(proposal.id)}
+                            className="border-[#c5c8ba] text-[#45483d] hover:bg-[#f5f4ec] rounded-xl text-xs px-4"
+                          >
+                            수락 취소
+                          </Button>
+                        </div>
                       )}
                     </div>
                   </div>
