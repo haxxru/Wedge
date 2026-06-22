@@ -3,6 +3,7 @@ package com.wedge.backend.domain.recruit.service;
 import com.wedge.backend.domain.category.entity.Category;
 import com.wedge.backend.domain.category.repository.CategoryRepository;
 import com.wedge.backend.domain.member.entity.Member;
+import com.wedge.backend.domain.proposal.entity.ProposalStatus;
 import com.wedge.backend.domain.proposal.repository.ProposalRepository;
 import com.wedge.backend.domain.recruit.dto.RecruitPostRequest;
 import com.wedge.backend.domain.recruit.dto.RecruitPostResponse;
@@ -77,6 +78,9 @@ public class RecruitPostService {
     @Transactional
     public RecruitPostResponse changeStatus(Long postId, Member member, RecruitStatus status) {
         RecruitPost post = findMyPost(postId, member);
+        if (status == RecruitStatus.OPEN && proposalRepository.existsByRecruitPostAndStatus(post, ProposalStatus.ACCEPTED)) {
+            throw new IllegalStateException("이미 수락된 제안서가 있습니다. 제안서 수락을 취소한 후 재오픈해주세요.");
+        }
         post.changeStatus(status);
         return new RecruitPostResponse(post);
     }

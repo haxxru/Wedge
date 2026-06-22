@@ -112,6 +112,29 @@ public class ProposalService {
         return new ProposalResponse(proposal);
     }
 
+    @Transactional
+    public ProposalResponse cancelAcceptedProposal(Long proposalId, Member member) {
+        Proposal proposal = findProposal(proposalId);
+        RecruitPost recruitPost = proposal.getRecruitPost();
+
+        validateRecruitPostOwner(recruitPost, member);
+
+        if (proposal.getStatus() != ProposalStatus.ACCEPTED) {
+            throw new IllegalStateException("수락된 제안서만 취소할 수 있습니다.");
+        }
+
+        proposal.revertToSubmitted();
+
+        Reservation reservation = reservationRepository
+                .findByClientAndFreelancerProfile(recruitPost.getMember(), proposal.getFreelancerProfile())
+                .orElse(null);
+        if (reservation != null) {
+            reservationRepository.delete(reservation);
+        }
+
+        return new ProposalResponse(proposal);
+    }
+
     private Proposal findProposal(Long proposalId) {
         return proposalRepository.findById(proposalId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 제안서입니다."));
