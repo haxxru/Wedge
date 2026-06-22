@@ -19,7 +19,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -231,6 +231,11 @@ function SearchPageInner() {
 
   const handleSearch = () => setSubmittedKeyword(keyword);
 
+  const handleClearKeyword = () => {
+    setKeyword("");
+    setSubmittedKeyword("");
+  };
+
   return (
     <div className="flex flex-col min-h-full bg-[#fbf9f2]">
       {/* Header */}
@@ -243,13 +248,23 @@ function SearchPageInner() {
             당신의 특별한 기념일을 위한 엄선된 전문가들을 만나 보세요
           </p>
           <div className="mt-4 flex gap-2">
-            <Input
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="이름 또는 서비스를 검색하세요"
-              className="w-72 rounded-xl border-[#c5c8ba]"
-            />
+            <div className="relative w-72">
+              <Input
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                placeholder="이름 또는 서비스를 검색하세요"
+                className="rounded-xl border-[#c5c8ba] pr-9"
+              />
+              {keyword && (
+                <button
+                  onClick={handleClearKeyword}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#75786c] hover:text-[#1b1c18] transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
             <Button
               onClick={handleSearch}
               className="bg-[#4f6231] hover:bg-[#3d4c26] text-white rounded-xl"
