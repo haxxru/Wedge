@@ -170,7 +170,7 @@ export default function HomePage() {
                   onClick={handleSearch}
                   className={cn(
                     buttonVariants(),
-                    "bg-[#4f6231] text-white hover:bg-[#677b47] rounded-xl px-6 shrink-0",
+                    "bg-[#4f6231] text-white hover:bg-[#677b47] rounded-xl px-6 shrink-0 cursor-pointer",
                   )}
                 >
                   전문가 찾기
