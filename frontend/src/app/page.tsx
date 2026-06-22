@@ -203,8 +203,7 @@ export default function HomePage() {
 
       {/* 인기 전문가 캐러셀 섹션 */}
       {!isFeaturedLoading && featured.length > 0 && (
-        <section className="py-20 bg-white overflow-hidden relative">
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[#f5f4ec] rounded-t-[100px] -z-10 pointer-events-none" />
+        <section className="py-20 bg-[#fbf9f2] overflow-hidden relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
             <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
               이번 달 가장 사랑받은{" "}
@@ -301,7 +300,7 @@ export default function HomePage() {
                                 <>
                                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                                   <div className="absolute bottom-4 left-4 right-4">
-                                    <p className="text-[#f59e0b] text-xs font-medium mb-1">
+                                    <p className="text-white text-xs font-medium mb-1">
                                       {pro.title}
                                     </p>
                                     <h3 className="text-white font-bold text-base mb-1">
