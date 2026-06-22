@@ -15,7 +15,7 @@ export function getReservationValidationMessage(
   now = new Date(),
 ) {
   if (!selectedDate) {
-    return "예식 날짜를 선택해주세요.";
+    return "예약 날짜를 선택해주세요.";
   }
 
   if (selectedDate < getTodayDateString(now)) {
