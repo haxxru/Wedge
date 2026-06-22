@@ -56,6 +56,14 @@ public class ProposalController {
         return ResponseEntity.ok(proposalService.acceptProposal(id, getAuthenticatedMember(authentication)));
     }
 
+    @PatchMapping("/api/v1/proposals/{id}/cancel-accept")
+    @Operation(summary = "제안서 수락 취소", description = "구인글 작성자가 수락한 제안서를 취소하고 연결된 예약을 삭제합니다.")
+    public ResponseEntity<ProposalResponse> cancelAcceptedProposal(
+            @PathVariable Long id,
+            Authentication authentication) {
+        return ResponseEntity.ok(proposalService.cancelAcceptedProposal(id, getAuthenticatedMember(authentication)));
+    }
+
     @PatchMapping("/api/v1/proposals/{id}/reject")
     @Operation(summary = "제안서 거절", description = "구인글 작성자가 제안서를 거절합니다.")
     public ResponseEntity<ProposalResponse> rejectProposal(

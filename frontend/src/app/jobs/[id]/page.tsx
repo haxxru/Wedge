@@ -129,8 +129,36 @@ export default function JobDetailPage() {
         `${API_BASE_URL}/api/v1/jobs/${id}/status?status=${status}`,
         { method: "PATCH", headers: createAuthHeaders() },
       );
-      if (res.ok) setPost(await res.json());
-    } catch {}
+      if (res.ok) {
+        setPost(await res.json());
+      } else {
+        const data = await res.json().catch(() => null);
+        alert(data?.message ?? "상태 변경에 실패했습니다.");
+      }
+    } catch {
+      alert("상태 변경에 실패했습니다.");
+    }
+  };
+
+  const handleCancelAccept = async (proposalId: number) => {
+    if (!confirm("제안서 수락을 취소하시겠습니까? 연결된 예약도 삭제됩니다.")) return;
+    try {
+      const res = await authFetch(
+        `${API_BASE_URL}/api/v1/proposals/${proposalId}/cancel-accept`,
+        { method: "PATCH" },
+      );
+      if (res.ok) {
+        const updated = await res.json();
+        setProposals((prev) =>
+          prev.map((p) => (p.id === proposalId ? updated : p)),
+        );
+      } else {
+        const data = await res.json().catch(() => null);
+        alert(data?.message ?? "수락 취소에 실패했습니다.");
+      }
+    } catch {
+      alert("수락 취소에 실패했습니다.");
+    }
   };
 
   const handleSubmitProposal = async () => {
@@ -431,6 +459,16 @@ export default function JobDetailPage() {
                             </Button>
                           </div>
                         )}
+                      {proposal.status === "ACCEPTED" && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleCancelAccept(proposal.id)}
+                          className="border-[#c5c8ba] text-[#45483d] hover:bg-[#f5f4ec] rounded-xl text-xs px-4"
+                        >
+                          수락 취소
+                        </Button>
+                      )}
                     </div>
                   </div>
                 ))}

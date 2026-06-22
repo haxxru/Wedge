@@ -3,6 +3,7 @@ package com.wedge.backend.domain.recruit.service;
 import com.wedge.backend.domain.category.entity.Category;
 import com.wedge.backend.domain.category.repository.CategoryRepository;
 import com.wedge.backend.domain.member.entity.Member;
+import com.wedge.backend.domain.proposal.entity.ProposalStatus;
 import com.wedge.backend.domain.proposal.repository.ProposalRepository;
 import com.wedge.backend.domain.recruit.dto.RecruitPostRequest;
 import com.wedge.backend.domain.recruit.dto.RecruitPostResponse;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,22 +30,35 @@ public class RecruitPostService {
     @Transactional(readOnly = true)
     public Page<RecruitPostResponse> getRecruitPosts(Long categoryId, String region,
                                                      RecruitStatus status, Pageable pageable) {
-        return recruitPostRepository.findByFilters(categoryId, region, status, pageable)
-                .map(RecruitPostResponse::new);
+        Page<RecruitPost> posts = recruitPostRepository.findByFilters(categoryId, region, status, pageable);
+        List<RecruitPost> postList = posts.getContent();
+        Map<Long, Integer> countMap = buildProposalCountMap(postList);
+        return posts.map(post -> new RecruitPostResponse(post, countMap.getOrDefault(post.getId(), 0)));
     }
 
     @Transactional(readOnly = true)
     public RecruitPostResponse getRecruitPost(Long postId) {
         RecruitPost post = recruitPostRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 구인글입니다."));
-        return new RecruitPostResponse(post);
+        return new RecruitPostResponse(post, proposalRepository.countByRecruitPost(post));
     }
 
     @Transactional(readOnly = true)
     public List<RecruitPostResponse> getMyRecruitPosts(Long memberId) {
-        return recruitPostRepository.findByMemberIdOrderByCreatedAtDesc(memberId).stream()
-                .map(RecruitPostResponse::new)
+        List<RecruitPost> posts = recruitPostRepository.findByMemberIdOrderByCreatedAtDesc(memberId);
+        Map<Long, Integer> countMap = buildProposalCountMap(posts);
+        return posts.stream()
+                .map(post -> new RecruitPostResponse(post, countMap.getOrDefault(post.getId(), 0)))
                 .toList();
+    }
+
+    private Map<Long, Integer> buildProposalCountMap(List<RecruitPost> posts) {
+        if (posts.isEmpty()) return Map.of();
+        return proposalRepository.findByRecruitPostIn(posts).stream()
+                .collect(java.util.stream.Collectors.groupingBy(
+                        p -> p.getRecruitPost().getId(),
+                        java.util.stream.Collectors.collectingAndThen(java.util.stream.Collectors.counting(), Long::intValue)
+                ));
     }
 
     @Transactional
@@ -77,6 +92,9 @@ public class RecruitPostService {
     @Transactional
     public RecruitPostResponse changeStatus(Long postId, Member member, RecruitStatus status) {
         RecruitPost post = findMyPost(postId, member);
+        if (status == RecruitStatus.OPEN && proposalRepository.existsByRecruitPostAndStatus(post, ProposalStatus.ACCEPTED)) {
+            throw new IllegalStateException("이미 수락된 제안서가 있습니다. 제안서 수락을 취소한 후 재오픈해주세요.");
+        }
         post.changeStatus(status);
         return new RecruitPostResponse(post);
     }

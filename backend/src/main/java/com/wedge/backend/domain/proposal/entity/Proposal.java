@@ -59,4 +59,8 @@ public class Proposal extends BaseTimeEntity {
     public void reject() {
         this.status = ProposalStatus.REJECTED;
     }
+
+    public void revertToSubmitted() {
+        this.status = ProposalStatus.SUBMITTED;
+    }
 }

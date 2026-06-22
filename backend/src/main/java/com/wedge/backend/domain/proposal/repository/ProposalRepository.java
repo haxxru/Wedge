@@ -17,4 +17,10 @@ public interface ProposalRepository extends JpaRepository<Proposal, Long> {
     boolean existsByRecruitPostAndFreelancerProfile(RecruitPost recruitPost, FreelancerProfile freelancerProfile);
 
     long countByFreelancerProfileAndStatus(FreelancerProfile freelancerProfile, ProposalStatus status);
+
+    boolean existsByRecruitPostAndStatus(RecruitPost recruitPost, ProposalStatus status);
+
+    int countByRecruitPost(RecruitPost recruitPost);
+
+    List<Proposal> findByRecruitPostIn(List<RecruitPost> recruitPosts);
 }
