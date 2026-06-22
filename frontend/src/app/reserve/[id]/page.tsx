@@ -102,7 +102,7 @@ export default function ReservePage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-[#45483d]">
-                    예식 날짜
+                    예약 날짜
                   </Label>
                   <div className="relative">
                     <Input

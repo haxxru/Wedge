@@ -4,8 +4,10 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { API_BASE_URL, getAccessToken } from "@/lib/auth";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useUser } from "@/contexts/UserContext";
 
 type RecruitStatus = "OPEN" | "CLOSED";
 type Category = { id: number; name: string };
@@ -21,7 +23,9 @@ type RecruitPost = {
   weddingDate: string;
   status: RecruitStatus;
   region: string | null;
+  imageUrl: string | null;
   createdAt: string;
+  proposalCount: number;
 };
 
 
@@ -36,6 +40,9 @@ export default function JobsPage() {
   const [status, setStatus] = useState<RecruitStatus | null>("OPEN");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const { user, isLoading: isUserLoading } = useUser();
+  const isFreelancer = user?.role === "FREELANCER";
+
 
   useEffect(() => {
     setMounted(true);
@@ -99,10 +106,10 @@ export default function JobsPage() {
                 setCategoryId(null);
                 setPage(0);
               }}
-              className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all border ${
+              className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border ${
                 categoryId === null
-                  ? "bg-[#4f6231] text-white border-[#4f6231]"
-                  : "bg-white text-[#45483d] border-[#c5c8ba] hover:border-[#4f6231]"
+                  ? "bg-[#4f6231] text-white border-[#4f6231] shadow-sm"
+                  : "bg-white text-[#45483d] border-[#c5c8ba] hover:border-[#4f6231] hover:shadow-sm hover:brightness-95"
               }`}
             >
               전체
@@ -114,10 +121,10 @@ export default function JobsPage() {
                   setCategoryId(c.id);
                   setPage(0);
                 }}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all border ${
+                className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border ${
                   categoryId === c.id
-                    ? "bg-[#4f6231] text-white border-[#4f6231]"
-                    : "bg-white text-[#45483d] border-[#c5c8ba] hover:border-[#4f6231]"
+                    ? "bg-[#4f6231] text-white border-[#4f6231] shadow-sm"
+                    : "bg-white text-[#45483d] border-[#c5c8ba] hover:border-[#4f6231] hover:shadow-sm hover:brightness-95"
                 }`}
               >
                 {c.name}
@@ -217,13 +224,13 @@ export default function JobsPage() {
               </span>
             )}
           </p>
-          {isLoggedIn && (
-            <Link
-              href="/jobs/write"
-              className="text-sm font-medium text-white bg-[#4f6231] hover:bg-[#677b47] px-4 py-2 rounded-full transition-colors"
-            >
-              + 글쓰기
-            </Link>
+          {isLoggedIn && !isUserLoading && !isFreelancer && (
+              <Link
+                  href="/jobs/write"
+                  className="text-sm font-medium text-white bg-[#4f6231] hover:bg-[#677b47] px-4 py-2 rounded-full transition-colors"
+              >
+                + 글쓰기
+              </Link>
           )}
         </div>
 
@@ -240,22 +247,42 @@ export default function JobsPage() {
             <p className="text-[#75786c] text-sm">
               조건에 맞는 구인글이 없습니다.
             </p>
-            {isLoggedIn && (
-              <Link
-                href="/jobs/write"
-                className="text-sm text-[#4f6231] hover:underline font-medium"
-              >
-                첫 번째 구인글을 작성해보세요
-              </Link>
-            )}
+            {isLoggedIn &&
+                (isFreelancer ? (
+                    <span
+                        className="text-sm text-[#9aa08f] font-medium cursor-not-allowed"
+                        title="프리랜서는 구인글을 작성할 수 없습니다."
+                    >
+        첫 번째 구인글을 작성해보세요
+      </span>
+                ) : (
+                    <Link
+                        href="/jobs/write"
+                        className="text-sm text-[#4f6231] hover:underline font-medium"
+                    >
+                      첫 번째 구인글을 작성해보세요
+                    </Link>
+                ))}
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-h-[50vh]">
             {posts.map((post) => (
               <Link key={post.id} href={`/jobs/${post.id}`}>
                 <article
-                  className={`bg-white rounded-2xl border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.08)] hover:border-[#c5c8ba] transition-all cursor-pointer p-5 h-full flex flex-col ${post.status === "CLOSED" ? "opacity-60" : ""}`}
+                  className={`bg-white rounded-2xl border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.08)] hover:border-[#c5c8ba] transition-all cursor-pointer h-full flex flex-col overflow-hidden ${post.status === "CLOSED" ? "opacity-60" : ""}`}
                 >
+                  {post.imageUrl && (
+                    <div className="relative w-full h-40 shrink-0">
+                      <Image
+                        src={post.imageUrl}
+                        alt={post.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div className="flex gap-1.5 flex-wrap">
                       <Badge className="bg-[#d3ebac] text-[#4f6231] border-0 text-xs">
@@ -294,14 +321,25 @@ export default function JobsPage() {
                         {post.memberName}
                       </span>
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs text-[#75786c]">예산</p>
-                      <p className="text-sm font-semibold text-[#4f6231]">
-                        {post.budget != null
-                          ? `${post.budget.toLocaleString()}원`
-                          : "협의"}
-                      </p>
+                    <div className="flex items-center gap-4">
+                      {post.proposalCount > 0 && (
+                        <div className="flex items-center gap-1">
+                          <svg className="w-3.5 h-3.5 text-[#4f6231]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <span className="text-xs font-medium text-[#4f6231]">{post.proposalCount}명 지원</span>
+                        </div>
+                      )}
+                      <div className="text-right">
+                        <p className="text-xs text-[#75786c]">예산</p>
+                        <p className="text-sm font-semibold text-[#4f6231]">
+                          {post.budget != null
+                            ? `${post.budget.toLocaleString()}원`
+                            : "협의"}
+                        </p>
+                      </div>
                     </div>
+                  </div>
                   </div>
                 </article>
               </Link>

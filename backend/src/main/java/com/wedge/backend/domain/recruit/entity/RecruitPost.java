@@ -47,6 +47,9 @@ public class RecruitPost extends BaseTimeEntity {
     @Column(length = 100)
     private String region;
 
+    @Column(length = 1000)
+    private String imageUrl;
+
     public static RecruitPost create(Member member, String title, String content,
                                      Category category, Integer budget,
                                      LocalDate weddingDate, String region) {
@@ -69,6 +72,10 @@ public class RecruitPost extends BaseTimeEntity {
         this.budget = budget;
         if (weddingDate != null) this.weddingDate = weddingDate;
         this.region = region;
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void changeStatus(RecruitStatus status) {

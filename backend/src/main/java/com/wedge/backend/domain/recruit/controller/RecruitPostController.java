@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -71,6 +72,23 @@ public class RecruitPostController {
             Authentication authentication,
             @RequestParam RecruitStatus status) {
         return ResponseEntity.ok(recruitPostService.changeStatus(id, getAuthenticatedMember(authentication), status));
+    }
+
+    @PatchMapping("/{id}/image")
+    @Operation(summary = "구인글 이미지 업로드", description = "구인글에 이미지를 첨부합니다.")
+    public ResponseEntity<RecruitPostResponse> uploadImage(
+            @PathVariable Long id,
+            Authentication authentication,
+            @RequestParam("image") MultipartFile image) {
+        return ResponseEntity.ok(recruitPostService.uploadImage(id, getAuthenticatedMember(authentication), image));
+    }
+
+    @DeleteMapping("/{id}/image")
+    @Operation(summary = "구인글 이미지 삭제", description = "구인글 이미지를 삭제합니다.")
+    public ResponseEntity<RecruitPostResponse> deleteImage(
+            @PathVariable Long id,
+            Authentication authentication) {
+        return ResponseEntity.ok(recruitPostService.deleteImage(id, getAuthenticatedMember(authentication)));
     }
 
     @DeleteMapping("/{id}")

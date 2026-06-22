@@ -14,7 +14,7 @@ function LoginForm() {
   const router = useRouter();
   const { refreshUser } = useUser();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirect") || "/mypage";
+  const redirectTo = searchParams.get("redirect") || "/";
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -29,7 +29,7 @@ function OAuth2CallbackContent() {
       if (needsOnboarding) {
         router.replace("/select-role");
       } else {
-        router.replace("/mypage");
+        router.replace("/");
       }
       router.refresh();
     };

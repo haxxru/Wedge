@@ -144,12 +144,15 @@
   html {
     @apply font-sans h-full;
     overflow-x: hidden;
-    scrollbar-gutter: stable;
     overscroll-behavior-x: none;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground h-full;
     overflow-x: hidden;
+  }
+  button, [role="button"], a, [onclick], label[for], select, summary {
+    cursor: pointer;
   }
 }
 

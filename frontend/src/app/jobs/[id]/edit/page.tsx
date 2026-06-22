@@ -42,6 +42,11 @@ export default function JobEditPage() {
     fetch(`${API_BASE_URL}/api/v1/jobs/${id}`)
       .then((r) => r.json())
       .then((data) => {
+        if (data.status === "CLOSED") {
+          alert("마감된 구인글은 수정할 수 없습니다.");
+          router.push(`/jobs/${id}`);
+          return;
+        }
         setTitle(data.title ?? "");
         setContent(data.content ?? "");
         setCategoryId(data.categoryId ?? "");

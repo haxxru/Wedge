@@ -485,7 +485,7 @@ export default function PortfolioTab({
       {/* 포트폴리오 수정 모달 */}
       {editingPortfolio && (
         <div
-          className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4"
           onClick={() => setEditingPortfolio(null)}
         >
           <div

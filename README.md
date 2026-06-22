@@ -6,6 +6,7 @@
 > **프로젝트 기간** : 2026.06.11 ~ 2026.06.24  
 > **배포 URL** : [wedge-tawny.vercel.app](https://wedge-tawny.vercel.app)  
 > **API 문서** : [api.wedge.o-r.kr/swagger-ui.html](https://api.wedge.o-r.kr/swagger-ui.html)
+<img src="https://skillicons.dev/icons?i=nextjs,ts,tailwind,react,java,spring,mysql,redis,docker,aws,githubactions" />
 
 ---
 
@@ -27,8 +28,9 @@
 | 기능 | 설명 |
 |------|------|
 | **회원가입/로그인** | 이메일 인증(코드 발송) + 카카오/구글 소셜 로그인 |
+| **비밀번호 찾기** | 임시 비밀번호 이메일 발송 |
 | **역할 기반 접근** | 예비부부(CLIENT)와 프리랜서(FREELANCER) 역할 분리 |
-| **JWT 인증** | Access Token + Refresh Token 기반 인증, 자동 갱신 |
+| **JWT 인증** | Access Token + Refresh Token(RTR) 기반 인증, 자동 갱신 |
 
 ### 전문가 탐색 & 매칭
 | 기능 | 설명 |
@@ -54,11 +56,12 @@
 ### 구인 & 제안 상세
 | 기능 | 설명 |
 |------|------|
-| **구인글 작성** | 카테고리, 예산, 웨딩 예정일, 지역 등 조건 설정 |
+| **구인글 작성** | 카테고리, 예산, 웨딩 예정일, 지역, 이미지 첨부 |
 | **구인글 필터링** | 카테고리, 지역, 모집 상태(모집중/마감)별 필터 |
+| **지원자 수 표시** | 구인글 카드에 제안서 수 실시간 표시 |
 | **제안서 작성** | 프리랜서가 가격, 지역, 상세 내용으로 제안 |
-| **제안서 관리** | 수락/거절 처리, 내가 보낸 제안 목록 조회 |
-| **모집 상태 관리** | OPEN/CLOSED 상태 전환 |
+| **제안서 관리** | 수락/거절/수락 취소 처리, 내가 보낸 제안 목록 조회 |
+| **모집 상태 관리** | OPEN/CLOSED 상태 전환, 마감 시 수정 차단 |
 
 ### 커뮤니티
 | 기능 | 설명 |
@@ -149,7 +152,7 @@
                          (빌드&테스트) │
                                      │
        ─────────────────────────────-┘
-                          │  자동 sync (1h)
+                          │  자동 sync (30m)
                           ▼
        개인 포크 (Fork)
        ─────────────────
@@ -164,7 +167,7 @@
 | 단계 | 트리거 | 자동/수동 |
 |------|--------|-----------|
 | CI (빌드 & 테스트) | dev push / PR | 자동 |
-| 포크 동기화 | 1시간마다 | 자동 |
+| 포크 동기화 | 30분마다 | 자동 |
 | CD (Docker - AWS 배포) | main push | 자동 |
 | Vercel 프론트 배포 | main push | 자동 |
 
@@ -244,7 +247,8 @@ wedge/
 │
 ├── .github/workflows/
 │   ├── ci.yml                   # CI: 빌드 & 테스트
-│   └── cd.yml                   # CD: Docker Hub -> AWS 배포
+│   ├── cd.yml                   # CD: Docker Hub -> AWS 배포
+│   └── fork-sync.yml            # 포크 자동 동기화 (30분)
 │
 ├── docker-compose.yml           # 로컬 개발용
 ├── docker-compose.prod.yml      # 운영 배포용

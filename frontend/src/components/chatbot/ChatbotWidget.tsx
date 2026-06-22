@@ -18,8 +18,33 @@ export function ChatbotWidget() {
     sendMessage,
     resetChat,
   } = useChatbot();
-
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPortfolioOpen, setIsPortfolioOpen] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("portfolioModalOpen") === "true";
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleOpen = () => {
+      setIsPortfolioOpen(true);
+      sessionStorage.setItem("portfolioModalOpen", "true");
+    };
+
+    const handleClose = () => {
+      setIsPortfolioOpen(false);
+      sessionStorage.setItem("portfolioModalOpen", "false");
+    };
+
+    window.addEventListener("portfolioModalOpen", handleOpen);
+    window.addEventListener("portfolioModalClose", handleClose);
+
+    return () => {
+      window.removeEventListener("portfolioModalOpen", handleOpen);
+      window.removeEventListener("portfolioModalClose", handleClose);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,6 +68,8 @@ export function ChatbotWidget() {
       return () => timers.forEach(clearTimeout);
     }
   }, [isCompleted, estimate]);
+
+  if (isPortfolioOpen) return null;
 
   return (
     <>

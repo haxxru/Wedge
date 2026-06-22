@@ -129,8 +129,36 @@ export default function JobDetailPage() {
         `${API_BASE_URL}/api/v1/jobs/${id}/status?status=${status}`,
         { method: "PATCH", headers: createAuthHeaders() },
       );
-      if (res.ok) setPost(await res.json());
-    } catch {}
+      if (res.ok) {
+        setPost(await res.json());
+      } else {
+        const data = await res.json().catch(() => null);
+        alert(data?.message ?? "상태 변경에 실패했습니다.");
+      }
+    } catch {
+      alert("상태 변경에 실패했습니다.");
+    }
+  };
+
+  const handleCancelAccept = async (proposalId: number) => {
+    if (!confirm("제안서 수락을 취소하시겠습니까? 연결된 예약도 삭제됩니다.")) return;
+    try {
+      const res = await authFetch(
+        `${API_BASE_URL}/api/v1/proposals/${proposalId}/cancel-accept`,
+        { method: "PATCH" },
+      );
+      if (res.ok) {
+        const updated = await res.json();
+        setProposals((prev) =>
+          prev.map((p) => (p.id === proposalId ? updated : p)),
+        );
+      } else {
+        const data = await res.json().catch(() => null);
+        alert(data?.message ?? "수락 취소에 실패했습니다.");
+      }
+    } catch {
+      alert("수락 취소에 실패했습니다.");
+    }
   };
 
   const handleSubmitProposal = async () => {
@@ -177,7 +205,7 @@ export default function JobDetailPage() {
   const handleAcceptProposal = async (proposalId: number) => {
     if (
       !confirm(
-        "이 제안서를 수락하시겠습니까? 수락 시 예약이 자동 생성되고 구인글이 마감됩니다.",
+        "이 제안서를 수락하시겠습니까? 수락 시 구인글이 마감되고 제안서 상태가 수락으로 변경됩니다.",
       )
     )
       return;
@@ -272,15 +300,17 @@ export default function JobDetailPage() {
               </div>
               {isAuthor && (
                 <div className="flex flex-col gap-2 shrink-0">
-                  <Link href={`/jobs/${id}/edit`}>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full border-[#c5c8ba] text-[#45483d]"
-                    >
-                      수정
-                    </Button>
-                  </Link>
+                  {post.status === "OPEN" && (
+                    <Link href={`/jobs/${id}/edit`}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full border-[#c5c8ba] text-[#45483d]"
+                      >
+                        수정
+                      </Button>
+                    </Link>
+                  )}
                   <Button
                     variant="outline"
                     size="sm"
@@ -340,6 +370,18 @@ export default function JobDetailPage() {
             <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap break-words overflow-hidden">
               {post.content}
             </div>
+
+            {isAuthor && post.status === "CLOSED" && (
+              <div className="mt-6 p-4 bg-[#f5f4ec] rounded-xl">
+                <p className="text-sm text-[#45483d] mb-2">이 구인글은 마감되었습니다. 예약이 진행 중이라면 예약 관리에서 리뷰를 남길 수 있습니다.</p>
+                <Link
+                  href="/reservations"
+                  className="text-sm font-medium text-[#4f6231] hover:underline"
+                >
+                  예약 관리로 이동 →
+                </Link>
+              </div>
+            )}
           </div>
         ) : null}
 
@@ -431,6 +473,26 @@ export default function JobDetailPage() {
                             </Button>
                           </div>
                         )}
+                      {proposal.status === "ACCEPTED" && (
+                        <div className="flex gap-2">
+                          <Link href="/reservations">
+                            <Button
+                              size="sm"
+                              className="bg-[#4f6231] hover:bg-[#3e4e27] text-white rounded-xl text-xs px-4"
+                            >
+                              예약 관리 / 리뷰 작성
+                            </Button>
+                          </Link>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleCancelAccept(proposal.id)}
+                            className="border-[#c5c8ba] text-[#45483d] hover:bg-[#f5f4ec] rounded-xl text-xs px-4"
+                          >
+                            수락 취소
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}

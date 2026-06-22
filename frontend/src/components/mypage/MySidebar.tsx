@@ -1,9 +1,11 @@
 "use client";
 
 import { useUser } from "@/contexts/UserContext";
+import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 import { getRoleTheme, ROLE_LABEL } from "@/lib/roleTheme";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface MySidebarProps {
   onLogout: () => void;
@@ -11,6 +13,23 @@ interface MySidebarProps {
 
 export default function MySidebar({ onLogout }: MySidebarProps) {
   const { user } = useUser();
+  const [totalProposalCount, setTotalProposalCount] = useState(0);
+
+  useEffect(() => {
+    if (user?.role === "CLIENT") {
+      fetch(`${API_BASE_URL}/api/v1/members/me/jobs`, {
+        headers: createAuthHeaders(),
+      })
+        .then((res) => (res.ok ? res.json() : []))
+        .then((posts: { proposalCount?: number; status?: string }[]) => {
+          const total = posts
+            .filter((p) => p.status === "OPEN")
+            .reduce((sum, p) => sum + (p.proposalCount ?? 0), 0);
+          setTotalProposalCount(total);
+        })
+        .catch(() => {});
+    }
+  }, [user?.role]);
 
   const name = user?.name ?? "";
   const email = user?.email ?? "";
@@ -21,13 +40,29 @@ export default function MySidebar({ onLogout }: MySidebarProps) {
     role === "FREELANCER" && !freelancerProfileId;
   const { badgeClass, avatarBgClass, avatarTextClass } = getRoleTheme(role);
 
-  const allMenu = [
+  const allMenu: {
+    icon: string;
+    label: string;
+    href: string;
+    badge?: number;
+  }[] = [
     { icon: "👤", label: "회원 정보 수정", href: "/mypage?tab=info" },
-    { icon: "📅", label: "예약 현황", href: "/reservations" },
-    { icon: "🔖", label: "관심 프리랜서", href: "/bookmarks" },
+    {
+      icon: "📅",
+      label: role === "FREELANCER" ? "예약 관리" : "예약 현황",
+      href: "/reservations",
+    },
+    { icon: "🔖", label: "찜목록", href: "/bookmarks" },
     { icon: "⭐", label: "리뷰 내역", href: "/mypage?tab=reviews" },
     ...(role !== "FREELANCER"
-      ? [{ icon: "📝", label: "내 구인글", href: "/mypage/posts" }]
+      ? [
+          {
+            icon: "📝",
+            label: "내 구인글",
+            href: "/mypage/posts",
+            badge: totalProposalCount || undefined,
+          },
+        ]
       : []),
     ...(role !== "CLIENT"
       ? [{ icon: "📩", label: "내 제안서", href: "/mypage/proposals" }]
@@ -143,7 +178,12 @@ export default function MySidebar({ onLogout }: MySidebarProps) {
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors text-[#45483d] hover:bg-[#f5f4ec] hover:text-[#4f6231]"
             >
               <span>{item.icon}</span>
-              {item.label}
+              <span className="flex-1">{item.label}</span>
+              {item.badge != null && item.badge > 0 && (
+                <span className="bg-[#4f6231] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {item.badge > 99 ? "99+" : item.badge}
+                </span>
+              )}
             </Link>
           ))}
         </nav>

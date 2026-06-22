@@ -13,6 +13,9 @@ export function PageTransition({ children }: { readonly children: React.ReactNod
       isFirstRender.current = false;
       return;
     }
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     setEntering(false);
     const id = requestAnimationFrame(() => setEntering(true));
     return () => cancelAnimationFrame(id);

@@ -19,6 +19,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -60,18 +61,40 @@ const SORT_OPTIONS = [
   { value: "POPULAR", label: "인기순" },
 ];
 
+const PAGE_SIZE = 12;
+
 const categories = Object.values(CATEGORY);
+
+function getPaginationRange(
+  current: number,
+  total: number,
+): (number | "ellipsis")[] {
+  const delta = 2;
+  const range: (number | "ellipsis")[] = [1];
+  const left = Math.max(2, current - delta);
+  const right = Math.min(total - 1, current + delta);
+
+  if (left > 2) range.push("ellipsis");
+  for (let i = left; i <= right; i++) range.push(i);
+  if (right < total - 1) range.push("ellipsis");
+  if (total > 1) range.push(total);
+
+  return range;
+}
 
 async function fetchFreelancers(params: {
   keyword: string;
   sortType: string;
   categoryId: number | null;
+  page: number;
 }): Promise<FreelancerListResponse> {
   const query = new URLSearchParams();
   if (params.keyword) query.append("keyword", params.keyword);
   if (params.sortType !== "ALL") query.append("sortType", params.sortType);
   if (params.categoryId !== null)
     query.append("categoryId", String(params.categoryId));
+  query.append("page", String(params.page));
+  query.append("size", String(PAGE_SIZE));
 
   const res = await fetch(
     `${API_BASE_URL}/api/freelancers?${query.toString()}`,
@@ -117,6 +140,7 @@ function SearchPageInner() {
   const [submittedKeyword, setSubmittedKeyword] = useState(
     searchParams.get("keyword") ?? "",
   );
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const categoryId = searchParams.get("categoryId");
@@ -129,19 +153,32 @@ function SearchPageInner() {
     setSubmittedKeyword(kw);
   }, [searchParams]);
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPage(0);
+  }, [submittedKeyword, sortType, selectedCategoryId]);
+
   const { data, isLoading, isPlaceholderData } = useQuery({
-    queryKey: ["freelancers", submittedKeyword, sortType, selectedCategoryId],
+    queryKey: [
+      "freelancers",
+      submittedKeyword,
+      sortType,
+      selectedCategoryId,
+      page,
+    ],
     queryFn: () =>
       fetchFreelancers({
         keyword: submittedKeyword,
         sortType,
         categoryId: selectedCategoryId,
+        page,
       }),
     placeholderData: keepPreviousData,
   });
 
   const freelancers = data?.content ?? [];
   const totalElements = data?.totalElements ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalElements / PAGE_SIZE));
 
   const { data: bookmarkData } = useQuery({
     queryKey: ["bookmarks"],
@@ -194,6 +231,11 @@ function SearchPageInner() {
 
   const handleSearch = () => setSubmittedKeyword(keyword);
 
+  const handleClearKeyword = () => {
+    setKeyword("");
+    setSubmittedKeyword("");
+  };
+
   return (
     <div className="flex flex-col min-h-full bg-[#fbf9f2]">
       {/* Header */}
@@ -206,13 +248,23 @@ function SearchPageInner() {
             당신의 특별한 기념일을 위한 엄선된 전문가들을 만나 보세요
           </p>
           <div className="mt-4 flex gap-2">
-            <Input
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="이름 또는 서비스를 검색하세요"
-              className="w-72 rounded-xl border-[#c5c8ba]"
-            />
+            <div className="relative w-72">
+              <Input
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                placeholder="이름 또는 서비스를 검색하세요"
+                className="rounded-xl border-[#c5c8ba] pr-9"
+              />
+              {keyword && (
+                <button
+                  onClick={handleClearKeyword}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#75786c] hover:text-[#1b1c18] transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
             <Button
               onClick={handleSearch}
               className="bg-[#4f6231] hover:bg-[#3d4c26] text-white rounded-xl"
@@ -229,10 +281,10 @@ function SearchPageInner() {
           <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1">
             <button
               onClick={() => setSelectedCategoryId(null)}
-              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                 selectedCategoryId === null
-                  ? "bg-[#4f6231] text-white"
-                  : "bg-[#f5f4ec] text-[#45483d] hover:bg-[#efeee7]"
+                  ? "bg-[#4f6231] text-white shadow-sm"
+                  : "bg-[#f5f4ec] text-[#45483d] hover:bg-[#e9e8e1] hover:shadow-sm hover:brightness-95"
               }`}
             >
               전체
@@ -241,10 +293,10 @@ function SearchPageInner() {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategoryId(category.id)}
-                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   selectedCategoryId === category.id
-                    ? "bg-[#4f6231] text-white"
-                    : "bg-[#f5f4ec] text-[#45483d] hover:bg-[#efeee7]"
+                    ? "bg-[#4f6231] text-white shadow-sm"
+                    : "bg-[#f5f4ec] text-[#45483d] hover:bg-[#e9e8e1] hover:shadow-sm hover:brightness-95"
                 }`}
               >
                 {category.name}
@@ -313,95 +365,146 @@ function SearchPageInner() {
             </Button>
           </div>
         ) : (
-          <div
-            className={cn(
-              "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5",
-              "transition-opacity duration-300",
-              isPlaceholderData && "opacity-50 pointer-events-none",
-            )}
-          >
-            {freelancers.map((pro) => (
-              <Link
-                key={pro.id}
-                href={`/profile/${pro.id}`}
-                className="block animate-in fade-in duration-500"
-              >
-                <Card className="group overflow-hidden border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.1)] transition-all rounded-2xl cursor-pointer p-0 gap-0">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-[#f5f4ec] flex items-center justify-center">
-                    {pro.portfolioImageUrl ? (
-                      <Image
-                        src={pro.portfolioImageUrl}
-                        alt={`${pro.memberName} 포트폴리오`}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    ) : (
-                      <span className="text-[#75786c] text-sm">
-                        이미지 없음
-                      </span>
-                    )}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        bookmarkMutation.mutate(pro.id);
-                      }}
-                      className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition-colors"
-                    >
-                      <svg
-                        className={`w-4 h-4 ${bookmarked.has(pro.id) ? "fill-[#6f5a55] text-[#6f5a55]" : "text-[#75786c]"}`}
-                        fill={bookmarked.has(pro.id) ? "currentColor" : "none"}
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+          <>
+            <div
+              className={cn(
+                "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5",
+                "transition-opacity duration-300",
+                isPlaceholderData && "opacity-50 pointer-events-none",
+              )}
+            >
+              {freelancers.map((pro) => (
+                <Link
+                  key={pro.id}
+                  href={`/profile/${pro.id}`}
+                  className="block animate-in fade-in duration-500"
+                >
+                  <Card className="group overflow-hidden border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.1)] transition-all rounded-2xl cursor-pointer p-0 gap-0">
+                    <div className="relative aspect-[4/5] overflow-hidden bg-[#f5f4ec] flex items-center justify-center">
+                      {pro.portfolioImageUrl ? (
+                        <Image
+                          src={pro.portfolioImageUrl}
+                          alt={`${pro.memberName} 포트폴리오`}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      ) : (
+                        <span className="text-[#75786c] text-sm">
+                          이미지 없음
+                        </span>
+                      )}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          bookmarkMutation.mutate(pro.id);
+                        }}
+                        className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition-colors"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <CardContent className="p-4">
-                    <p className="font-semibold text-[#1b1c18] text-sm mb-0.5">
-                      {pro.title}
-                    </p>
-                    <p className="text-xs text-[#75786c] mb-2">
-                      {pro.memberName}
-                    </p>
-                    <div className="flex items-center gap-1 mb-3">
-                      <svg
-                        className="w-3 h-3 text-[#75786c]"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                      </svg>
-                      <span className="text-xs text-[#75786c]">
-                        {pro.region}
-                      </span>
+                        <svg
+                          className={`w-4 h-4 ${bookmarked.has(pro.id) ? "fill-[#6f5a55] text-[#6f5a55]" : "text-[#75786c]"}`}
+                          fill={
+                            bookmarked.has(pro.id) ? "currentColor" : "none"
+                          }
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                          />
+                        </svg>
+                      </button>
                     </div>
-                    <span className="text-sm font-semibold text-[#4f6231]">
-                      {pro.price ? `₩${pro.price.toLocaleString()}~` : "협의"}
+                    <CardContent className="p-4">
+                      <p className="font-semibold text-[#1b1c18] text-sm mb-0.5">
+                        {pro.title}
+                      </p>
+                      <p className="text-xs text-[#75786c] mb-2">
+                        {pro.memberName}
+                      </p>
+                      <div className="flex items-center gap-1 mb-3">
+                        <svg
+                          className="w-3 h-3 text-[#75786c]"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                        <span className="text-xs text-[#75786c]">
+                          {pro.region}
+                        </span>
+                      </div>
+                      <span className="text-sm font-semibold text-[#4f6231]">
+                        {pro.price ? `₩${pro.price.toLocaleString()}~` : "협의"}
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            {/* 페이지네이션 */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-1 mt-10">
+                <button
+                  onClick={() => setPage((p) => Math.max(0, p - 1))}
+                  disabled={page === 0}
+                  className="w-9 h-9 flex items-center justify-center rounded-full text-[#45483d] hover:bg-[#f5f4ec] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                {getPaginationRange(page + 1, totalPages).map((item, idx) =>
+                  item === "ellipsis" ? (
+                    <span
+                      key={`ellipsis-${idx}`}
+                      className="px-1 text-[#75786c] text-sm"
+                    >
+                      ...
                     </span>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+                  ) : (
+                    <button
+                      key={item}
+                      onClick={() => setPage(item - 1)}
+                      className={cn(
+                        "w-9 h-9 rounded-full text-sm font-medium transition-colors",
+                        item === page + 1
+                          ? "bg-[#4f6231] text-white"
+                          : "text-[#45483d] hover:bg-[#f5f4ec]",
+                      )}
+                    >
+                      {item}
+                    </button>
+                  ),
+                )}
+
+                <button
+                  onClick={() =>
+                    setPage((p) => Math.min(totalPages - 1, p + 1))
+                  }
+                  disabled={page >= totalPages - 1}
+                  className="w-9 h-9 flex items-center justify-center rounded-full text-[#45483d] hover:bg-[#f5f4ec] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

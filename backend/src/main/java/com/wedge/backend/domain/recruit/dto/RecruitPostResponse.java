@@ -22,10 +22,16 @@ public class RecruitPostResponse {
     private final LocalDate weddingDate;
     private final RecruitStatus status;
     private final String region;
+    private final String imageUrl;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
+    private final int proposalCount;
 
     public RecruitPostResponse(RecruitPost post) {
+        this(post, 0);
+    }
+
+    public RecruitPostResponse(RecruitPost post, int proposalCount) {
         this.id = post.getId();
         this.memberId = post.getMember().getId();
         this.memberName = post.getMember().getName();
@@ -38,7 +44,9 @@ public class RecruitPostResponse {
         this.weddingDate = post.getWeddingDate();
         this.status = post.getStatus();
         this.region = post.getRegion();
+        this.imageUrl = post.getImageUrl();
         this.createdAt = post.getCreatedAt();
         this.updatedAt = post.getUpdatedAt();
+        this.proposalCount = proposalCount;
     }
 }
