@@ -97,7 +97,7 @@ export default function Navbar() {
                         ? "bg-[#d3ebac] text-[#4f6231]"
                         : "bg-[#f6d9d3] text-[#6f5a55]"
                     }`}>
-                      {user.role === "FREELANCER" ? "전문가" : "커플"}
+                      {user.role === "FREELANCER" ? "프리랜서" : "예비부부"}
                     </span>
                   )}
                 </Link>
@@ -211,7 +211,7 @@ export default function Navbar() {
                               ? "bg-[#d3ebac] text-[#4f6231]"
                               : "bg-[#f6d9d3] text-[#6f5a55]"
                           }`}>
-                            {user.role === "FREELANCER" ? "전문가" : "커플"}
+                            {user.role === "FREELANCER" ? "프리랜서" : "예비부부"}
                           </span>
                         )}
                       </Link>
