@@ -23,6 +23,7 @@ type RecruitPost = {
   status: RecruitStatus;
   region: string | null;
   createdAt: string;
+  proposalCount: number;
 };
 
 
@@ -306,13 +307,23 @@ export default function JobsPage() {
                         {post.memberName}
                       </span>
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs text-[#75786c]">예산</p>
-                      <p className="text-sm font-semibold text-[#4f6231]">
-                        {post.budget != null
-                          ? `${post.budget.toLocaleString()}원`
-                          : "협의"}
-                      </p>
+                    <div className="flex items-center gap-4">
+                      {post.proposalCount > 0 && (
+                        <div className="flex items-center gap-1">
+                          <svg className="w-3.5 h-3.5 text-[#4f6231]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <span className="text-xs font-medium text-[#4f6231]">{post.proposalCount}명 지원</span>
+                        </div>
+                      )}
+                      <div className="text-right">
+                        <p className="text-xs text-[#75786c]">예산</p>
+                        <p className="text-sm font-semibold text-[#4f6231]">
+                          {post.budget != null
+                            ? `${post.budget.toLocaleString()}원`
+                            : "협의"}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </article>
