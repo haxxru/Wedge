@@ -236,7 +236,11 @@ export default function HomePage() {
                 grabCursor={true}
                 centeredSlides={true}
                 loop={true}
-                autoplay={{ delay: 4000, disableOnInteraction: false }}
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
                 initialSlide={Math.floor(featured.length / 2)}
                 spaceBetween={16}
                 breakpoints={{
