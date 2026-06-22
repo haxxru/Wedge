@@ -46,7 +46,7 @@ public class ReviewController {
             Authentication authentication,
             @PathVariable Long reservationId,
             @RequestBody ReviewRequestDto request) {
-        Long memberId = Long.parseLong(authentication.getName());
+        Long memberId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(reviewService.createReview(memberId, reservationId, request));
     }
 
@@ -55,7 +55,7 @@ public class ReviewController {
     public ResponseEntity<ReviewResponseDto> getReservationReview(
             Authentication authentication,
             @PathVariable Long reservationId) {
-        Long memberId = Long.parseLong(authentication.getName());
+        Long memberId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(reviewService.getReservationReview(memberId, reservationId));
     }
 
@@ -65,7 +65,7 @@ public class ReviewController {
             Authentication authentication,
             @PathVariable Long reservationId,
             @RequestBody ReviewRequestDto request) {
-        Long memberId = Long.parseLong(authentication.getName());
+        Long memberId = (Long) authentication.getPrincipal();
         return ResponseEntity.ok(reviewService.updateReservationReview(memberId, reservationId, request));
     }
 

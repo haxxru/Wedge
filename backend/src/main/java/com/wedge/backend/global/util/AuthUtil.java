@@ -20,7 +20,7 @@ public class AuthUtil {
                 || authentication.getPrincipal().equals("anonymousUser")) {
             throw new IllegalArgumentException("인증이 필요합니다.");
         }
-        Long memberId = Long.parseLong(authentication.getName());
+        Long memberId = (Long) authentication.getPrincipal();
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     }
