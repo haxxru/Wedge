@@ -190,7 +190,7 @@ export default function CommunityPage() {
               >
                 <article className="bg-white rounded-2xl border border-[#efeee7] hover:shadow-[0px_4px_20px_rgba(108,129,76,0.08)] hover:border-[#c5c8ba] transition-all cursor-pointer flex overflow-hidden min-h-[160px]">
                   {post.imageUrl && (
-                    <div className="relative w-36 sm:w-48 h-40 shrink-0">
+                    <div className="relative w-36 sm:w-48 shrink-0 self-stretch">
                       <Image
                         src={post.imageUrl}
                         alt={post.title}
