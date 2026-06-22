@@ -32,6 +32,7 @@ interface FreelancerInfo {
   reviewCount: number;
   categoryName: string;
   region: string;
+  memberImageUrl: string;
 }
 
 export default function PortfoliosPage({
@@ -100,6 +101,7 @@ export default function PortfoliosPage({
           reviewCount: profileData.reviewCount,
           categoryName: profileData.categoryName,
           region: profileData.region,
+          memberImageUrl: profileData.memberImageUrl || "",
         });
         setPortfolios(portfolioData);
         if (meData) setCurrentMemberId(meData.id);
@@ -136,7 +138,10 @@ export default function PortfoliosPage({
           <div className="flex items-center gap-4">
             <div className="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-[#efeee7] shrink-0">
               <Image
-                src="https://picsum.photos/seed/elena/400/400"
+                src={
+                  freelancer?.memberImageUrl ||
+                  "https://picsum.photos/seed/elena/400/400"
+                }
                 alt={freelancer?.title || "프리랜서"}
                 fill
                 className="object-cover"
