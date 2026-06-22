@@ -308,6 +308,7 @@ export default function ChatRoomPage({
 
       clientRef.current.publish({
         destination: "/pub/chat.send",
+        headers: { Authorization: `Bearer ${getAccessToken() ?? ""}` },
         body: JSON.stringify({ roomId: numericRoomId, content }),
       });
 
