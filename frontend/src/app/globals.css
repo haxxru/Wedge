@@ -146,6 +146,7 @@
     overflow-x: hidden;
     scrollbar-gutter: stable;
     overscroll-behavior-x: none;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground h-full;
