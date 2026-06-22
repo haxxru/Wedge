@@ -92,16 +92,40 @@ export default function CommunityPage() {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const params = new URLSearchParams();
-        if (activeType) params.append("type", activeType);
-        params.append("page", String(page));
-        params.append("size", "10");
-        const res = await fetch(
-          `${API_BASE_URL}/api/v1/posts?${params.toString()}`,
-        );
-        const data = await res.json();
-        setPosts(data.content ?? []);
-        setTotalPages(data.totalPages ?? 0);
+        let allContent: Post[] = [];
+        let totalPagesResult = 0;
+
+        if (activeType) {
+          const params = new URLSearchParams();
+          params.append("type", activeType);
+          params.append("page", String(page));
+          params.append("size", "10");
+          const res = await fetch(
+            `${API_BASE_URL}/api/v1/posts?${params.toString()}`,
+          );
+          const data = await res.json();
+          allContent = data.content ?? [];
+          totalPagesResult = data.totalPages ?? 0;
+        } else {
+          const types: PostType[] = ["WEDDING_REVIEW", "TIP", "BOARD"];
+          const results = await Promise.all(
+            types.map((t) =>
+              fetch(`${API_BASE_URL}/api/v1/posts?type=${t}&page=0&size=100`)
+                .then((r) => r.json())
+                .then((d) => (d.content ?? []) as Post[])
+                .catch(() => [] as Post[])
+            ),
+          );
+          const merged = results.flat().sort(
+            (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+          const start = page * 10;
+          allContent = merged.slice(start, start + 10);
+          totalPagesResult = Math.ceil(merged.length / 10);
+        }
+
+        setPosts(allContent);
+        setTotalPages(totalPagesResult);
       } catch (e) {
         console.error("게시글 목록 조회 실패", e);
       } finally {
