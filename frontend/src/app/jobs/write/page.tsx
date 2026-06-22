@@ -8,6 +8,10 @@ import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {
+  getJobWeddingDateValidationMessage,
+  getTodayDateString,
+} from "../job-date-utils.js";
 
 type Category = { id: number; name: string };
 
@@ -33,6 +37,7 @@ export default function JobsWritePage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const minWeddingDate = getTodayDateString();
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/categories`)
@@ -49,6 +54,11 @@ export default function JobsWritePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    const validationMessage = getJobWeddingDateValidationMessage(weddingDate);
+    if (validationMessage !== null) {
+      setError(validationMessage);
+      return;
+    }
     setIsSubmitting(true);
 
     try {
@@ -238,6 +248,7 @@ export default function JobsWritePage() {
                   type="date"
                   value={weddingDate}
                   onChange={(e) => setWeddingDate(e.target.value)}
+                  min={minWeddingDate}
                   required
                   className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] text-[#1b1c18]"
                 />
