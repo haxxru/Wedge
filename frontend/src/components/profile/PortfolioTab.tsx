@@ -199,7 +199,7 @@ export default function PortfolioTab({
       {/* 팝업 */}
       {selectedPortfolio && selectedIndex !== null && (
         <div
-          className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4"
           onClick={() => setSelectedIndex(null)}
         >
           <div
