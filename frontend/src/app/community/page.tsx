@@ -4,8 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/contexts/UserContext";
-import { getRoleTheme } from "@/lib/roleTheme";
 import { API_BASE_URL, getAccessToken } from "@/lib/auth";
+import { getRoleTheme } from "@/lib/roleTheme";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -44,7 +44,6 @@ const typeColor: Record<PostType, string> = {
   BOARD: "bg-[#efeee7] text-[#45483d]",
 };
 
-
 function MemberAvatar({
   post,
   currentUser,
@@ -60,12 +59,9 @@ function MemberAvatar({
   const isMyPost =
     currentUser !== null && Number(currentUser.id) === Number(post.memberId);
   const imageUrl =
-    post.memberImageUrl ||
-    (isMyPost ? currentUser?.profileImageUrl : null);
+    post.memberImageUrl || (isMyPost ? currentUser?.profileImageUrl : null);
   const roleForTheme = post.memberRole ?? (isMyPost ? currentUser.role : null);
-  const { avatarBgClass, avatarTextClass } = getRoleTheme(
-    roleForTheme,
-  );
+  const { avatarBgClass, avatarTextClass } = getRoleTheme(roleForTheme);
 
   return (
     <Avatar className="w-7 h-7">
