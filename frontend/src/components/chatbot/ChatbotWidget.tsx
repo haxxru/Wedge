@@ -9,6 +9,7 @@ import { ChatbotToggleButton } from "./ChatbotToggleButton";
 
 export function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
   const {
     messages,
     currentQuickReplies,
@@ -20,6 +21,17 @@ export function ChatbotWidget() {
   } = useChatbot();
 
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOpen = () => setIsPortfolioOpen(true);
+    const handleClose = () => setIsPortfolioOpen(false);
+    window.addEventListener("portfolioModalOpen", handleOpen);
+    window.addEventListener("portfolioModalClose", handleClose);
+    return () => {
+      window.removeEventListener("portfolioModalOpen", handleOpen);
+      window.removeEventListener("portfolioModalClose", handleClose);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,6 +55,8 @@ export function ChatbotWidget() {
       return () => timers.forEach(clearTimeout);
     }
   }, [isCompleted, estimate]);
+
+  if (isPortfolioOpen) return null;
 
   return (
     <>

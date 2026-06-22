@@ -58,12 +58,12 @@ const platformValues = [
 
 const platformFeatures = [
   {
-    bg: "#e8edd6",
-    img: "/icons/card1-freelancer.svg",
-    title: "프리랜서가 나를 찾아옵니다",
-    desc: "원하는 조건과 예산을 올리면\n관심 있는 프리랜서가 직접 제안서를 보내 드려요.\n여러 제안을 비교하고 최적의 전문가를 선택하세요.",
-    cta: "구인글 올리기",
-    href: "/jobs",
+    bg: "#e6ede3",
+    img: "/icons/card3-ai-quote.svg",
+    title: "AI로 사전 견적을 받아 보세요",
+    desc: "원하는 서비스와 예산을 입력하면\nAI가 맞춤 견적을 먼저 제안해드려요.\n견적 후 바로 전문가 탐색까지 연결됩니다.",
+    cta: "전문가 탐색하기",
+    href: "/search",
   },
   {
     bg: "#fdf3e7",
@@ -74,12 +74,12 @@ const platformFeatures = [
     href: "/community",
   },
   {
-    bg: "#e6ede3",
-    img: "/icons/card3-ai-quote.svg",
-    title: "AI로 사전 견적을 받아 보세요",
-    desc: "원하는 서비스와 예산을 입력하면\nAI가 맞춤 견적을 먼저 제안해드려요.\n견적 후 바로 전문가 탐색까지 연결됩니다.",
-    cta: "전문가 탐색하기",
-    href: "/search",
+    bg: "#e8edd6",
+    img: "/icons/card1-freelancer.svg",
+    title: "프리랜서가 나를 찾아옵니다",
+    desc: "원하는 조건과 예산을 올리면\n관심 있는 프리랜서가 직접 제안서를 보내 드려요.\n여러 제안을 비교하고 최적의 전문가를 선택하세요.",
+    cta: "구인글 올리기",
+    href: "/jobs",
   },
 ];
 
@@ -120,7 +120,8 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-full bg-[#fbf9f2]">
       {/* 히어로 섹션 */}
-      <section className="relative pt-16 pb-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {" "}
         <div className="absolute inset-0">
           <Image
             src="/hero.jpg"
@@ -170,7 +171,7 @@ export default function HomePage() {
                   onClick={handleSearch}
                   className={cn(
                     buttonVariants(),
-                    "bg-[#4f6231] text-white hover:bg-[#677b47] rounded-xl px-6 shrink-0",
+                    "bg-[#4f6231] text-white hover:bg-[#677b47] rounded-xl px-6 shrink-0 cursor-pointer",
                   )}
                 >
                   전문가 찾기
@@ -203,8 +204,7 @@ export default function HomePage() {
 
       {/* 인기 전문가 캐러셀 섹션 */}
       {!isFeaturedLoading && featured.length > 0 && (
-        <section className="py-20 bg-white overflow-hidden relative">
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[#f5f4ec] rounded-t-[100px] -z-10 pointer-events-none" />
+        <section className="py-20 bg-[#fbf9f2] overflow-hidden relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
             <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-semibold text-[#1b1c18]">
               이번 달 가장 사랑받은{" "}
@@ -237,7 +237,11 @@ export default function HomePage() {
                 grabCursor={true}
                 centeredSlides={true}
                 loop={true}
-                autoplay={{ delay: 4000, disableOnInteraction: false }}
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
                 initialSlide={Math.floor(featured.length / 2)}
                 spaceBetween={16}
                 breakpoints={{
@@ -301,7 +305,7 @@ export default function HomePage() {
                                 <>
                                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                                   <div className="absolute bottom-4 left-4 right-4">
-                                    <p className="text-[#f59e0b] text-xs font-medium mb-1">
+                                    <p className="text-white text-xs font-medium mb-1">
                                       {pro.title}
                                     </p>
                                     <h3 className="text-white font-bold text-base mb-1">
