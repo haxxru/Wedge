@@ -144,7 +144,6 @@
   html {
     @apply font-sans h-full;
     overflow-x: hidden;
-    scrollbar-gutter: stable;
     overscroll-behavior-x: none;
     scroll-behavior: smooth;
   }
