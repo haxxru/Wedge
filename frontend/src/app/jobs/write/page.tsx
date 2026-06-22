@@ -29,6 +29,8 @@ export default function JobsWritePage() {
   const [budget, setBudget] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
   const [region, setRegion] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -68,6 +70,18 @@ export default function JobsWritePage() {
       if (!res.ok) {
         const data = await res.json().catch(() => null);
         throw new Error(data?.message ?? "구인글 등록에 실패했습니다.");
+      }
+
+      const { postId } = await res.json();
+
+      if (imageFile && postId) {
+        const formData = new FormData();
+        formData.append("image", imageFile);
+        await fetch(`${API_BASE_URL}/api/v1/jobs/${postId}/image`, {
+          method: "PATCH",
+          headers: createAuthHeaders(),
+          body: formData,
+        });
       }
 
       router.push("/mypage/posts");
@@ -248,6 +262,46 @@ export default function JobsWritePage() {
                 placeholder="예: 서울, 부산"
                 className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] text-[#1b1c18] placeholder:text-[#75786c]"
               />
+            </div>
+
+            {/* 이미지 */}
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-[#45483d]">
+                이미지 <span className="text-xs text-[#75786c] font-normal">(선택)</span>
+              </Label>
+              {imagePreview ? (
+                <div className="relative w-full h-48 rounded-xl overflow-hidden border border-[#efeee7]">
+                  <img src={imagePreview} alt="미리보기" className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => { setImageFile(null); setImagePreview(null); }}
+                    className="absolute top-2 right-2 w-7 h-7 bg-white/90 rounded-full flex items-center justify-center hover:bg-white"
+                  >
+                    <svg className="w-4 h-4 text-[#75786c]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center h-32 rounded-xl border-2 border-dashed border-[#c5c8ba] bg-[#f5f4ec] cursor-pointer hover:border-[#4f6231] transition-colors">
+                  <svg className="w-8 h-8 text-[#75786c] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
+                  </svg>
+                  <span className="text-sm text-[#75786c]">이미지 추가</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setImageFile(file);
+                        setImagePreview(URL.createObjectURL(file));
+                      }
+                    }}
+                  />
+                </label>
+              )}
             </div>
 
             {error && (

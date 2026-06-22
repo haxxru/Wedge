@@ -10,11 +10,13 @@ import com.wedge.backend.domain.recruit.dto.RecruitPostResponse;
 import com.wedge.backend.domain.recruit.entity.RecruitPost;
 import com.wedge.backend.domain.recruit.entity.RecruitStatus;
 import com.wedge.backend.domain.recruit.repository.RecruitPostRepository;
+import com.wedge.backend.global.storage.R2FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ public class RecruitPostService {
     private final RecruitPostRepository recruitPostRepository;
     private final CategoryRepository categoryRepository;
     private final ProposalRepository proposalRepository;
+    private final R2FileUploadService fileUploadService;
 
     @Transactional(readOnly = true)
     public Page<RecruitPostResponse> getRecruitPosts(Long categoryId, String region,
@@ -87,6 +90,25 @@ public class RecruitPostService {
         RecruitPost post = findMyPost(postId, member);
         proposalRepository.deleteAll(proposalRepository.findByRecruitPost(post));
         recruitPostRepository.delete(post);
+    }
+
+    @Transactional
+    public RecruitPostResponse uploadImage(Long postId, Member member, MultipartFile image) {
+        RecruitPost post = findMyPost(postId, member);
+        try {
+            String imageUrl = fileUploadService.upload(image, "jobs");
+            post.updateImageUrl(imageUrl);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("이미지 업로드에 실패했습니다.");
+        }
+        return new RecruitPostResponse(post);
+    }
+
+    @Transactional
+    public RecruitPostResponse deleteImage(Long postId, Member member) {
+        RecruitPost post = findMyPost(postId, member);
+        post.updateImageUrl(null);
+        return new RecruitPostResponse(post);
     }
 
     @Transactional
