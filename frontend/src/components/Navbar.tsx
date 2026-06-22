@@ -14,7 +14,7 @@ import { useUser } from "@/contexts/UserContext";
 export default function Navbar() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { isLoggedIn, isLoading, clearUser } = useUser();
+  const { user, isLoggedIn, isLoading, clearUser } = useUser();
 
   const navLinks = [
     { href: "/search", label: "전문가 탐색" },
@@ -87,10 +87,19 @@ export default function Navbar() {
                   href="/mypage"
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "sm" }),
-                    "text-[#45483d] hover:text-[#4f6231] hover:bg-[#f5f4ec]"
+                    "text-[#45483d] hover:text-[#4f6231] hover:bg-[#f5f4ec] gap-1.5"
                   )}
                 >
                   마이페이지
+                  {user?.role && (
+                    <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
+                      user.role === "FREELANCER"
+                        ? "bg-[#d3ebac] text-[#4f6231]"
+                        : "bg-[#f6d9d3] text-[#6f5a55]"
+                    }`}>
+                      {user.role === "FREELANCER" ? "전문가" : "커플"}
+                    </span>
+                  )}
                 </Link>
                 <Button
                   onClick={handleLogout}
@@ -192,10 +201,19 @@ export default function Navbar() {
                         onClick={() => setMobileOpen(false)}
                         className={cn(
                           buttonVariants({ variant: "outline" }),
-                          "w-full justify-center"
+                          "w-full justify-center gap-1.5"
                         )}
                       >
                         마이페이지
+                        {user?.role && (
+                          <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
+                            user.role === "FREELANCER"
+                              ? "bg-[#d3ebac] text-[#4f6231]"
+                              : "bg-[#f6d9d3] text-[#6f5a55]"
+                          }`}>
+                            {user.role === "FREELANCER" ? "전문가" : "커플"}
+                          </span>
+                        )}
                       </Link>
                       <Button
                         onClick={handleLogout}
