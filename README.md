@@ -23,7 +23,7 @@
 
 ---
 
-## 주요 기능
+## ✨ 주요 기능
 
 ### 사용자
 | 기능 | 설명 |
@@ -74,7 +74,7 @@
 
 ---
 
-## 기술 스택
+## 🛠 기술 스택
 
 ### Backend
 
@@ -113,31 +113,31 @@
 
 ---
 
-## 시스템 아키텍처
+## 🏗 시스템 아키텍처
 
 <img src="frontend/public/123213.png" width="100%" />
 
 ---
 
-## CI/CD 파이프라인
+## 🔄 CI/CD 파이프라인
 
 <img src="frontend/public/cicd.png" width="100%" />
 
 ---
 
-## ERD
+## 📊 ERD
 
 <img src="frontend/public/erd.png" width="100%" />
 
 ---
 
-## 프로젝트 구조
+## 📁 프로젝트 구조
 
 <img src="frontend/public/structure.png" width="100%" />
 
 ---
 
-## 로컬 실행 방법
+## 🚀 로컬 실행 방법
 
 ### 사전 요구사항
 - Java 21, Node.js 18+, Docker
@@ -179,7 +179,7 @@ npm run dev    # http://localhost:3000
 
 ---
 
-## 팀원 소개 및 담당
+## 👥 팀원 소개 및 담당
 
 <table>
   <thead>
@@ -198,7 +198,7 @@ npm run dev    # http://localhost:3000
     <tr>
       <td><nobr>정민혁</nobr></td>
       <td><a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/haxxru">@haxxru</a></td>
-      <td>회원 인증(JWT·OAuth2·이메일 인증), 구인/제안 시스템 CRUD, CI/CD 파이프라인 및 AWS 배포</td>
+      <td>회원 인증(JWT·OAuth2·이메일 인증), 비밀번호 찾기, 구인/제안 시스템 CRUD, 커뮤니티 게시판, CI/CD 파이프라인(GitHub Actions), AWS EC2 배포(Docker + Caddy HTTPS)</td>
     </tr>
     <tr>
       <td><nobr>이창민</nobr></td>
