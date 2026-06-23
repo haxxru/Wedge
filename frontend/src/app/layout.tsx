@@ -20,6 +20,9 @@ const beVietnamPro = Be_Vietnam_Pro({
 export const metadata: Metadata = {
   title: "Wedge — 웨딩 프리랜서 매칭 플랫폼",
   description: "현대적인 커플을 위한 큐레이팅된 웨딩 전문가 매칭 서비스",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
