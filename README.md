@@ -115,39 +115,13 @@
 
 ## 시스템 아키텍처
 
-<img src="frontend/public/architecture.png" width="100%" />
+<img src="frontend/public/123213.png" width="100%" />
 
 ---
 
 ## CI/CD 파이프라인
 
-```
-       조직 레포 (Team)
-       ─────────────────
-       feature/* ──PR──> dev ──PR──> main
-                          │          │
-                          └── CI     │
-                         (빌드&테스트) │
-                                     │
-       ─────────────────────────────-┘
-                          │  자동 sync (30m)
-                          ▼
-       개인 포크 (Fork)
-       ─────────────────
-       main 업데이트 ──> CD 자동 트리거
-                          │
-              ┌───────────┴───────────┐
-              ▼                       ▼
-        Docker Hub               AWS SSH
-        이미지 Push              배포 반영
-```
-
-| 단계 | 트리거 | 자동/수동 |
-|------|--------|-----------|
-| CI (빌드 & 테스트) | dev push / PR | 자동 |
-| 포크 동기화 | 30분마다 | 자동 |
-| CD (Docker - AWS 배포) | main push | 자동 |
-| Vercel 프론트 배포 | main push | 자동 |
+<img src="frontend/public/cicd.png" width="100%" />
 
 ---
 
