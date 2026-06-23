@@ -25,6 +25,7 @@ type Post = {
   type: PostType;
   imageUrl: string | null;
   imageUrls: string[];
+  mentions?: { freelancerProfileId: number; freelancerName: string }[];
   createdAt: string;
   updatedAt: string;
 };
@@ -308,6 +309,21 @@ export default function CommunityDetailPage() {
             <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap">
               {post.content}
             </div>
+
+            {post.mentions && post.mentions.length > 0 && (
+              <div className="mt-6 pt-4 border-t border-[#f5f4ec] flex flex-wrap items-center gap-2">
+                <span className="text-xs text-[#75786c]">언급된 프리랜서</span>
+                {post.mentions.map((m) => (
+                  <Link
+                    key={m.freelancerProfileId}
+                    href={`/profile/${m.freelancerProfileId}`}
+                    className="rounded-full bg-[#d3ebac] text-[#4f6231] text-xs font-medium px-3 py-1.5 hover:bg-[#c3e08f] transition-colors"
+                  >
+                    @{m.freelancerName}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         ) : null}
       </div>

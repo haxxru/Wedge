@@ -40,8 +40,10 @@ public class PostController {
             @RequestParam String title,
             @RequestParam String content,
             @RequestParam PostType type,
-            @RequestParam(required = false) List<MultipartFile> images) throws IOException {
-        Long postId = postService.createPost(getAuthenticatedMember(authentication), title, content, type, images);
+            @RequestParam(required = false) List<MultipartFile> images,
+            @RequestParam(required = false) List<Long> mentionedFreelancerProfileIds) throws IOException {
+        Long postId = postService.createPost(
+                getAuthenticatedMember(authentication), title, content, type, images, mentionedFreelancerProfileIds);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("postId", postId));
     }
 

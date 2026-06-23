@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,12 @@ import Image from "next/image";
 import { API_BASE_URL, createAuthHeaders } from "@/lib/auth";
 
 type PostType = "WEDDING_REVIEW" | "TIP" | "BOARD";
+
+type MentionCandidate = {
+  id: number;
+  memberName: string;
+  title: string;
+};
 
 const typeOptions: { value: PostType; label: string }[] = [
   { value: "WEDDING_REVIEW", label: "웨딩 후기" },
@@ -28,7 +34,50 @@ export default function CommunityWritePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
+  const [mentionQuery, setMentionQuery] = useState("");
+  const [mentionResults, setMentionResults] = useState<MentionCandidate[]>([]);
+  const [mentionedFreelancers, setMentionedFreelancers] = useState<
+    { id: number; name: string }[]
+  >([]);
   const MAX_IMAGES = 4;
+
+  useEffect(() => {
+    if (!mentionQuery.trim()) {
+      setMentionResults([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/api/freelancers?keyword=${encodeURIComponent(mentionQuery)}&size=5`,
+        );
+        const data = await res.json();
+        setMentionResults(data.content ?? []);
+      } catch {
+        setMentionResults([]);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [mentionQuery]);
+
+  const addMention = (candidate: MentionCandidate) => {
+    if (mentionedFreelancers.some((m) => m.id === candidate.id)) {
+      setMentionQuery("");
+      setMentionResults([]);
+      return;
+    }
+    setMentionedFreelancers((prev) => [
+      ...prev,
+      { id: candidate.id, name: candidate.memberName },
+    ]);
+
+    setMentionQuery("");
+    setMentionResults([]);
+  };
+
+  const removeMention = (id: number) => {
+    setMentionedFreelancers((prev) => prev.filter((m) => m.id !== id));
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? []);
@@ -57,6 +106,9 @@ export default function CommunityWritePage() {
       formData.append("content", content);
       formData.append("type", type);
       images.forEach((img) => formData.append("images", img));
+      mentionedFreelancers.forEach((m) =>
+        formData.append("mentionedFreelancerProfileIds", String(m.id)),
+      );
 
       const res = await fetch(`${API_BASE_URL}/api/v1/posts`, {
         method: "POST",
@@ -146,6 +198,59 @@ export default function CommunityWritePage() {
                 rows={10}
                 className="bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] placeholder:text-[#75786c] resize-none"
               />
+            </div>
+
+            {/* 프리랜서 언급하기 */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-[#45483d]">
+                프리랜서 언급하기 (선택)
+              </Label>
+              <div className="relative">
+                <Input
+                  value={mentionQuery}
+                  onChange={(e) => setMentionQuery(e.target.value)}
+                  placeholder="프리랜서 이름으로 검색해서 언급해보세요"
+                  className="h-11 bg-[#f5f4ec] border-[#efeee7] focus-visible:ring-[#4f6231] text-[#1b1c18] placeholder:text-[#75786c]"
+                />
+                {mentionResults.length > 0 && (
+                  <div className="absolute z-10 mt-1 w-full rounded-xl border border-[#efeee7] bg-white shadow-lg overflow-hidden">
+                    {mentionResults.map((candidate) => (
+                      <button
+                        key={candidate.id}
+                        type="button"
+                        onClick={() => addMention(candidate)}
+                        className="flex w-full items-center justify-between px-4 py-2.5 text-left text-sm hover:bg-[#f5f4ec]"
+                      >
+                        <span className="font-medium text-[#1b1c18]">
+                          {candidate.memberName}
+                        </span>
+                        <span className="text-xs text-[#75786c]">
+                          {candidate.title}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {mentionedFreelancers.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {mentionedFreelancers.map((m) => (
+                    <span
+                      key={m.id}
+                      className="flex items-center gap-1.5 rounded-full bg-[#d3ebac] text-[#4f6231] text-xs font-medium px-3 py-1.5"
+                    >
+                      @{m.name}
+                      <button
+                        type="button"
+                        onClick={() => removeMention(m.id)}
+                        className="hover:text-[#1b1c18]"
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* 이미지 업로드 */}

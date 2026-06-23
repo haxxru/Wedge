@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -40,14 +42,27 @@ public class Post extends BaseTimeEntity {
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted = false;
 
-    public static Post create(Member member, String title, String content, PostType type, String imageUrl) {
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "post_freelancer_mentions", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "freelancer_profile_id")
+    private Set<Long> mentionedFreelancerProfileIds = new LinkedHashSet<>();
+
+    public static Post create(Member member, String title, String content, PostType type, String imageUrl,
+                               List<Long> mentionedFreelancerProfileIds) {
         Post post = new Post();
         post.member = member;
         post.title = title;
         post.content = content;
         post.type = type;
         post.imageUrl = imageUrl;
+        if (mentionedFreelancerProfileIds != null) {
+            post.mentionedFreelancerProfileIds.addAll(mentionedFreelancerProfileIds);
+        }
         return post;
+    }
+
+    public List<Long> getMentionedFreelancerProfileIds() {
+        return List.copyOf(mentionedFreelancerProfileIds);
     }
 
     public List<String> getImageUrls() {

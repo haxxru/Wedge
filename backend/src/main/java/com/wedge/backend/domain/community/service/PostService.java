@@ -5,6 +5,8 @@ import com.wedge.backend.domain.community.dto.PostResponse;
 import com.wedge.backend.domain.community.entity.Post;
 import com.wedge.backend.domain.community.entity.PostType;
 import com.wedge.backend.domain.community.repository.PostRepository;
+import com.wedge.backend.domain.freelancer.entity.FreelancerProfile;
+import com.wedge.backend.domain.freelancer.repository.FreelancerProfileRepository;
 import com.wedge.backend.domain.member.entity.Member;
 import com.wedge.backend.global.storage.R2FileUploadService;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +26,11 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final R2FileUploadService r2FileUploadService;
+    private final FreelancerProfileRepository freelancerProfileRepository;
 
     @Transactional
-    public Long createPost(Member member, String title, String content, PostType type, List<MultipartFile> images) throws IOException {
+    public Long createPost(Member member, String title, String content, PostType type, List<MultipartFile> images,
+                            List<Long> mentionedFreelancerProfileIds) throws IOException {
         String imageUrl = null;
         if (images != null && !images.isEmpty()) {
             List<String> uploadedUrls = new ArrayList<>();
@@ -39,7 +43,7 @@ public class PostService {
                 imageUrl = String.join(",", uploadedUrls);
             }
         }
-        Post post = Post.create(member, title, content, type, imageUrl);
+        Post post = Post.create(member, title, content, type, imageUrl, mentionedFreelancerProfileIds);
         return postRepository.save(post).getId();
     }
 
@@ -47,17 +51,26 @@ public class PostService {
     public Page<PostResponse> getPosts(PostType type, Pageable pageable) {
         if (type != null) {
             return postRepository.findAllByTypeAndIsDeletedFalseOrderByCreatedAtDesc(type, pageable)
-                    .map(PostResponse::new);
+                    .map(this::toResponse);
         }
         return postRepository.findAllByIsDeletedFalseOrderByCreatedAtDesc(pageable)
-                .map(PostResponse::new);
+                .map(this::toResponse);
     }
 
     @Transactional(readOnly = true)
     public PostResponse getPost(Long postId) {
         Post post = postRepository.findByIdAndIsDeletedFalse(postId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
-        return new PostResponse(post);
+        return toResponse(post);
+    }
+
+    private PostResponse toResponse(Post post) {
+        List<Long> mentionedIds = post.getMentionedFreelancerProfileIds();
+        if (mentionedIds.isEmpty()) {
+            return new PostResponse(post);
+        }
+        List<FreelancerProfile> mentionedProfiles = freelancerProfileRepository.findByIdInWithMember(mentionedIds);
+        return new PostResponse(post, mentionedProfiles);
     }
 
     @Transactional
