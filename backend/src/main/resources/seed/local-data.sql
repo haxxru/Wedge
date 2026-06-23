@@ -2426,3 +2426,3564 @@ SELECT
     NOW() - INTERVAL 29 DAY,
     NOW() - INTERVAL 29 DAY
 WHERE NOT EXISTS (SELECT 1 FROM posts WHERE title = '청첩장 모임 후기 남겨요');
+
+-- =============================================
+-- 카테고리별 프리랜서 10~16명 채우기 + 기존/신규 포트폴리오 3장씩 보강
+-- =============================================
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'test-freelancer@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-1/900/600',
+       '자연스러운 순간을 포착하는 것을 가장 중요하게 생각하는 웨딩 사진작가입니다. 과한 포즈보다는 두 분의 진짜 표정을 담아드립니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'test-freelancer@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer3@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-2/900/600',
+       '필름 카메라 감성을 디지털로 재현한 따뜻한 색감이 특징입니다. 포트폴리오 확인 후 문의 주세요.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer3@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer3@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-3/900/600',
+       '자연스러운 순간을 포착하는 것을 가장 중요하게 생각하는 웨딩 사진작가입니다. 과한 포즈보다는 두 분의 진짜 표정을 담아드립니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer3@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer12@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-4/900/600',
+       '필름 카메라 감성을 디지털로 재현한 따뜻한 색감이 특징입니다. 포트폴리오 확인 후 문의 주세요.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer12@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer12@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-5/900/600',
+       '야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer12@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer2@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-6/900/600',
+       '신랑신부의 이야기를 담은 인터뷰 영상도 함께 제작해 드립니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer2@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer2@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-7/900/600',
+       '드론 항공 촬영부터 클로즈업까지 다양한 앵글로 풍성한 영상을 제작합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer2@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer13@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-8/900/600',
+       '신랑신부의 이야기를 담은 인터뷰 영상도 함께 제작해 드립니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer13@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer13@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-9/900/600',
+       '빠른 편집 일정과 수정 요청 대응이 강점인 웨딩 영상 제작팀입니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer13@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer5@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-10/900/600',
+       '사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer5@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer5@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-11/900/600',
+       '신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer5@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer14@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-12/900/600',
+       '신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer14@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer14@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-13/900/600',
+       '혼주 메이크업과 헤어 스타일링도 함께 진행 가능합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer14@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer6@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-14/900/600',
+       '야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer6@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer6@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-15/900/600',
+       '화이트와 그린 톤의 내추럴한 무드를 살린 부케와 장식을 제작합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer6@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer15@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-16/900/600',
+       '결혼 후에도 간직할 수 있는 드라이플라워 부케 제작도 가능합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer15@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer15@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-17/900/600',
+       '야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer15@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer8@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-18/900/600',
+       '당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer8@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer8@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-19/900/600',
+       '당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer8@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer9@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-20/900/600',
+       '양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer9@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer9@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-21/900/600',
+       '양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer9@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer10@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-22/900/600',
+       '식전 연주부터 입장곡까지 분위기에 맞춘 라이브 연주를 제공합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer10@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer10@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-23/900/600',
+       '식전 연주부터 입장곡까지 분위기에 맞춘 라이브 연주를 제공합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer10@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer4@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-24/900/600',
+       '듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer4@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer4@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-25/900/600',
+       'MR보다 라이브 악기 반주를 선호하시는 분께 추천드립니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer4@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer16@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-26/900/600',
+       '풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer16@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer16@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-27/900/600',
+       '짧은 시간 내에도 인상적인 무대를 만들어 드립니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer16@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer7@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-28/900/600',
+       '과하지 않으면서도 분위기를 살리는 진행을 지향합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer7@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer7@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-29/900/600',
+       '과하지 않으면서도 분위기를 살리는 진행을 지향합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer7@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer17@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-30/900/600',
+       '편지 낭독 같은 깜짝 이벤트 코너도 매끄럽게 진행합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer17@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer17@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-31/900/600',
+       '양가 부모님 소개를 정중하고 따뜻하게 진행해 드립니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer17@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer11@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-32/900/600',
+       '예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer11@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer11@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-extra-33/900/600',
+       '예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오 보강', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer11@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 1 (웨딩 사진작가) : 목표 14명, 기존 3명, 신규 11명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer18@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신포토', '010-90018-0018', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer18@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer18@wedge.local'), 1, '야외 웨딩 전문 포토그래퍼', '야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '15년차 웨딩 사진작가 전문가입니다. 필름 카메라 감성을 디지털로 재현한 따뜻한 색감이 특징입니다. 포트폴리오 확인 후 문의 주세요.', '본식원판,자연광,스냅', '광주', 516659, 15, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer18@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer18@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-34/900/600',
+       '야외 웨딩 전문 포토그래퍼 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer18@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer18@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-35/900/600',
+       '야외 웨딩 전문 포토그래퍼 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer18@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer18@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-36/900/600',
+       '야외 웨딩 전문 포토그래퍼 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer18@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer19@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임포토', '010-90019-0019', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer19@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer19@wedge.local'), 1, '본식 원판·스냅 전문', '본식 원판부터 스냅까지 한 팀으로 진행하여 동선 걱정 없이 촬영할 수 있습니다.', '13년차 웨딩 사진작가 전문가입니다. 야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '야외촬영,본식원판,스냅', '수원', 616615, 13, 29, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer19@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer19@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-37/900/600',
+       '본식 원판·스냅 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer19@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer19@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-38/900/600',
+       '본식 원판·스냅 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer19@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer19@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-39/900/600',
+       '본식 원판·스냅 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer19@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer20@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '박포토', '010-90020-0020', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer20@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer20@wedge.local'), 1, '다큐멘터리 스타일 웨딩 스냅', '야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '3년차 웨딩 사진작가 전문가입니다. 야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '스냅,자연광,본식원판', '대구', 617870, 3, 20, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer20@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer20@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-40/900/600',
+       '다큐멘터리 스타일 웨딩 스냅 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer20@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer20@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-41/900/600',
+       '다큐멘터리 스타일 웨딩 스냅 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer20@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer20@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-42/900/600',
+       '다큐멘터리 스타일 웨딩 스냅 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer20@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer21@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한포토', '010-90021-0021', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer21@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer21@wedge.local'), 1, '본식 원판·스냅 전문', '본식 원판부터 스냅까지 한 팀으로 진행하여 동선 걱정 없이 촬영할 수 있습니다.', '15년차 웨딩 사진작가 전문가입니다. 야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '야외촬영,본식원판,스냅', '울산', 427171, 15, 0, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer21@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer21@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-43/900/600',
+       '본식 원판·스냅 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer21@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer21@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-44/900/600',
+       '본식 원판·스냅 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer21@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer21@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-45/900/600',
+       '본식 원판·스냅 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer21@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer22@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오포토', '010-90022-0022', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer22@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer22@wedge.local'), 1, '본식 원판·스냅 전문', '본식 원판부터 스냅까지 한 팀으로 진행하여 동선 걱정 없이 촬영할 수 있습니다.', '10년차 웨딩 사진작가 전문가입니다. 자연스러운 순간을 포착하는 것을 가장 중요하게 생각하는 웨딩 사진작가입니다. 과한 포즈보다는 두 분의 진짜 표정을 담아드립니다.', '자연광,본식원판,필름톤', '서울', 645761, 10, 3, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer22@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer22@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-46/900/600',
+       '본식 원판·스냅 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer22@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer22@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-47/900/600',
+       '본식 원판·스냅 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer22@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer22@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-48/900/600',
+       '본식 원판·스냅 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer22@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer23@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '서포토', '010-90023-0023', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer23@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer23@wedge.local'), 1, '자연광을 살린 감성 웨딩 스냅', '본식 원판부터 스냅까지 한 팀으로 진행하여 동선 걱정 없이 촬영할 수 있습니다.', '15년차 웨딩 사진작가 전문가입니다. 자연스러운 순간을 포착하는 것을 가장 중요하게 생각하는 웨딩 사진작가입니다. 과한 포즈보다는 두 분의 진짜 표정을 담아드립니다.', '자연광,필름톤,스냅', '광주', 511174, 15, 15, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer23@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer23@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-49/900/600',
+       '자연광을 살린 감성 웨딩 스냅 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer23@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer23@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-50/900/600',
+       '자연광을 살린 감성 웨딩 스냅 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer23@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer23@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-51/900/600',
+       '자연광을 살린 감성 웨딩 스냅 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer23@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer24@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장포토', '010-90024-0024', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer24@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer24@wedge.local'), 1, '스튜디오 컨셉 웨딩 사진', '야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '1년차 웨딩 사진작가 전문가입니다. 본식 원판부터 스냅까지 한 팀으로 진행하여 동선 걱정 없이 촬영할 수 있습니다.', '야외촬영,스냅,본식원판', '대전', 601286, 1, 7, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer24@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer24@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-52/900/600',
+       '스튜디오 컨셉 웨딩 사진 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer24@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer24@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-53/900/600',
+       '스튜디오 컨셉 웨딩 사진 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer24@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer24@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-54/900/600',
+       '스튜디오 컨셉 웨딩 사진 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer24@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer25@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '박포토', '010-90025-0025', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer25@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer25@wedge.local'), 1, '필름 톤 웨딩 사진작가', '야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '12년차 웨딩 사진작가 전문가입니다. 본식 원판부터 스냅까지 한 팀으로 진행하여 동선 걱정 없이 촬영할 수 있습니다.', '야외촬영,자연광,필름톤', '대구', 489383, 12, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer25@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer25@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-55/900/600',
+       '필름 톤 웨딩 사진작가 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer25@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer25@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-56/900/600',
+       '필름 톤 웨딩 사진작가 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer25@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer25@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-57/900/600',
+       '필름 톤 웨딩 사진작가 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer25@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer26@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오포토', '010-90026-0026', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer26@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer26@wedge.local'), 1, '필름 톤 웨딩 사진작가', '필름 카메라 감성을 디지털로 재현한 따뜻한 색감이 특징입니다. 포트폴리오 확인 후 문의 주세요.', '12년차 웨딩 사진작가 전문가입니다. 자연스러운 순간을 포착하는 것을 가장 중요하게 생각하는 웨딩 사진작가입니다. 과한 포즈보다는 두 분의 진짜 표정을 담아드립니다.', '야외촬영,자연광,필름톤', '울산', 626279, 12, 3, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer26@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer26@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-58/900/600',
+       '필름 톤 웨딩 사진작가 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer26@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer26@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-59/900/600',
+       '필름 톤 웨딩 사진작가 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer26@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer26@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-60/900/600',
+       '필름 톤 웨딩 사진작가 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer26@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer27@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '조포토', '010-90027-0027', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer27@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer27@wedge.local'), 1, '본식 원판·스냅 전문', '자연스러운 순간을 포착하는 것을 가장 중요하게 생각하는 웨딩 사진작가입니다. 과한 포즈보다는 두 분의 진짜 표정을 담아드립니다.', '7년차 웨딩 사진작가 전문가입니다. 야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '본식원판,스냅,야외촬영', '수원', 451959, 7, 18, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer27@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer27@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-61/900/600',
+       '본식 원판·스냅 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer27@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer27@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-62/900/600',
+       '본식 원판·스냅 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer27@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer27@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-63/900/600',
+       '본식 원판·스냅 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer27@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer28@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한포토', '010-90028-0028', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer28@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer28@wedge.local'), 1, '야외 웨딩 전문 포토그래퍼', '야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '13년차 웨딩 사진작가 전문가입니다. 야외 예식과 스몰 웨딩 경험이 많아 다양한 환경에서도 안정적인 결과물을 만들어 드립니다.', '스냅,필름톤,본식원판', '경기', 511266, 13, 14, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer28@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer28@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-64/900/600',
+       '야외 웨딩 전문 포토그래퍼 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer28@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer28@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-65/900/600',
+       '야외 웨딩 전문 포토그래퍼 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer28@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer28@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-66/900/600',
+       '야외 웨딩 전문 포토그래퍼 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer28@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 2 (웨딩 영상) : 목표 10명, 기존 2명, 신규 8명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer29@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강필름', '010-90029-0029', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer29@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer29@wedge.local'), 2, '당일 편집 가능한 웨딩 영상팀', '드론 항공 촬영부터 클로즈업까지 다양한 앵글로 풍성한 영상을 제작합니다.', '2년차 웨딩 영상 전문가입니다. 드론 항공 촬영부터 클로즈업까지 다양한 앵글로 풍성한 영상을 제작합니다.', '시네마틱,드론,당일편집', '수원', 830721, 2, 7, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer29@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer29@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-67/900/600',
+       '당일 편집 가능한 웨딩 영상팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer29@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer29@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-68/900/600',
+       '당일 편집 가능한 웨딩 영상팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer29@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer29@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-69/900/600',
+       '당일 편집 가능한 웨딩 영상팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer29@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer30@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한필름', '010-90030-0030', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer30@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer30@wedge.local'), 2, '다큐 스타일 웨딩 영상', '신랑신부의 이야기를 담은 인터뷰 영상도 함께 제작해 드립니다.', '2년차 웨딩 영상 전문가입니다. 드론 항공 촬영부터 클로즈업까지 다양한 앵글로 풍성한 영상을 제작합니다.', '드론,당일편집,하이라이트영상', '제주', 873958, 2, 27, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer30@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer30@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-70/900/600',
+       '다큐 스타일 웨딩 영상 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer30@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer30@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-71/900/600',
+       '다큐 스타일 웨딩 영상 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer30@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer30@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-72/900/600',
+       '다큐 스타일 웨딩 영상 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer30@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer31@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '김필름', '010-90031-0031', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer31@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer31@wedge.local'), 2, '고퀄리티 풀버전 웨딩 영상', '드론 항공 촬영부터 클로즈업까지 다양한 앵글로 풍성한 영상을 제작합니다.', '4년차 웨딩 영상 전문가입니다. 드론 항공 촬영부터 클로즈업까지 다양한 앵글로 풍성한 영상을 제작합니다.', '드론,시네마틱,당일편집', '대구', 662981, 4, 27, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer31@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer31@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-73/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer31@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer31@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-74/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer31@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer31@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-75/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer31@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer32@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한필름', '010-90032-0032', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer32@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer32@wedge.local'), 2, '당일 편집 가능한 웨딩 영상팀', '드론 항공 촬영부터 클로즈업까지 다양한 앵글로 풍성한 영상을 제작합니다.', '10년차 웨딩 영상 전문가입니다. 빠른 편집 일정과 수정 요청 대응이 강점인 웨딩 영상 제작팀입니다.', '풀버전,드론,시네마틱', '경기', 941337, 10, 15, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer32@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer32@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-76/900/600',
+       '당일 편집 가능한 웨딩 영상팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer32@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer32@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-77/900/600',
+       '당일 편집 가능한 웨딩 영상팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer32@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer32@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-78/900/600',
+       '당일 편집 가능한 웨딩 영상팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer32@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer33@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신필름', '010-90033-0033', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer33@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer33@wedge.local'), 2, '다큐 스타일 웨딩 영상', '영화 같은 색감과 구성으로 결혼식의 감동을 영상에 담아드립니다.', '4년차 웨딩 영상 전문가입니다. 신랑신부의 이야기를 담은 인터뷰 영상도 함께 제작해 드립니다.', '하이라이트영상,당일편집,풀버전', '부산', 830922, 4, 25, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer33@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer33@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-79/900/600',
+       '다큐 스타일 웨딩 영상 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer33@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer33@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-80/900/600',
+       '다큐 스타일 웨딩 영상 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer33@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer33@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-81/900/600',
+       '다큐 스타일 웨딩 영상 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer33@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer34@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오필름', '010-90034-0034', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer34@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer34@wedge.local'), 2, '고퀄리티 풀버전 웨딩 영상', '빠른 편집 일정과 수정 요청 대응이 강점인 웨딩 영상 제작팀입니다.', '4년차 웨딩 영상 전문가입니다. 빠른 편집 일정과 수정 요청 대응이 강점인 웨딩 영상 제작팀입니다.', '하이라이트영상,드론,시네마틱', '서울', 681125, 4, 14, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer34@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer34@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-82/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer34@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer34@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-83/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer34@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer34@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-84/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer34@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer35@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '박필름', '010-90035-0035', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer35@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer35@wedge.local'), 2, '고퀄리티 풀버전 웨딩 영상', '빠른 편집 일정과 수정 요청 대응이 강점인 웨딩 영상 제작팀입니다.', '12년차 웨딩 영상 전문가입니다. 영화 같은 색감과 구성으로 결혼식의 감동을 영상에 담아드립니다.', '드론,하이라이트영상,시네마틱', '인천', 905996, 12, 27, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer35@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer35@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-85/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer35@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer35@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-86/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer35@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer35@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-87/900/600',
+       '고퀄리티 풀버전 웨딩 영상 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer35@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer36@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '이필름', '010-90036-0036', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer36@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer36@wedge.local'), 2, '드론 항공 촬영 포함 웨딩 영상', '빠른 편집 일정과 수정 요청 대응이 강점인 웨딩 영상 제작팀입니다.', '10년차 웨딩 영상 전문가입니다. 드론 항공 촬영부터 클로즈업까지 다양한 앵글로 풍성한 영상을 제작합니다.', '시네마틱,드론,하이라이트영상', '서울', 670964, 10, 11, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer36@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer36@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-88/900/600',
+       '드론 항공 촬영 포함 웨딩 영상 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer36@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer36@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-89/900/600',
+       '드론 항공 촬영 포함 웨딩 영상 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer36@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer36@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-90/900/600',
+       '드론 항공 촬영 포함 웨딩 영상 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer36@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 3 (헤어·메이크업) : 목표 16명, 기존 2명, 신규 14명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer37@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강뷰티', '010-90037-0037', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer37@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer37@wedge.local'), 3, '신부 본판을 살리는 내추럴 메이크업', '사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '5년차 헤어·메이크업 전문가입니다. 리허설부터 본식까지 꼼꼼하게 케어하며, 장시간 유지되는 메이크업이 강점입니다.', '내추럴메이크업,리허설포함,혼주메이크업', '대전', 537379, 5, 15, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer37@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer37@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-91/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer37@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer37@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-92/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer37@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer37@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-93/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer37@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer38@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임뷰티', '010-90038-0038', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer38@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer38@wedge.local'), 3, '트렌디한 웨딩 헤어 스타일링', '사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '4년차 헤어·메이크업 전문가입니다. 혼주 메이크업과 헤어 스타일링도 함께 진행 가능합니다.', '리허설포함,내추럴메이크업,혼주메이크업', '부산', 302619, 4, 1, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer38@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer38@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-94/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer38@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer38@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-95/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer38@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer38@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-96/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer38@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer39@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신뷰티', '010-90039-0039', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer39@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer39@wedge.local'), 3, '청담 스타일 브라이덜 메이크업', '사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '15년차 헤어·메이크업 전문가입니다. 혼주 메이크업과 헤어 스타일링도 함께 진행 가능합니다.', '리허설포함,혼주메이크업,헤어스타일링', '경기', 311499, 15, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer39@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer39@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-97/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer39@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer39@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-98/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer39@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer39@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-99/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer39@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer40@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한뷰티', '010-90040-0040', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer40@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer40@wedge.local'), 3, '청담 스타일 브라이덜 메이크업', '리허설부터 본식까지 꼼꼼하게 케어하며, 장시간 유지되는 메이크업이 강점입니다.', '1년차 헤어·메이크업 전문가입니다. 신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.', '헤어스타일링,리허설포함,내추럴메이크업', '서울', 547887, 1, 9, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer40@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer40@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-100/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer40@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer40@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-101/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer40@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer40@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-102/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer40@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer41@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '이뷰티', '010-90041-0041', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer41@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer41@wedge.local'), 3, '혼주 메이크업 가능한 헤어메이크업', '리허설부터 본식까지 꼼꼼하게 케어하며, 장시간 유지되는 메이크업이 강점입니다.', '14년차 헤어·메이크업 전문가입니다. 사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '내추럴메이크업,유지력,리허설포함', '서울', 552447, 14, 16, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer41@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer41@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-103/900/600',
+       '혼주 메이크업 가능한 헤어메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer41@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer41@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-104/900/600',
+       '혼주 메이크업 가능한 헤어메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer41@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer41@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-105/900/600',
+       '혼주 메이크업 가능한 헤어메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer41@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer42@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '서뷰티', '010-90042-0042', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer42@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer42@wedge.local'), 3, '신부 본판을 살리는 내추럴 메이크업', '신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.', '4년차 헤어·메이크업 전문가입니다. 신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.', '내추럴메이크업,유지력,헤어스타일링', '부산', 391436, 4, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer42@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer42@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-106/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer42@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer42@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-107/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer42@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer42@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-108/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer42@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer43@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오뷰티', '010-90043-0043', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer43@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer43@wedge.local'), 3, '신부 본판을 살리는 내추럴 메이크업', '신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.', '12년차 헤어·메이크업 전문가입니다. 리허설부터 본식까지 꼼꼼하게 케어하며, 장시간 유지되는 메이크업이 강점입니다.', '혼주메이크업,리허설포함,헤어스타일링', '수원', 321050, 12, 26, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer43@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer43@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-109/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer43@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer43@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-110/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer43@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer43@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-111/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer43@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer44@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장뷰티', '010-90044-0044', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer44@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer44@wedge.local'), 3, '리허설 포함 웨딩 뷰티 패키지', '신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.', '1년차 헤어·메이크업 전문가입니다. 신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.', '유지력,혼주메이크업,헤어스타일링', '수원', 327330, 1, 11, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer44@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer44@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-112/900/600',
+       '리허설 포함 웨딩 뷰티 패키지 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer44@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer44@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-113/900/600',
+       '리허설 포함 웨딩 뷰티 패키지 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer44@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer44@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-114/900/600',
+       '리허설 포함 웨딩 뷰티 패키지 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer44@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer45@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '조뷰티', '010-90045-0045', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer45@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer45@wedge.local'), 3, '유지력 좋은 웨딩 헤어메이크업', '혼주 메이크업과 헤어 스타일링도 함께 진행 가능합니다.', '7년차 헤어·메이크업 전문가입니다. 리허설부터 본식까지 꼼꼼하게 케어하며, 장시간 유지되는 메이크업이 강점입니다.', '내추럴메이크업,혼주메이크업,리허설포함', '부산', 288675, 7, 17, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer45@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer45@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-115/900/600',
+       '유지력 좋은 웨딩 헤어메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer45@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer45@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-116/900/600',
+       '유지력 좋은 웨딩 헤어메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer45@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer45@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-117/900/600',
+       '유지력 좋은 웨딩 헤어메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer45@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer46@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '정뷰티', '010-90046-0046', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer46@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer46@wedge.local'), 3, '트렌디한 웨딩 헤어 스타일링', '사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '12년차 헤어·메이크업 전문가입니다. 사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '유지력,혼주메이크업,내추럴메이크업', '제주', 329686, 12, 26, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer46@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer46@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-118/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer46@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer46@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-119/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer46@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer46@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-120/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer46@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer47@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한뷰티', '010-90047-0047', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer47@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer47@wedge.local'), 3, '트렌디한 웨딩 헤어 스타일링', '사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '12년차 헤어·메이크업 전문가입니다. 리허설부터 본식까지 꼼꼼하게 케어하며, 장시간 유지되는 메이크업이 강점입니다.', '내추럴메이크업,리허설포함,혼주메이크업', '울산', 538119, 12, 8, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer47@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer47@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-121/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer47@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer47@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-122/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer47@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer47@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-123/900/600',
+       '트렌디한 웨딩 헤어 스타일링 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer47@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer48@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신뷰티', '010-90048-0048', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer48@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer48@wedge.local'), 3, '청담 스타일 브라이덜 메이크업', '사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '4년차 헤어·메이크업 전문가입니다. 사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '내추럴메이크업,유지력,헤어스타일링', '광주', 310964, 4, 22, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer48@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer48@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-124/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer48@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer48@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-125/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer48@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer48@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-126/900/600',
+       '청담 스타일 브라이덜 메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer48@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer49@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '권뷰티', '010-90049-0049', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer49@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer49@wedge.local'), 3, '신부 본판을 살리는 내추럴 메이크업', '신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.', '9년차 헤어·메이크업 전문가입니다. 리허설부터 본식까지 꼼꼼하게 케어하며, 장시간 유지되는 메이크업이 강점입니다.', '내추럴메이크업,혼주메이크업,리허설포함', '인천', 351778, 9, 18, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer49@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer49@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-127/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer49@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer49@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-128/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer49@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer49@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-129/900/600',
+       '신부 본판을 살리는 내추럴 메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer49@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer50@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '조뷰티', '010-90050-0050', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer50@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer50@wedge.local'), 3, '혼주 메이크업 가능한 헤어메이크업', '신부 한 분 한 분의 분위기를 살리는 맞춤형 메이크업을 지향합니다.', '2년차 헤어·메이크업 전문가입니다. 사진 촬영 시 더욱 또렷하게 나오는 입체적인 메이크업을 제공합니다.', '혼주메이크업,헤어스타일링,유지력', '대구', 347152, 2, 23, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer50@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer50@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-130/900/600',
+       '혼주 메이크업 가능한 헤어메이크업 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer50@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer50@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-131/900/600',
+       '혼주 메이크업 가능한 헤어메이크업 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer50@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer50@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-132/900/600',
+       '혼주 메이크업 가능한 헤어메이크업 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer50@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 4 (웨딩 플로리스트) : 목표 14명, 기존 2명, 신규 12명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer51@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한플라워', '010-90051-0051', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer51@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer51@wedge.local'), 4, '화이트톤 웨딩 플라워 스타일링', '야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '9년차 웨딩 플로리스트 전문가입니다. 화이트와 그린 톤의 내추럴한 무드를 살린 부케와 장식을 제작합니다.', '드라이플라워,제단장식,화이트톤', '대전', 467161, 9, 20, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer51@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer51@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-133/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer51@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer51@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-134/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer51@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer51@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-135/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer51@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer52@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한플라워', '010-90052-0052', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer52@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer52@wedge.local'), 4, '계절감 살린 웨딩 부케', '결혼 후에도 간직할 수 있는 드라이플라워 부케 제작도 가능합니다.', '15년차 웨딩 플로리스트 전문가입니다. 제단, 포토존, 부케까지 통일감 있는 플라워 스타일링을 제공합니다.', '부케,제단장식,포토존데코', '광주', 435950, 15, 26, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer52@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer52@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-136/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer52@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer52@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-137/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer52@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer52@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-138/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer52@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer53@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한플라워', '010-90053-0053', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer53@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer53@wedge.local'), 4, '내추럴 무드 웨딩 플로리스트', '제단, 포토존, 부케까지 통일감 있는 플라워 스타일링을 제공합니다.', '14년차 웨딩 플로리스트 전문가입니다. 야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '화이트톤,포토존데코,드라이플라워', '제주', 620112, 14, 24, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer53@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer53@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-139/900/600',
+       '내추럴 무드 웨딩 플로리스트 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer53@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer53@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-140/900/600',
+       '내추럴 무드 웨딩 플로리스트 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer53@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer53@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-141/900/600',
+       '내추럴 무드 웨딩 플로리스트 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer53@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer54@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장플라워', '010-90054-0054', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer54@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer54@wedge.local'), 4, '화이트톤 웨딩 플라워 스타일링', '화이트와 그린 톤의 내추럴한 무드를 살린 부케와 장식을 제작합니다.', '8년차 웨딩 플로리스트 전문가입니다. 제단, 포토존, 부케까지 통일감 있는 플라워 스타일링을 제공합니다.', '제단장식,드라이플라워,포토존데코', '경기', 332010, 8, 14, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer54@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer54@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-142/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer54@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer54@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-143/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer54@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer54@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-144/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer54@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer55@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '김플라워', '010-90055-0055', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer55@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer55@wedge.local'), 4, '계절감 살린 웨딩 부케', '야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '15년차 웨딩 플로리스트 전문가입니다. 화이트와 그린 톤의 내추럴한 무드를 살린 부케와 장식을 제작합니다.', '드라이플라워,포토존데코,부케', '제주', 427691, 15, 13, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer55@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer55@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-145/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer55@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer55@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-146/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer55@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer55@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-147/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer55@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer56@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강플라워', '010-90056-0056', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer56@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer56@wedge.local'), 4, '계절감 살린 웨딩 부케', '야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '5년차 웨딩 플로리스트 전문가입니다. 결혼 후에도 간직할 수 있는 드라이플라워 부케 제작도 가능합니다.', '화이트톤,포토존데코,드라이플라워', '부산', 439147, 5, 23, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer56@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer56@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-148/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer56@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer56@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-149/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer56@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer56@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-150/900/600',
+       '계절감 살린 웨딩 부케 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer56@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer57@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한플라워', '010-90057-0057', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer57@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer57@wedge.local'), 4, '드라이플라워 웨딩 부케 제작', '야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '13년차 웨딩 플로리스트 전문가입니다. 야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '제단장식,부케,포토존데코', '부산', 572635, 13, 12, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer57@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer57@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-151/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer57@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer57@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-152/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer57@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer57@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-153/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer57@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer58@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '최플라워', '010-90058-0058', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer58@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer58@wedge.local'), 4, '화이트톤 웨딩 플라워 스타일링', '화이트와 그린 톤의 내추럴한 무드를 살린 부케와 장식을 제작합니다.', '11년차 웨딩 플로리스트 전문가입니다. 야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '부케,포토존데코,화이트톤', '광주', 390143, 11, 4, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer58@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer58@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-154/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer58@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer58@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-155/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer58@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer58@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-156/900/600',
+       '화이트톤 웨딩 플라워 스타일링 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer58@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer59@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '정플라워', '010-90059-0059', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer59@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer59@wedge.local'), 4, '부케·제단 장식 전문', '결혼 후에도 간직할 수 있는 드라이플라워 부케 제작도 가능합니다.', '8년차 웨딩 플로리스트 전문가입니다. 화이트와 그린 톤의 내추럴한 무드를 살린 부케와 장식을 제작합니다.', '화이트톤,포토존데코,제단장식', '광주', 490708, 8, 13, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer59@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer59@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-157/900/600',
+       '부케·제단 장식 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer59@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer59@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-158/900/600',
+       '부케·제단 장식 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer59@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer59@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-159/900/600',
+       '부케·제단 장식 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer59@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer60@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '권플라워', '010-90060-0060', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer60@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer60@wedge.local'), 4, '드라이플라워 웨딩 부케 제작', '야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '1년차 웨딩 플로리스트 전문가입니다. 제단, 포토존, 부케까지 통일감 있는 플라워 스타일링을 제공합니다.', '부케,화이트톤,제단장식', '광주', 344534, 1, 25, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer60@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer60@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-160/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer60@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer60@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-161/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer60@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer60@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-162/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer60@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer61@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장플라워', '010-90061-0061', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer61@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer61@wedge.local'), 4, '드라이플라워 웨딩 부케 제작', '결혼 후에도 간직할 수 있는 드라이플라워 부케 제작도 가능합니다.', '11년차 웨딩 플로리스트 전문가입니다. 결혼 후에도 간직할 수 있는 드라이플라워 부케 제작도 가능합니다.', '화이트톤,드라이플라워,포토존데코', '서울', 550780, 11, 2, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer61@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer61@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-163/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer61@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer61@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-164/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer61@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer61@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-165/900/600',
+       '드라이플라워 웨딩 부케 제작 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer61@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer62@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임플라워', '010-90062-0062', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer62@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer62@wedge.local'), 4, '내추럴 무드 웨딩 플로리스트', '야외 예식 환경에 맞춘 내구성 있는 플라워 데코를 전문으로 합니다.', '10년차 웨딩 플로리스트 전문가입니다. 결혼 후에도 간직할 수 있는 드라이플라워 부케 제작도 가능합니다.', '포토존데코,드라이플라워,화이트톤', '울산', 523056, 10, 6, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer62@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer62@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-166/900/600',
+       '내추럴 무드 웨딩 플로리스트 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer62@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer62@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-167/900/600',
+       '내추럴 무드 웨딩 플로리스트 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer62@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer62@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-168/900/600',
+       '내추럴 무드 웨딩 플로리스트 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer62@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 5 (웨딩 플래너) : 목표 13명, 기존 1명, 신규 12명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer63@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '김플랜', '010-90063-0063', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer63@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer63@wedge.local'), 5, '예산 관리 전문 웨딩 플래너', '당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '11년차 웨딩 플래너 전문가입니다. 예산 안에서 합리적인 업체 매칭과 일정 관리를 도와드립니다.', '스몰웨딩,토탈플래닝,예산관리', '경기', 1031663, 11, 3, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer63@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer63@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-169/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer63@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer63@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-170/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer63@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer63@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-171/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer63@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer64@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '이플랜', '010-90064-0064', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer64@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer64@wedge.local'), 5, '업체 매칭부터 진행까지 풀 케어', '예산 안에서 합리적인 업체 매칭과 일정 관리를 도와드립니다.', '3년차 웨딩 플래너 전문가입니다. 준비 과정 전반의 커뮤니케이션을 도맡아 신랑신부의 부담을 줄여드립니다.', '스몰웨딩,업체매칭,토탈플래닝', '울산', 1187298, 3, 7, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer64@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer64@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-172/900/600',
+       '업체 매칭부터 진행까지 풀 케어 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer64@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer64@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-173/900/600',
+       '업체 매칭부터 진행까지 풀 케어 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer64@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer64@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-174/900/600',
+       '업체 매칭부터 진행까지 풀 케어 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer64@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer65@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '윤플랜', '010-90065-0065', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer65@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer65@wedge.local'), 5, '토탈 웨딩 플래닝 서비스', '50명 내외 스몰 웨딩 기획 경험이 많아 세심한 진행이 가능합니다.', '14년차 웨딩 플래너 전문가입니다. 당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '토탈플래닝,업체매칭,예산관리', '수원', 1076371, 14, 16, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer65@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer65@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-175/900/600',
+       '토탈 웨딩 플래닝 서비스 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer65@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer65@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-176/900/600',
+       '토탈 웨딩 플래닝 서비스 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer65@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer65@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-177/900/600',
+       '토탈 웨딩 플래닝 서비스 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer65@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer66@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강플랜', '010-90066-0066', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer66@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer66@wedge.local'), 5, '소규모 결혼식 전문 플래너', '50명 내외 스몰 웨딩 기획 경험이 많아 세심한 진행이 가능합니다.', '10년차 웨딩 플래너 전문가입니다. 예산 안에서 합리적인 업체 매칭과 일정 관리를 도와드립니다.', '토탈플래닝,당일진행,예산관리', '대구', 1176038, 10, 7, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer66@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer66@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-178/900/600',
+       '소규모 결혼식 전문 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer66@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer66@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-179/900/600',
+       '소규모 결혼식 전문 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer66@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer66@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-180/900/600',
+       '소규모 결혼식 전문 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer66@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer67@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한플랜', '010-90067-0067', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer67@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer67@wedge.local'), 5, '호텔 웨딩 전문 플래너', '당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '3년차 웨딩 플래너 전문가입니다. 당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '토탈플래닝,예산관리,스몰웨딩', '인천', 1074355, 3, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer67@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer67@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-181/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer67@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer67@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-182/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer67@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer67@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-183/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer67@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer68@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '권플랜', '010-90068-0068', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer68@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer68@wedge.local'), 5, '호텔 웨딩 전문 플래너', '50명 내외 스몰 웨딩 기획 경험이 많아 세심한 진행이 가능합니다.', '4년차 웨딩 플래너 전문가입니다. 준비 과정 전반의 커뮤니케이션을 도맡아 신랑신부의 부담을 줄여드립니다.', '토탈플래닝,당일진행,예산관리', '울산', 921110, 4, 16, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer68@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer68@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-184/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer68@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer68@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-185/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer68@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer68@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-186/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer68@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer69@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '김플랜', '010-90069-0069', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer69@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer69@wedge.local'), 5, '예산 관리 전문 웨딩 플래너', '50명 내외 스몰 웨딩 기획 경험이 많아 세심한 진행이 가능합니다.', '14년차 웨딩 플래너 전문가입니다. 당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '예산관리,토탈플래닝,스몰웨딩', '인천', 902933, 14, 0, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer69@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer69@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-187/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer69@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer69@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-188/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer69@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer69@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-189/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer69@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer70@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '윤플랜', '010-90070-0070', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer70@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer70@wedge.local'), 5, '당일 진행 전문 웨딩 플래너', '당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '4년차 웨딩 플래너 전문가입니다. 당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '토탈플래닝,당일진행,업체매칭', '부산', 923456, 4, 3, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer70@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer70@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-190/900/600',
+       '당일 진행 전문 웨딩 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer70@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer70@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-191/900/600',
+       '당일 진행 전문 웨딩 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer70@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer70@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-192/900/600',
+       '당일 진행 전문 웨딩 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer70@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer71@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강플랜', '010-90071-0071', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer71@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer71@wedge.local'), 5, '예산 관리 전문 웨딩 플래너', '당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '9년차 웨딩 플래너 전문가입니다. 당일 현장 진행만 의뢰하셔도 매끄럽게 운영해 드립니다.', '당일진행,업체매칭,스몰웨딩', '인천', 1027775, 9, 14, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer71@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer71@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-193/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer71@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer71@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-194/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer71@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer71@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-195/900/600',
+       '예산 관리 전문 웨딩 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer71@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer72@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신플랜', '010-90072-0072', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer72@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer72@wedge.local'), 5, '업체 매칭부터 진행까지 풀 케어', '준비 과정 전반의 커뮤니케이션을 도맡아 신랑신부의 부담을 줄여드립니다.', '13년차 웨딩 플래너 전문가입니다. 준비 과정 전반의 커뮤니케이션을 도맡아 신랑신부의 부담을 줄여드립니다.', '예산관리,토탈플래닝,스몰웨딩', '울산', 1135313, 13, 20, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer72@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer72@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-196/900/600',
+       '업체 매칭부터 진행까지 풀 케어 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer72@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer72@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-197/900/600',
+       '업체 매칭부터 진행까지 풀 케어 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer72@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer72@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-198/900/600',
+       '업체 매칭부터 진행까지 풀 케어 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer72@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer73@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한플랜', '010-90073-0073', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer73@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer73@wedge.local'), 5, '호텔 웨딩 전문 플래너', '50명 내외 스몰 웨딩 기획 경험이 많아 세심한 진행이 가능합니다.', '8년차 웨딩 플래너 전문가입니다. 준비 과정 전반의 커뮤니케이션을 도맡아 신랑신부의 부담을 줄여드립니다.', '업체매칭,당일진행,예산관리', '제주', 956008, 8, 12, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer73@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer73@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-199/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer73@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer73@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-200/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer73@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer73@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-201/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer73@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer74@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신플랜', '010-90074-0074', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer74@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer74@wedge.local'), 5, '호텔 웨딩 전문 플래너', '50명 내외 스몰 웨딩 기획 경험이 많아 세심한 진행이 가능합니다.', '1년차 웨딩 플래너 전문가입니다. 50명 내외 스몰 웨딩 기획 경험이 많아 세심한 진행이 가능합니다.', '스몰웨딩,토탈플래닝,업체매칭', '대구', 1042958, 1, 14, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer74@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer74@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-202/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer74@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer74@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-203/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer74@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer74@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-204/900/600',
+       '호텔 웨딩 전문 플래너 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer74@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 6 (주례·혼례사) : 목표 11명, 기존 1명, 신규 10명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer75@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '황예식', '010-90075-0075', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer75@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer75@wedge.local'), 6, '전통 혼례사 진행 전문', '신랑신부의 이야기를 진심으로 담아 따뜻한 주례를 진행합니다.', '7년차 주례·혼례사 전문가입니다. 너무 길지 않게 핵심만 담백하게 전달하는 스타일입니다.', '담백한진행,가족분위기,전통혼례', '대전', 415019, 7, 6, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer75@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer75@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-205/900/600',
+       '전통 혼례사 진행 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer75@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer75@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-206/900/600',
+       '전통 혼례사 진행 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer75@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer75@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-207/900/600',
+       '전통 혼례사 진행 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer75@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer76@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신예식', '010-90076-0076', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer76@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer76@wedge.local'), 6, '가족 같은 분위기의 혼례 진행', '너무 길지 않게 핵심만 담백하게 전달하는 스타일입니다.', '1년차 주례·혼례사 전문가입니다. 양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.', '담백한진행,가족분위기,품격있는주례', '경기', 302422, 1, 17, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer76@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer76@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-208/900/600',
+       '가족 같은 분위기의 혼례 진행 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer76@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer76@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-209/900/600',
+       '가족 같은 분위기의 혼례 진행 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer76@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer76@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-210/900/600',
+       '가족 같은 분위기의 혼례 진행 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer76@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer77@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강예식', '010-90077-0077', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer77@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer77@wedge.local'), 6, '전통 혼례사 진행 전문', '양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.', '1년차 주례·혼례사 전문가입니다. 전통 혼례 방식의 격식 있는 진행 경험이 풍부합니다.', '담백한진행,품격있는주례,가족분위기', '수원', 222043, 1, 13, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer77@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer77@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-211/900/600',
+       '전통 혼례사 진행 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer77@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer77@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-212/900/600',
+       '전통 혼례사 진행 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer77@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer77@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-213/900/600',
+       '전통 혼례사 진행 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer77@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer78@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '김예식', '010-90078-0078', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer78@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer78@wedge.local'), 6, '품격 있는 주례사', '전통 혼례 방식의 격식 있는 진행 경험이 풍부합니다.', '7년차 주례·혼례사 전문가입니다. 양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.', '전통혼례,담백한진행,가족분위기', '대전', 301265, 7, 19, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer78@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer78@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-214/900/600',
+       '품격 있는 주례사 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer78@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer78@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-215/900/600',
+       '품격 있는 주례사 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer78@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer78@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-216/900/600',
+       '품격 있는 주례사 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer78@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer79@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임예식', '010-90079-0079', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer79@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer79@wedge.local'), 6, '짧고 담백한 주례 진행', '전통 혼례 방식의 격식 있는 진행 경험이 풍부합니다.', '4년차 주례·혼례사 전문가입니다. 신랑신부의 이야기를 진심으로 담아 따뜻한 주례를 진행합니다.', '전통혼례,담백한진행,가족분위기', '대구', 156535, 4, 23, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer79@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer79@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-217/900/600',
+       '짧고 담백한 주례 진행 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer79@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer79@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-218/900/600',
+       '짧고 담백한 주례 진행 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer79@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer79@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-219/900/600',
+       '짧고 담백한 주례 진행 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer79@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer80@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강예식', '010-90080-0080', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer80@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer80@wedge.local'), 6, '품격 있는 주례사', '양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.', '10년차 주례·혼례사 전문가입니다. 양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.', '가족분위기,전통혼례,담백한진행', '광주', 405073, 10, 6, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer80@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer80@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-220/900/600',
+       '품격 있는 주례사 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer80@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer80@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-221/900/600',
+       '품격 있는 주례사 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer80@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer80@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-222/900/600',
+       '품격 있는 주례사 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer80@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer81@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임예식', '010-90081-0081', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer81@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer81@wedge.local'), 6, '전통 혼례사 진행 전문', '신랑신부의 이야기를 진심으로 담아 따뜻한 주례를 진행합니다.', '7년차 주례·혼례사 전문가입니다. 너무 길지 않게 핵심만 담백하게 전달하는 스타일입니다.', '전통혼례,담백한진행,품격있는주례', '부산', 247184, 7, 25, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer81@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer81@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-223/900/600',
+       '전통 혼례사 진행 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer81@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer81@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-224/900/600',
+       '전통 혼례사 진행 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer81@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer81@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-225/900/600',
+       '전통 혼례사 진행 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer81@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer82@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '윤예식', '010-90082-0082', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer82@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer82@wedge.local'), 6, '유머 있는 주례사', '신랑신부의 이야기를 진심으로 담아 따뜻한 주례를 진행합니다.', '3년차 주례·혼례사 전문가입니다. 전통 혼례 방식의 격식 있는 진행 경험이 풍부합니다.', '품격있는주례,전통혼례,담백한진행', '서울', 272534, 3, 6, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer82@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer82@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-226/900/600',
+       '유머 있는 주례사 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer82@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer82@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-227/900/600',
+       '유머 있는 주례사 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer82@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer82@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-228/900/600',
+       '유머 있는 주례사 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer82@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer83@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장예식', '010-90083-0083', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer83@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer83@wedge.local'), 6, '전통 혼례사 진행 전문', '양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.', '14년차 주례·혼례사 전문가입니다. 양가 어르신도 편안하게 느낄 수 있는 부드러운 진행을 합니다.', '전통혼례,담백한진행,가족분위기', '수원', 421727, 14, 8, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer83@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer83@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-229/900/600',
+       '전통 혼례사 진행 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer83@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer83@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-230/900/600',
+       '전통 혼례사 진행 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer83@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer83@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-231/900/600',
+       '전통 혼례사 진행 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer83@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer84@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신예식', '010-90084-0084', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer84@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer84@wedge.local'), 6, '차분한 진행의 주례사', '너무 길지 않게 핵심만 담백하게 전달하는 스타일입니다.', '15년차 주례·혼례사 전문가입니다. 전통 혼례 방식의 격식 있는 진행 경험이 풍부합니다.', '품격있는주례,가족분위기,전통혼례', '대구', 285618, 15, 21, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer84@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer84@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-232/900/600',
+       '차분한 진행의 주례사 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer84@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer84@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-233/900/600',
+       '차분한 진행의 주례사 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer84@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer84@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-234/900/600',
+       '차분한 진행의 주례사 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer84@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 7 (연주·밴드) : 목표 11명, 기존 1명, 신규 10명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer85@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신뮤직', '010-90085-0085', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer85@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer85@wedge.local'), 7, '식전 연주 전문팀', '현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '13년차 연주·밴드 전문가입니다. 식전 연주부터 입장곡까지 분위기에 맞춘 라이브 연주를 제공합니다.', '현악중주,라이브연주,편곡가능', '대전', 805991, 13, 13, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer85@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer85@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-235/900/600',
+       '식전 연주 전문팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer85@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer85@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-236/900/600',
+       '식전 연주 전문팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer85@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer85@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-237/900/600',
+       '식전 연주 전문팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer85@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer86@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오뮤직', '010-90086-0086', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer86@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer86@wedge.local'), 7, '클래식·팝 모두 가능한 연주팀', '현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '7년차 연주·밴드 전문가입니다. 현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '식전연주,음향포함,편곡가능', '대구', 807749, 7, 24, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer86@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer86@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-238/900/600',
+       '클래식·팝 모두 가능한 연주팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer86@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer86@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-239/900/600',
+       '클래식·팝 모두 가능한 연주팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer86@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer86@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-240/900/600',
+       '클래식·팝 모두 가능한 연주팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer86@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer87@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '서뮤직', '010-90087-0087', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer87@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer87@wedge.local'), 7, '야외 웨딩 음향 포함 연주팀', '현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '2년차 연주·밴드 전문가입니다. 신랑신부가 원하는 곡으로 편곡 작업도 가능합니다.', '음향포함,식전연주,라이브연주', '제주', 681935, 2, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer87@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer87@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-241/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer87@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer87@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-242/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer87@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer87@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-243/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer87@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer88@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '윤뮤직', '010-90088-0088', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer88@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer88@wedge.local'), 7, '클래식·팝 모두 가능한 연주팀', '식전 연주부터 입장곡까지 분위기에 맞춘 라이브 연주를 제공합니다.', '2년차 연주·밴드 전문가입니다. 식전 연주부터 입장곡까지 분위기에 맞춘 라이브 연주를 제공합니다.', '식전연주,음향포함,현악중주', '인천', 791569, 2, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer88@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer88@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-244/900/600',
+       '클래식·팝 모두 가능한 연주팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer88@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer88@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-245/900/600',
+       '클래식·팝 모두 가능한 연주팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer88@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer88@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-246/900/600',
+       '클래식·팝 모두 가능한 연주팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer88@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer89@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오뮤직', '010-90089-0089', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer89@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer89@wedge.local'), 7, '야외 웨딩 음향 포함 연주팀', '야외 웨딩 환경에 맞춘 음향 장비까지 함께 준비해 드립니다.', '13년차 연주·밴드 전문가입니다. 신랑신부가 원하는 곡으로 편곡 작업도 가능합니다.', '편곡가능,음향포함,식전연주', '인천', 937521, 13, 28, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer89@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer89@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-247/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer89@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer89@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-248/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer89@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer89@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-249/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer89@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer90@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '이뮤직', '010-90090-0090', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer90@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer90@wedge.local'), 7, '식전 연주 전문팀', '신랑신부가 원하는 곡으로 편곡 작업도 가능합니다.', '11년차 연주·밴드 전문가입니다. 신랑신부가 원하는 곡으로 편곡 작업도 가능합니다.', '라이브연주,식전연주,편곡가능', '대구', 931567, 11, 28, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer90@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer90@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-250/900/600',
+       '식전 연주 전문팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer90@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer90@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-251/900/600',
+       '식전 연주 전문팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer90@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer90@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-252/900/600',
+       '식전 연주 전문팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer90@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer91@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임뮤직', '010-90091-0091', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer91@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer91@wedge.local'), 7, '야외 웨딩 음향 포함 연주팀', '현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '10년차 연주·밴드 전문가입니다. 현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '현악중주,음향포함,식전연주', '대전', 801831, 10, 24, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer91@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer91@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-253/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer91@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer91@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-254/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer91@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer91@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-255/900/600',
+       '야외 웨딩 음향 포함 연주팀 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer91@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer92@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '윤뮤직', '010-90092-0092', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer92@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer92@wedge.local'), 7, '라이브 웨딩 밴드 섭외', '식전 연주부터 입장곡까지 분위기에 맞춘 라이브 연주를 제공합니다.', '5년차 연주·밴드 전문가입니다. 현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '편곡가능,음향포함,식전연주', '부산', 790049, 5, 7, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer92@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer92@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-256/900/600',
+       '라이브 웨딩 밴드 섭외 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer92@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer92@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-257/900/600',
+       '라이브 웨딩 밴드 섭외 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer92@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer92@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-258/900/600',
+       '라이브 웨딩 밴드 섭외 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer92@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer93@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임뮤직', '010-90093-0093', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer93@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer93@wedge.local'), 7, '라이브 웨딩 밴드 섭외', '현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '10년차 연주·밴드 전문가입니다. 신랑신부가 원하는 곡으로 편곡 작업도 가능합니다.', '라이브연주,음향포함,현악중주', '대구', 934895, 10, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer93@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer93@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-259/900/600',
+       '라이브 웨딩 밴드 섭외 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer93@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer93@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-260/900/600',
+       '라이브 웨딩 밴드 섭외 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer93@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer93@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-261/900/600',
+       '라이브 웨딩 밴드 섭외 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer93@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer94@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장뮤직', '010-90094-0094', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer94@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer94@wedge.local'), 7, '피아노 단독 웨딩 연주', '현악 2~4중주 편성으로 클래식과 팝 레퍼토리 모두 소화 가능합니다.', '11년차 연주·밴드 전문가입니다. 야외 웨딩 환경에 맞춘 음향 장비까지 함께 준비해 드립니다.', '음향포함,식전연주,라이브연주', '경기', 736625, 11, 5, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer94@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer94@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-262/900/600',
+       '피아노 단독 웨딩 연주 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer94@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer94@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-263/900/600',
+       '피아노 단독 웨딩 연주 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer94@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer94@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-264/900/600',
+       '피아노 단독 웨딩 연주 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer94@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 8 (축가) : 목표 15명, 기존 2명, 신규 13명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer95@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오보컬', '010-90095-0095', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer95@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer95@wedge.local'), 8, '라이브 반주 축가 가수', '짧은 시간 내에도 인상적인 무대를 만들어 드립니다.', '8년차 축가 전문가입니다. 풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.', '라이브반주,발라드,듀엣축가', '부산', 289298, 8, 18, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer95@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer95@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-265/900/600',
+       '라이브 반주 축가 가수 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer95@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer95@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-266/900/600',
+       '라이브 반주 축가 가수 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer95@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer95@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-267/900/600',
+       '라이브 반주 축가 가수 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer95@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer96@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신보컬', '010-90096-0096', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer96@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer96@wedge.local'), 8, '잔잔한 음색의 축가', 'MR보다 라이브 악기 반주를 선호하시는 분께 추천드립니다.', '7년차 축가 전문가입니다. 듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.', '라이브반주,솔로축가,발라드', '수원', 497576, 7, 25, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer96@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer96@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-268/900/600',
+       '잔잔한 음색의 축가 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer96@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer96@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-269/900/600',
+       '잔잔한 음색의 축가 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer96@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer96@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-270/900/600',
+       '잔잔한 음색의 축가 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer96@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer97@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '서보컬', '010-90097-0097', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer97@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer97@wedge.local'), 8, '감미로운 솔로 축가', '풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.', '11년차 축가 전문가입니다. 짧은 시간 내에도 인상적인 무대를 만들어 드립니다.', '발라드,듀엣축가,라이브반주', '수원', 314140, 11, 15, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer97@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer97@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-271/900/600',
+       '감미로운 솔로 축가 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer97@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer97@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-272/900/600',
+       '감미로운 솔로 축가 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer97@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer97@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-273/900/600',
+       '감미로운 솔로 축가 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer97@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer98@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오보컬', '010-90098-0098', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer98@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer98@wedge.local'), 8, '라이브 반주 축가 가수', '듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.', '6년차 축가 전문가입니다. 듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.', '듀엣축가,솔로축가,발라드', '수원', 332634, 6, 29, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer98@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer98@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-274/900/600',
+       '라이브 반주 축가 가수 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer98@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer98@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-275/900/600',
+       '라이브 반주 축가 가수 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer98@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer98@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-276/900/600',
+       '라이브 반주 축가 가수 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer98@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer99@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신보컬', '010-90099-0099', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer99@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer99@wedge.local'), 8, '감동적인 발라드 축가', '듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.', '12년차 축가 전문가입니다. 듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.', '솔로축가,라이브반주,듀엣축가', '경기', 477829, 12, 29, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer99@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer99@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-277/900/600',
+       '감동적인 발라드 축가 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer99@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer99@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-278/900/600',
+       '감동적인 발라드 축가 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer99@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer99@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-279/900/600',
+       '감동적인 발라드 축가 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer99@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer100@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '조보컬', '010-90100-0100', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer100@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer100@wedge.local'), 8, '라이브 반주 축가 가수', '풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.', '4년차 축가 전문가입니다. 풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.', '발라드,라이브반주,솔로축가', '대전', 382614, 4, 25, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer100@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer100@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-280/900/600',
+       '라이브 반주 축가 가수 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer100@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer100@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-281/900/600',
+       '라이브 반주 축가 가수 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer100@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer100@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-282/900/600',
+       '라이브 반주 축가 가수 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer100@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer101@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '최보컬', '010-90101-0101', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer101@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer101@wedge.local'), 8, '팝송 레퍼토리 축가 가수', '짧은 시간 내에도 인상적인 무대를 만들어 드립니다.', '13년차 축가 전문가입니다. 짧은 시간 내에도 인상적인 무대를 만들어 드립니다.', '발라드,솔로축가,듀엣축가', '수원', 460128, 13, 13, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer101@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer101@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-283/900/600',
+       '팝송 레퍼토리 축가 가수 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer101@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer101@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-284/900/600',
+       '팝송 레퍼토리 축가 가수 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer101@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer101@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-285/900/600',
+       '팝송 레퍼토리 축가 가수 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer101@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer102@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장보컬', '010-90102-0102', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer102@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer102@wedge.local'), 8, '듀엣 축가 전문', '듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.', '3년차 축가 전문가입니다. 짧은 시간 내에도 인상적인 무대를 만들어 드립니다.', '발라드,듀엣축가,솔로축가', '대전', 313322, 3, 17, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer102@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer102@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-286/900/600',
+       '듀엣 축가 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer102@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer102@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-287/900/600',
+       '듀엣 축가 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer102@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer102@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-288/900/600',
+       '듀엣 축가 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer102@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer103@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '최보컬', '010-90103-0103', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer103@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer103@wedge.local'), 8, '팝송 레퍼토리 축가 가수', 'MR보다 라이브 악기 반주를 선호하시는 분께 추천드립니다.', '4년차 축가 전문가입니다. MR보다 라이브 악기 반주를 선호하시는 분께 추천드립니다.', '발라드,듀엣축가,솔로축가', '제주', 390117, 4, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer103@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer103@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-289/900/600',
+       '팝송 레퍼토리 축가 가수 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer103@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer103@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-290/900/600',
+       '팝송 레퍼토리 축가 가수 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer103@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer103@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-291/900/600',
+       '팝송 레퍼토리 축가 가수 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer103@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer104@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '정보컬', '010-90104-0104', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer104@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer104@wedge.local'), 8, '라이브 반주 축가 가수', '풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.', '13년차 축가 전문가입니다. 풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.', '솔로축가,발라드,듀엣축가', '광주', 511357, 13, 4, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer104@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer104@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-292/900/600',
+       '라이브 반주 축가 가수 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer104@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer104@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-293/900/600',
+       '라이브 반주 축가 가수 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer104@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer104@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-294/900/600',
+       '라이브 반주 축가 가수 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer104@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer105@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강보컬', '010-90105-0105', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer105@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer105@wedge.local'), 8, '라이브 반주 축가 가수', '듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.', '5년차 축가 전문가입니다. MR보다 라이브 악기 반주를 선호하시는 분께 추천드립니다.', '발라드,라이브반주,솔로축가', '수원', 265967, 5, 29, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer105@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer105@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-295/900/600',
+       '라이브 반주 축가 가수 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer105@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer105@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-296/900/600',
+       '라이브 반주 축가 가수 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer105@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer105@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-297/900/600',
+       '라이브 반주 축가 가수 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer105@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer106@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오보컬', '010-90106-0106', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer106@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer106@wedge.local'), 8, '감동적인 발라드 축가', 'MR보다 라이브 악기 반주를 선호하시는 분께 추천드립니다.', '4년차 축가 전문가입니다. 듀엣 축가도 가능하며, 곡 선정도 함께 상의해 드립니다.', '듀엣축가,솔로축가,발라드', '울산', 330888, 4, 12, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer106@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer106@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-298/900/600',
+       '감동적인 발라드 축가 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer106@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer106@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-299/900/600',
+       '감동적인 발라드 축가 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer106@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer106@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-300/900/600',
+       '감동적인 발라드 축가 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer106@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer107@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '김보컬', '010-90107-0107', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer107@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer107@wedge.local'), 8, '듀엣 축가 전문', '풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.', '10년차 축가 전문가입니다. 풍부한 성량과 감성적인 음색으로 식장 분위기를 채워드립니다.', '솔로축가,라이브반주,듀엣축가', '수원', 504767, 10, 12, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer107@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer107@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-301/900/600',
+       '듀엣 축가 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer107@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer107@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-302/900/600',
+       '듀엣 축가 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer107@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer107@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-303/900/600',
+       '듀엣 축가 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer107@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 9 (사회자) : 목표 11명, 기존 2명, 신규 9명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer108@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오엠씨', '010-90108-0108', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer108@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer108@wedge.local'), 9, '10년 경력 웨딩 사회자', '편지 낭독 같은 깜짝 이벤트 코너도 매끄럽게 진행합니다.', '9년차 사회자 전문가입니다. 양가 부모님 소개를 정중하고 따뜻하게 진행해 드립니다.', '센스있는진행,이벤트진행,양가소개', '대구', 561568, 9, 9, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer108@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer108@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-304/900/600',
+       '10년 경력 웨딩 사회자 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer108@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer108@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-305/900/600',
+       '10년 경력 웨딩 사회자 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer108@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer108@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-306/900/600',
+       '10년 경력 웨딩 사회자 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer108@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer109@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강엠씨', '010-90109-0109', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer109@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer109@wedge.local'), 9, '센스있는 웨딩 사회자', '편지 낭독 같은 깜짝 이벤트 코너도 매끄럽게 진행합니다.', '14년차 사회자 전문가입니다. 과하지 않으면서도 분위기를 살리는 진행을 지향합니다.', '센스있는진행,이벤트진행,양가소개', '서울', 403674, 14, 24, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer109@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer109@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-307/900/600',
+       '센스있는 웨딩 사회자 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer109@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer109@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-308/900/600',
+       '센스있는 웨딩 사회자 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer109@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer109@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-309/900/600',
+       '센스있는 웨딩 사회자 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer109@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer110@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '최엠씨', '010-90110-0110', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer110@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer110@wedge.local'), 9, '전문 웨딩 MC', '편지 낭독 같은 깜짝 이벤트 코너도 매끄럽게 진행합니다.', '15년차 사회자 전문가입니다. 유연한 진행과 센스있는 멘트로 식장 분위기를 자연스럽게 이끌어갑니다.', '이벤트진행,양가소개,센스있는진행', '울산', 352036, 15, 22, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer110@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer110@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-310/900/600',
+       '전문 웨딩 MC 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer110@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer110@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-311/900/600',
+       '전문 웨딩 MC 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer110@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer110@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-312/900/600',
+       '전문 웨딩 MC 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer110@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer111@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임엠씨', '010-90111-0111', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer111@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer111@wedge.local'), 9, '센스있는 웨딩 사회자', '유연한 진행과 센스있는 멘트로 식장 분위기를 자연스럽게 이끌어갑니다.', '12년차 사회자 전문가입니다. 과하지 않으면서도 분위기를 살리는 진행을 지향합니다.', '센스있는진행,차분한MC,양가소개', '서울', 357063, 12, 20, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer111@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer111@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-313/900/600',
+       '센스있는 웨딩 사회자 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer111@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer111@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-314/900/600',
+       '센스있는 웨딩 사회자 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer111@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer111@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-315/900/600',
+       '센스있는 웨딩 사회자 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer111@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer112@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '정엠씨', '010-90112-0112', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer112@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer112@wedge.local'), 9, '전문 웨딩 MC', '과하지 않으면서도 분위기를 살리는 진행을 지향합니다.', '5년차 사회자 전문가입니다. 양가 부모님 소개를 정중하고 따뜻하게 진행해 드립니다.', '양가소개,차분한MC,이벤트진행', '수원', 445803, 5, 11, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer112@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer112@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-316/900/600',
+       '전문 웨딩 MC 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer112@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer112@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-317/900/600',
+       '전문 웨딩 MC 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer112@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer112@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-318/900/600',
+       '전문 웨딩 MC 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer112@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer113@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장엠씨', '010-90113-0113', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer113@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer113@wedge.local'), 9, '유머러스한 결혼식 사회자', '과하지 않으면서도 분위기를 살리는 진행을 지향합니다.', '15년차 사회자 전문가입니다. 과하지 않으면서도 분위기를 살리는 진행을 지향합니다.', '차분한MC,양가소개,이벤트진행', '서울', 385241, 15, 24, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer113@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer113@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-319/900/600',
+       '유머러스한 결혼식 사회자 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer113@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer113@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-320/900/600',
+       '유머러스한 결혼식 사회자 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer113@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer113@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-321/900/600',
+       '유머러스한 결혼식 사회자 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer113@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer114@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '최엠씨', '010-90114-0114', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer114@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer114@wedge.local'), 9, '이벤트 진행까지 가능한 사회자', '과하지 않으면서도 분위기를 살리는 진행을 지향합니다.', '14년차 사회자 전문가입니다. 유연한 진행과 센스있는 멘트로 식장 분위기를 자연스럽게 이끌어갑니다.', '이벤트진행,양가소개,센스있는진행', '제주', 597214, 14, 24, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer114@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer114@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-322/900/600',
+       '이벤트 진행까지 가능한 사회자 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer114@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer114@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-323/900/600',
+       '이벤트 진행까지 가능한 사회자 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer114@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer114@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-324/900/600',
+       '이벤트 진행까지 가능한 사회자 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer114@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer115@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '윤엠씨', '010-90115-0115', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer115@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer115@wedge.local'), 9, '10년 경력 웨딩 사회자', '편지 낭독 같은 깜짝 이벤트 코너도 매끄럽게 진행합니다.', '10년차 사회자 전문가입니다. 편지 낭독 같은 깜짝 이벤트 코너도 매끄럽게 진행합니다.', '센스있는진행,이벤트진행,양가소개', '서울', 586647, 10, 3, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer115@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer115@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-325/900/600',
+       '10년 경력 웨딩 사회자 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer115@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer115@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-326/900/600',
+       '10년 경력 웨딩 사회자 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer115@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer115@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-327/900/600',
+       '10년 경력 웨딩 사회자 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer115@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer116@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '윤엠씨', '010-90116-0116', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer116@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer116@wedge.local'), 9, '전문 웨딩 MC', '과하지 않으면서도 분위기를 살리는 진행을 지향합니다.', '6년차 사회자 전문가입니다. 양가 부모님 소개를 정중하고 따뜻하게 진행해 드립니다.', '차분한MC,센스있는진행,이벤트진행', '대전', 639180, 6, 16, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer116@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer116@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-328/900/600',
+       '전문 웨딩 MC 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer116@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer116@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-329/900/600',
+       '전문 웨딩 MC 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer116@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer116@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-330/900/600',
+       '전문 웨딩 MC 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer116@wedge.local') LIMIT 1) AND sort_order = 3);
+
+-- 카테고리 10 (기타) : 목표 16명, 기존 1명, 신규 15명 추가
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer117@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '정토탈', '010-90117-0117', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer117@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer117@wedge.local'), 10, '청첩장 디자인 전문', '환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '14년차 기타 전문가입니다. 예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '답례품,캘리그라피,웨딩카', '제주', 515911, 14, 14, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer117@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer117@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-331/900/600',
+       '청첩장 디자인 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer117@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer117@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-332/900/600',
+       '청첩장 디자인 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer117@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer117@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-333/900/600',
+       '청첩장 디자인 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer117@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer118@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '오토탈', '010-90118-0118', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer118@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer118@wedge.local'), 10, '결혼 준비 컨설팅', '기타 분류에 속하는 다양한 웨딩 부가 서비스를 제공합니다.', '5년차 기타 전문가입니다. 환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '토탈케어,청첩장디자인,웨딩카', '경기', 550689, 5, 18, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer118@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer118@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-334/900/600',
+       '결혼 준비 컨설팅 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer118@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer118@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-335/900/600',
+       '결혼 준비 컨설팅 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer118@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer118@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-336/900/600',
+       '결혼 준비 컨설팅 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer118@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer119@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '임토탈', '010-90119-0119', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer119@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer119@wedge.local'), 10, '청첩장 디자인 전문', '기타 분류에 속하는 다양한 웨딩 부가 서비스를 제공합니다.', '4년차 기타 전문가입니다. 환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '토탈케어,답례품,청첩장디자인', '수원', 637319, 4, 30, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer119@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer119@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-337/900/600',
+       '청첩장 디자인 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer119@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer119@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-338/900/600',
+       '청첩장 디자인 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer119@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer119@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-339/900/600',
+       '청첩장 디자인 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer119@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer120@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '강토탈', '010-90120-0120', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer120@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer120@wedge.local'), 10, '웨딩 답례품 제작', '환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '12년차 기타 전문가입니다. 예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '토탈케어,청첩장디자인,웨딩카', '인천', 426043, 12, 16, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer120@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer120@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-340/900/600',
+       '웨딩 답례품 제작 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer120@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer120@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-341/900/600',
+       '웨딩 답례품 제작 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer120@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer120@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-342/900/600',
+       '웨딩 답례품 제작 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer120@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer121@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '권토탈', '010-90121-0121', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer121@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer121@wedge.local'), 10, '청첩장 디자인 전문', '예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '9년차 기타 전문가입니다. 예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '토탈케어,청첩장디자인,답례품', '대구', 468761, 9, 11, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer121@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer121@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-343/900/600',
+       '청첩장 디자인 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer121@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer121@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-344/900/600',
+       '청첩장 디자인 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer121@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer121@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-345/900/600',
+       '청첩장 디자인 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer121@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer122@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '최토탈', '010-90122-0122', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer122@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer122@wedge.local'), 10, '결혼 준비 컨설팅', '예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '14년차 기타 전문가입니다. 예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '토탈케어,청첩장디자인,웨딩카', '대전', 507813, 14, 12, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer122@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer122@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-346/900/600',
+       '결혼 준비 컨설팅 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer122@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer122@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-347/900/600',
+       '결혼 준비 컨설팅 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer122@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer122@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-348/900/600',
+       '결혼 준비 컨설팅 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer122@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer123@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '정토탈', '010-90123-0123', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer123@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer123@wedge.local'), 10, '웨딩 답례품 제작', '예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '14년차 기타 전문가입니다. 모바일·종이 청첩장 디자인을 모두 작업 가능합니다.', '토탈케어,청첩장디자인,웨딩카', '제주', 638546, 14, 20, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer123@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer123@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-349/900/600',
+       '웨딩 답례품 제작 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer123@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer123@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-350/900/600',
+       '웨딩 답례품 제작 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer123@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer123@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-351/900/600',
+       '웨딩 답례품 제작 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer123@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer124@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '한토탈', '010-90124-0124', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer124@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer124@wedge.local'), 10, '캘리그라피 작업 전문', '기타 분류에 속하는 다양한 웨딩 부가 서비스를 제공합니다.', '14년차 기타 전문가입니다. 환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '토탈케어,청첩장디자인,캘리그라피', '광주', 615740, 14, 17, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer124@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer124@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-352/900/600',
+       '캘리그라피 작업 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer124@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer124@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-353/900/600',
+       '캘리그라피 작업 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer124@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer124@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-354/900/600',
+       '캘리그라피 작업 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer124@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer125@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '서토탈', '010-90125-0125', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer125@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer125@wedge.local'), 10, '결혼 준비 컨설팅', '환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '9년차 기타 전문가입니다. 예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '청첩장디자인,캘리그라피,웨딩카', '서울', 512589, 9, 0, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer125@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer125@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-355/900/600',
+       '결혼 준비 컨설팅 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer125@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer125@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-356/900/600',
+       '결혼 준비 컨설팅 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer125@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer125@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-357/900/600',
+       '결혼 준비 컨설팅 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer125@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer126@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '신토탈', '010-90126-0126', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer126@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer126@wedge.local'), 10, '청첩장 디자인 전문', '기타 분류에 속하는 다양한 웨딩 부가 서비스를 제공합니다.', '11년차 기타 전문가입니다. 예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '웨딩카,캘리그라피,청첩장디자인', '수원', 625500, 11, 26, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer126@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer126@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-358/900/600',
+       '청첩장 디자인 전문 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer126@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer126@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-359/900/600',
+       '청첩장 디자인 전문 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer126@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer126@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-360/900/600',
+       '청첩장 디자인 전문 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer126@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer127@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '김토탈', '010-90127-0127', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer127@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer127@wedge.local'), 10, '웨딩카 대여 서비스', '환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '2년차 기타 전문가입니다. 모바일·종이 청첩장 디자인을 모두 작업 가능합니다.', '웨딩카,청첩장디자인,토탈케어', '부산', 620170, 2, 11, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer127@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer127@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-361/900/600',
+       '웨딩카 대여 서비스 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer127@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer127@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-362/900/600',
+       '웨딩카 대여 서비스 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer127@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer127@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-363/900/600',
+       '웨딩카 대여 서비스 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer127@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer128@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '박토탈', '010-90128-0128', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer128@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer128@wedge.local'), 10, '결혼 준비 컨설팅', '환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '13년차 기타 전문가입니다. 예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '답례품,웨딩카,청첩장디자인', '인천', 623700, 13, 18, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer128@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer128@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-364/900/600',
+       '결혼 준비 컨설팅 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer128@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer128@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-365/900/600',
+       '결혼 준비 컨설팅 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer128@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer128@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-366/900/600',
+       '결혼 준비 컨설팅 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer128@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer129@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '박토탈', '010-90129-0129', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer129@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer129@wedge.local'), 10, '웨딩카 대여 서비스', '환영판, 청첩장에 들어가는 캘리그라피 작업을 전문으로 합니다.', '12년차 기타 전문가입니다. 기타 분류에 속하는 다양한 웨딩 부가 서비스를 제공합니다.', '토탈케어,캘리그라피,청첩장디자인', '대구', 499656, 12, 12, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer129@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer129@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-367/900/600',
+       '웨딩카 대여 서비스 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer129@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer129@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-368/900/600',
+       '웨딩카 대여 서비스 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer129@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer129@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-369/900/600',
+       '웨딩카 대여 서비스 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer129@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer130@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '장토탈', '010-90130-0130', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer130@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer130@wedge.local'), 10, '웨딩 답례품 제작', '예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '12년차 기타 전문가입니다. 모바일·종이 청첩장 디자인을 모두 작업 가능합니다.', '토탈케어,캘리그라피,답례품', '제주', 462577, 12, 18, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer130@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer130@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-370/900/600',
+       '웨딩 답례품 제작 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer130@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer130@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-371/900/600',
+       '웨딩 답례품 제작 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer130@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer130@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-372/900/600',
+       '웨딩 답례품 제작 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer130@wedge.local') LIMIT 1) AND sort_order = 3);
+
+INSERT INTO members (email, password, name, phone, role, status, provider, provider_id, created_at, updated_at)
+SELECT 'freelancer131@wedge.local', '$2a$10$bo9IwOuoBfZPrirjku2kAe6yCeMR6ajU/Nq7uRXeAdMEr8vCj3eye', '권토탈', '010-90131-0131', 'FREELANCER', 'ACTIVE', 'LOCAL', NULL, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM members WHERE email = 'freelancer131@wedge.local');
+
+INSERT INTO freelancer_profiles (member_id, category_id, title, introduction, self_introduction, keywords, region, price, career_years, bookmark_count, created_at, updated_at)
+SELECT (SELECT id FROM members WHERE email = 'freelancer131@wedge.local'), 10, '웨딩카 대여 서비스', '예식장 이동용 웨딩카 대여와 기사 섭외를 함께 진행합니다.', '8년차 기타 전문가입니다. 기타 분류에 속하는 다양한 웨딩 부가 서비스를 제공합니다.', '답례품,캘리그라피,웨딩카', '수원', 507651, 8, 14, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer131@wedge.local'));
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer131@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-373/900/600',
+       '웨딩카 대여 서비스 작업 사례 1',
+       1, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer131@wedge.local') LIMIT 1) AND sort_order = 1);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer131@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-374/900/600',
+       '웨딩카 대여 서비스 작업 사례 2',
+       2, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer131@wedge.local') LIMIT 1) AND sort_order = 2);
+
+INSERT INTO portfolios (freelancer_profile_id, image_url, description, sort_order, client, industry, purpose, created_at, updated_at)
+SELECT (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer131@wedge.local') LIMIT 1),
+       'https://picsum.photos/seed/wedge-portfolio-new-375/900/600',
+       '웨딩카 대여 서비스 작업 사례 3',
+       3, '웨딩 클라이언트', '웨딩', '포트폴리오', NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM portfolios WHERE freelancer_profile_id = (SELECT id FROM freelancer_profiles WHERE member_id = (SELECT id FROM members WHERE email = 'freelancer131@wedge.local') LIMIT 1) AND sort_order = 3);
