@@ -19,10 +19,11 @@
 - [ERD](#erd)
 - [프로젝트 구조](#프로젝트-구조)
 - [로컬 실행 방법](#로컬-실행-방법)
+- [팀원 소개 및 담당](#팀원-소개-및-담당)
 
 ---
 
-## 주요 기능
+## ✨ 주요 기능
 
 ### 사용자
 | 기능 | 설명 |
@@ -71,9 +72,25 @@
 | **게시글 수정/삭제** | 본인 게시글 관리 |
 | **내 게시글** | 마이페이지에서 작성글 모아보기 |
 
+### 프리랜서 프로필 & 포트폴리오
+| 기능 | 설명 |
+|------|------|
+| **프로필 등록/수정/조회** | 카테고리·소개글·지역·가격 설정, 본인 검증 |
+| **포트폴리오 이미지 업로드** | Cloudflare R2, 다중 이미지, 10MB 제한 |
+| **열람 권한 처리** | 비로그인 시 3장 제한 (서버 응답 + 프론트 UI) |
+| **리뷰 탭 UI** | 평균 별점·리뷰 수 표시, 프론트 페이지네이션 |
+
+### 마이페이지
+| 기능 | 설명 |
+|------|------|
+| **마이페이지 UX 개편** | URL 쿼리 파라미터 기반 탭 전환, 새로고침 상태 유지 |
+| **역할별 색상 테마** | CLIENT(핑크) / FREELANCER(그린) 공통화 |
+| **프로필 이미지 업로드/삭제** | R2 연동, 저장 버튼 클릭 시 반영 |
+| **전역 유저 상태 관리** | UserContext, API 중복 호출 제거 |
+
 ---
 
-## 기술 스택
+## 🛠 기술 스택
 
 ### Backend
 
@@ -112,152 +129,31 @@
 
 ---
 
-## 시스템 아키텍처
+## 🏗 시스템 아키텍처
 
-```
-                         ┌──────────────┐
-                         │   Client     │
-                         │  (Browser)   │
-                         └──────┬───────┘
-                                │
-                 ┌──────────────┴──────────────┐
-                 ▼                              ▼
-        ┌────────────────┐            ┌─────────────────┐
-        │    Vercel       │            │   AWS EC2        │
-        │                 │   HTTPS    │                  │
-        │  Next.js 16     │ ────────>  │  Caddy (SSL)     │
-        │  (Frontend)     │            │    |              │
-        │                 │            │  Spring Boot      │
-        └────────────────┘            │  (Backend:8080)   │
-                                      │    |       |      │
-                                      │  MySQL   Redis    │
-                                      └─────────────────┘
-                                              |
-                                      ┌──────────────┐
-                                      │ Cloudflare R2 │
-                                      │ (File Storage)│
-                                      └──────────────┘
-```
+<img src="frontend/public/123213.png" width="100%" />
 
 ---
 
-## CI/CD 파이프라인
+## 🔄 CI/CD 파이프라인
 
-```
-       조직 레포 (Team)
-       ─────────────────
-       feature/* ──PR──> dev ──PR──> main
-                          │          │
-                          └── CI     │
-                         (빌드&테스트) │
-                                     │
-       ─────────────────────────────-┘
-                          │  자동 sync (30m)
-                          ▼
-       개인 포크 (Fork)
-       ─────────────────
-       main 업데이트 ──> CD 자동 트리거
-                          │
-              ┌───────────┴───────────┐
-              ▼                       ▼
-        Docker Hub               AWS SSH
-        이미지 Push              배포 반영
-```
-
-| 단계 | 트리거 | 자동/수동 |
-|------|--------|-----------|
-| CI (빌드 & 테스트) | dev push / PR | 자동 |
-| 포크 동기화 | 30분마다 | 자동 |
-| CD (Docker - AWS 배포) | main push | 자동 |
-| Vercel 프론트 배포 | main push | 자동 |
+<img src="frontend/public/cicd.png" width="100%" />
 
 ---
 
-## ERD
+## 📊 ERD
 
-```
-┌──────────┐     ┌───────────────────┐     ┌────────────┐
-│  Member   │────>│ FreelancerProfile │<────│  Category  │
-│           │     │                   │     └────────────┘
-│ id        │     │ id                │
-│ email     │     │ title             │     ┌────────────┐
-│ name      │     │ introduction      │────>│ Portfolio   │
-│ role      │     │ region, price     │     │  └ Images   │
-│ provider  │     │ careerYears       │     └────────────┘
-└──────┬────┘     └────────┬──────────┘
-       │                   │
-       │    ┌──────────────┴──────────────┐
-       │    ▼                              ▼
-       │  ┌──────────────┐     ┌──────────────┐
-       │  │  Reservation  │     │   Bookmark   │
-       │  │               │     └──────────────┘
-       │  │ status        │
-       │  │ reservationDt │
-       │  └──────┬────────┘
-       │         │
-       │    ┌────┴─────┐────────────┐
-       │    ▼          ▼            ▼
-       │ ┌────────┐ ┌────────┐ ┌────────┐
-       │ │ Review │ │ChatRoom│ │  Chat  │
-       │ │        │ │        │ │ Message│
-       │ │ rating │ └────────┘ └────────┘
-       │ └────────┘
-       │
-       ├──> ┌──────────────┐     ┌────────────┐
-       │    │ RecruitPost   │<────│  Proposal  │
-       │    │ (구인글)       │     │ (제안서)    │
-       │    │ budget, date  │     │ price      │
-       │    └──────────────┘     └────────────┘
-       │
-       └──> ┌──────────────┐
-            │    Post       │
-            │ (커뮤니티)     │
-            └──────────────┘
-```
+<img src="frontend/public/erd.png" width="100%" />
 
 ---
 
-## 프로젝트 구조
+## 📁 프로젝트 구조
 
-```
-wedge/
-├── backend/
-│   └── src/main/java/com/wedge/backend/
-│       ├── domain/
-│       │   ├── member/          # 회원, 인증, OAuth
-│       │   ├── freelancer/      # 프리랜서 프로필, 포트폴리오
-│       │   ├── category/        # 서비스 카테고리
-│       │   ├── recruit/         # 구인글
-│       │   ├── proposal/        # 제안서
-│       │   ├── reservations/    # 예약
-│       │   ├── review/          # 리뷰
-│       │   ├── chat/            # 실시간 채팅
-│       │   ├── chatbot/         # AI 견적 챗봇
-│       │   ├── community/       # 커뮤니티
-│       │   └── bookmark/        # 찜하기
-│       └── global/              # 보안, JWT, WebSocket, 설정
-│
-├── frontend/src/
-│   ├── app/                     # Next.js 페이지
-│   ├── components/              # 공통 컴포넌트, UI
-│   ├── contexts/                # React Context (UserContext)
-│   ├── hooks/                   # 커스텀 훅
-│   ├── lib/                     # 유틸리티 (auth, fetch)
-│   └── constants/               # 상수
-│
-├── .github/workflows/
-│   ├── ci.yml                   # CI: 빌드 & 테스트
-│   ├── cd.yml                   # CD: Docker Hub -> AWS 배포
-│   └── fork-sync.yml            # 포크 자동 동기화 (30분)
-│
-├── docker-compose.yml           # 로컬 개발용
-├── docker-compose.prod.yml      # 운영 배포용
-└── .env.example                 # 환경변수 템플릿
-```
+<img src="frontend/public/structure.png" width="100%" />
 
 ---
 
-## 로컬 실행 방법
+## 🚀 로컬 실행 방법
 
 ### 사전 요구사항
 - Java 21, Node.js 18+, Docker
@@ -299,11 +195,36 @@ npm run dev    # http://localhost:3000
 
 ---
 
-## 팀원 소개
+## 👥 팀원 소개 및 담당
 
-| 이름 | GitHub | 담당 |
-|------|--------|------|
-| 윤하빈 | <a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@yunabin](https://github.com/yunabin) | |
-| 정민혁 | <a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@haxxru](https://github.com/haxxru) | |
-| 이창민 | <a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@changmin41](https://github.com/changmin41) | |
-| 이민서 | <a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@p7548296-afk](https://github.com/p7548296-afk) | |
+<table>
+  <thead>
+    <tr>
+      <th width="100">이름</th>
+      <th width="200">GitHub</th>
+      <th>담당</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><nobr>윤하빈</nobr></td>
+      <td><a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/yunabin">@yunabin</a></td>
+      <td>찜(북마크) 시스템, 전문가 탐색 API, 추천 프리랜서 캐러셀(Redis 캐싱), AI 견적 챗봇(Spring AI + ChatGPT), Redis 환경 설정</td>
+    </tr>
+    <tr>
+      <td><nobr>정민혁</nobr></td>
+      <td><a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/haxxru">@haxxru</a></td>
+      <td>회원 인증(JWT·OAuth2·이메일 인증), 비밀번호 찾기, 구인/제안 시스템 CRUD, 커뮤니티 게시판, CI/CD 파이프라인(GitHub Actions), AWS EC2 배포(Docker + Caddy HTTPS)</td>
+    </tr>
+    <tr>
+      <td><nobr>이창민</nobr></td>
+      <td><a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/changmin41">@changmin41</a></td>
+      <td>담당 파트를 작성해주세요</td>
+    </tr>
+    <tr>
+      <td><nobr>이민서</nobr></td>
+      <td><a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/p7548296-afk">@p7548296-afk</a></td>
+      <td>프리랜서 프로필 등록·수정·조회(API + 프론트), 포트폴리오 이미지 업로드(Cloudflare R2), 열람 권한 처리(비로그인 3장 제한), 마이페이지 UX (탭·사이드바·역할별 색상 테마), 전역 유저 상태 관리(UserContext), 디자인 시스템</td>
+    </tr>
+  </tbody>
+</table>

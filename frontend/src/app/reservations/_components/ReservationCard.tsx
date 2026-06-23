@@ -23,14 +23,18 @@ type ReservationCardProps = {
   readonly reservation: ReservationResponse;
   readonly profileImageUrl: string | null;
   readonly userRole: string | null;
+  readonly hasUnreadChat: boolean;
   readonly onRefresh: () => void;
+  readonly onChatOpened: (reservationId: number) => void;
 };
 
 export function ReservationCard({
   reservation,
   profileImageUrl,
   userRole,
+  hasUnreadChat,
   onRefresh,
+  onChatOpened,
 }: ReservationCardProps) {
   const status = reservationStatusView[reservation.status];
   const [isUpdating, setIsUpdating] = useState(false);
@@ -84,9 +88,16 @@ export function ReservationCard({
             <h3 className="font-semibold text-[#1b1c18] text-sm">
               {cardView.displayName}
             </h3>
-            <Badge className={`${status.color} border-0 text-xs shrink-0`}>
-              {status.label}
-            </Badge>
+            <div className="flex shrink-0 items-center gap-1.5">
+              {hasUnreadChat && (
+                <Badge className="border-0 bg-[#ff5a5f] text-xs text-white">
+                  새 채팅
+                </Badge>
+              )}
+              <Badge className={`${status.color} border-0 text-xs`}>
+                {status.label}
+              </Badge>
+            </div>
           </div>
           <p className="text-xs text-[#75786c] mb-2">
             {cardView.displaySubtitle}
@@ -151,6 +162,8 @@ export function ReservationCard({
           <ReservationChatButton
             reservationId={reservation.id}
             status={reservation.status}
+            hasUnreadChat={hasUnreadChat}
+            onChatOpened={onChatOpened}
             className="h-8 rounded-xl bg-[#4f6231] px-3 text-xs text-white hover:bg-[#677b47]"
           />
           {reservation.status === "COMPLETED" && (
