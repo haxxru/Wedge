@@ -301,9 +301,9 @@ npm run dev    # http://localhost:3000
 
 ## 팀원 소개
 
-| 이름 | GitHub | 담당 |
+| 이름&nbsp;&nbsp;&nbsp;&nbsp; | GitHub | 담당 |
 |------|--------|------|
-| 윤하빈 | <a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@yunabin](https://github.com/yunabin) | |
-| 정민혁 | <a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@haxxru](https://github.com/haxxru) | 회원 인증(JWT·OAuth2·이메일 인증), 구인/제안 시스템 CRUD, CI/CD 파이프라인 및 AWS 배포 |
-| 이창민 | <a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@changmin41](https://github.com/changmin41) | |
-| 이민서 | <a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30" style="border-radius:50%"/></a> [@p7548296-afk](https://github.com/p7548296-afk) | |
+| 윤하빈 | <a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30"/></a>&nbsp;[@yunabin](https://github.com/yunabin) | |
+| 정민혁 | <a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30"/></a>&nbsp;[@haxxru](https://github.com/haxxru) | 회원&nbsp;인증(JWT·OAuth2·이메일&nbsp;인증), 구인/제안&nbsp;시스템&nbsp;CRUD, CI/CD&nbsp;파이프라인&nbsp;및&nbsp;AWS&nbsp;배포 |
+| 이창민 | <a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30"/></a>&nbsp;[@changmin41](https://github.com/changmin41) | |
+| 이민서 | <a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30"/></a>&nbsp;[@p7548296-afk](https://github.com/p7548296-afk) | |
