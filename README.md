@@ -302,9 +302,34 @@ npm run dev    # http://localhost:3000
 
 ## 팀원 소개 및 담당
 
-| 이름&nbsp;&nbsp;&nbsp;| GitHub | 담당 |
-|------|--------|------|
-| 윤하빈 | <a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30"/></a>&nbsp;[@yunabin](https://github.com/yunabin) | |
-| 정민혁 | <a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30"/></a>&nbsp;[@haxxru](https://github.com/haxxru) | 회원&nbsp;인증(JWT·OAuth2·이메일&nbsp;인증), 구인/제안&nbsp;시스템&nbsp;CRUD, CI/CD&nbsp;파이프라인&nbsp;및&nbsp;AWS&nbsp;배포 |
-| 이창민 | <a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30"/></a>&nbsp;[@changmin41](https://github.com/changmin41) | |
-| 이민서 | <a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30"/></a>&nbsp;[@p7548296-afk](https://github.com/p7548296-afk) | |
+<table>
+  <thead>
+    <tr>
+      <th width="100">이름</th>
+      <th width="200">GitHub</th>
+      <th>담당</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><nobr>윤하빈</nobr></td>
+      <td><a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/yunabin">@yunabin</a></td>
+      <td><i>담당 파트를 작성해주세요</i></td>
+    </tr>
+    <tr>
+      <td><nobr>정민혁</nobr></td>
+      <td><a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/haxxru">@haxxru</a></td>
+      <td>회원 인증(JWT·OAuth2·이메일 인증), 구인/제안 시스템 CRUD, CI/CD 파이프라인 및 AWS 배포</td>
+    </tr>
+    <tr>
+      <td><nobr>이창민</nobr></td>
+      <td><a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/changmin41">@changmin41</a></td>
+      <td><i>담당 파트를 작성해주세요</i></td>
+    </tr>
+    <tr>
+      <td><nobr>이민서</nobr></td>
+      <td><a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/p7548296-afk">@p7548296-afk</a></td>
+      <td><i>담당 파트를 작성해주세요</i></td>
+    </tr>
+  </tbody>
+</table>
