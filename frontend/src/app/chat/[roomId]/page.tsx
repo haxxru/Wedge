@@ -59,15 +59,18 @@ export default function ChatRoomPage({
   const shouldReconnectRef = useRef(false);
   const suppressReconnectRef = useRef(false);
   const refreshTimerRef = useRef<number | null>(null);
+  const presenceTimerRef = useRef<number | null>(null);
   const typingThrottleRef = useRef(0);
   const typingIdleTimerRef = useRef<number | null>(null);
   const pendingTimersRef = useRef<Map<string, number>>(new Map());
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const [opponentOnline, setOpponentOnline] = useState(false);
 
   const canSend = Boolean(room?.isActive) && connectionState === "연결됨";
   const isReconnectBusy =
     connectionState === "연결 중" || connectionState.startsWith("재연결 중");
-  const presenceIndicator = getChatPresenceIndicator(room?.opponent.isOnline ?? false);
+  const presenceIndicator = getChatPresenceIndicator(opponentOnline);
   const sortedMessages = useMemo(
     () =>
       [...messages].sort((a, b) => {
@@ -89,6 +92,7 @@ export default function ChatRoomPage({
       ]);
 
       setRoom(roomData);
+      setOpponentOnline(roomData.opponent.isOnline);
       setMessages(messagePage.content);
       setMe(meData);
       void markChatRoomRead(numericRoomId);
@@ -107,9 +111,33 @@ export default function ChatRoomPage({
     return () => window.clearTimeout(timer);
   }, [loadInitialData]);
 
+  const isNearBottomRef = useRef(true);
+
+  const handleMessagesScroll = () => {
+    const container = messagesContainerRef.current;
+    if (!container) return;
+    const threshold = 80;
+    isNearBottomRef.current =
+      container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
+  };
+
+  const scrollToBottom = useCallback((force = false) => {
+    const container = messagesContainerRef.current;
+    if (!container) return;
+    if (force || isNearBottomRef.current) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, []);
+
+  // 초기 로드 시 맨 아래로
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [sortedMessages.length, pendingMessages.length, opponentTyping]);
+    scrollToBottom(true);
+  }, [loading, scrollToBottom]);
+
+  // 새 메시지/타이핑 표시기: 아래에 있을 때만 스크롤
+  useEffect(() => {
+    scrollToBottom();
+  }, [sortedMessages.length, pendingMessages.length, opponentTyping, scrollToBottom]);
 
   const clearPendingTimer = useCallback((key: string) => {
     const timer = pendingTimersRef.current.get(key);
@@ -140,6 +168,9 @@ export default function ChatRoomPage({
           }
           return current;
         });
+      } else {
+        // 상대방이 메시지를 보냈으면 온라인 상태로 즉시 갱신
+        setOpponentOnline(true);
       }
 
       void markChatRoomRead(numericRoomId);
@@ -151,6 +182,8 @@ export default function ChatRoomPage({
     (body: string) => {
       const event = JSON.parse(body) as TypingEvent;
       if (event.roomId !== numericRoomId || event.userId === me?.id) return;
+      // 상대방이 타이핑 중이면 온라인 상태로 즉시 갱신
+      setOpponentOnline(true);
       setOpponentTyping(event.isTyping);
     },
     [me?.id, numericRoomId],
@@ -260,9 +293,20 @@ export default function ChatRoomPage({
       void connectStomp();
     }, 570000);
 
+    // 15초마다 상대방 온/오프라인 상태를 REST API로 갱신
+    presenceTimerRef.current = window.setInterval(async () => {
+      try {
+        const roomData = await fetchChatRoom(numericRoomId);
+        setOpponentOnline(roomData.opponent.isOnline);
+      } catch {
+        // 폴링 실패 시 현재 상태 유지
+      }
+    }, 15000);
+
     return () => {
       window.clearTimeout(connectTimer);
       if (refreshTimerRef.current) window.clearInterval(refreshTimerRef.current);
+      if (presenceTimerRef.current) window.clearInterval(presenceTimerRef.current);
       disconnectStomp();
       pendingTimers.forEach((timer) => window.clearTimeout(timer));
       pendingTimers.clear();
@@ -319,8 +363,9 @@ export default function ChatRoomPage({
         setStatusMessage("전송 실패. 재전송을 시도해주세요.");
       }, 3000);
       pendingTimersRef.current.set(key, timer);
+      scrollToBottom(true);
     },
-    [numericRoomId],
+    [numericRoomId, scrollToBottom],
   );
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -358,17 +403,15 @@ export default function ChatRoomPage({
 
   if (loading) {
     return (
-      <div className="flex min-h-full flex-col bg-[#fbf9f2]">
-        <main className="flex flex-1 items-center justify-center">
-          <p className="text-sm text-[#75786c]">채팅방을 불러오는 중입니다...</p>
-        </main>
+      <div className="flex h-[calc(100dvh-4rem)] flex-col items-center justify-center bg-[#fbf9f2]">
+        <p className="text-sm text-[#75786c]">채팅방을 불러오는 중입니다...</p>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-full flex-col bg-[#fbf9f2]">
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-4 py-8 sm:px-6 lg:px-8">
+    <div className="flex h-[calc(100dvh-4rem)] flex-col overflow-hidden bg-[#fbf9f2]">
+      <main className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col overflow-hidden px-4 py-4 sm:px-6 lg:px-8">
         <div className="mb-5 flex items-center justify-between gap-4">
           <button
             type="button"
@@ -417,8 +460,8 @@ export default function ChatRoomPage({
           </div>
         )}
 
-        <section className="flex min-h-[560px] flex-1 flex-col overflow-hidden rounded-lg border border-[#efeee7] bg-white shadow-sm">
-          <div className="flex-1 space-y-4 overflow-y-auto px-4 py-5 sm:px-6">
+        <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-[#efeee7] bg-white shadow-sm">
+          <div ref={messagesContainerRef} onScroll={handleMessagesScroll} className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-5 sm:px-6">
             {sortedMessages.length === 0 && pendingMessages.length === 0 ? (
               <div className="flex h-full items-center justify-center text-sm text-[#75786c]">
                 아직 주고받은 메시지가 없습니다.
@@ -478,7 +521,6 @@ export default function ChatRoomPage({
             {opponentTyping && (
               <div className="text-sm text-[#75786c]">상대방이 입력 중...</div>
             )}
-            <div ref={messagesEndRef} />
           </div>
 
           <form
