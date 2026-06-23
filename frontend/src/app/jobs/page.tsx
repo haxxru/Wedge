@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUser } from "@/contexts/UserContext";
+import { getJobTotalCount } from "./jobs-total-count.js";
 
 type RecruitStatus = "OPEN" | "CLOSED";
 type Category = { id: number; name: string };
@@ -40,6 +41,7 @@ export default function JobsPage() {
   const [status, setStatus] = useState<RecruitStatus | null>("OPEN");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const { user, isLoading: isUserLoading } = useUser();
   const isFreelancer = user?.role === "FREELANCER";
 
@@ -70,11 +72,18 @@ export default function JobsPage() {
           const data = await res.json();
           setPosts(data.content ?? []);
           setTotalPages(data.totalPages ?? 0);
+          setTotalCount(
+            getJobTotalCount({
+              totalElements: data.totalElements,
+              pageContentCount: data.content?.length ?? 0,
+            }),
+          );
         } else {
           const catIds = categories.map((c) => c.id);
           if (catIds.length === 0) {
             setPosts([]);
             setTotalPages(0);
+            setTotalCount(0);
             return;
           }
           const results = await Promise.all(
@@ -98,6 +107,12 @@ export default function JobsPage() {
           const start = page * 6;
           setPosts(merged.slice(start, start + 6));
           setTotalPages(Math.ceil(merged.length / 6));
+          setTotalCount(
+            getJobTotalCount({
+              pageContentCount: merged.slice(start, start + 6).length,
+              mergedCount: merged.length,
+            }),
+          );
         }
       } catch {
       } finally {
@@ -250,7 +265,7 @@ export default function JobsPage() {
             구인글 목록
             {!loading && (
               <span className="ml-1 font-medium text-[#1b1c18]">
-                {posts.length}건
+                {totalCount}건
               </span>
             )}
           </p>
