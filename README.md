@@ -219,7 +219,7 @@ npm run dev    # http://localhost:3000
     <tr>
       <td><nobr>이창민</nobr></td>
       <td><a href="https://github.com/changmin41"><img src="https://github.com/changmin41.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/changmin41">@changmin41</a></td>
-      <td>담당 파트를 작성해주세요</td>
+      <td>예약 시스템(신청·관리·시간 검증), 실시간 채팅(WebSocket·STOMP, 메시지 송수신), 리뷰 기능(작성·중복 방지), 인증 보안 강화</td>
     </tr>
     <tr>
       <td><nobr>이민서</nobr></td>
