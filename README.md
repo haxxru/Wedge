@@ -224,7 +224,7 @@ npm run dev    # http://localhost:3000
     <tr>
       <td><nobr>이민서</nobr></td>
       <td><a href="https://github.com/p7548296-afk"><img src="https://github.com/p7548296-afk.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/p7548296-afk">@p7548296-afk</a></td>
-      <td><i>프리랜서 프로필 등록·수정·조회(API + 프론트), 포트폴리오 이미지 업로드(Cloudflare R2), 열람 권한 처리(비로그인 3장 제한), 리뷰·평점 목록 조회, 마이페이지 UX(탭·사이드바·역할별 색상 테마), 전역 유저 상태 관리(UserContext), 디자인 시스템</i></td>
+      <td><i>프리랜서 프로필 등록·수정·조회(API + 프론트), 포트폴리오 이미지 업로드(Cloudflare R2), 열람 권한 처리(비로그인 3장 제한), 마이페이지 UX (탭·사이드바·역할별 색상 테마), 전역 유저 상태 관리(UserContext), 디자인 시스템</i></td>
     </tr>
   </tbody>
 </table>
