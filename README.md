@@ -19,6 +19,7 @@
 - [ERD](#erd)
 - [프로젝트 구조](#프로젝트-구조)
 - [로컬 실행 방법](#로컬-실행-방법)
+- [팀원 소개 및 담당](#팀원-소개-및-담당)
 
 ---
 
@@ -299,9 +300,9 @@ npm run dev    # http://localhost:3000
 
 ---
 
-## 팀원 소개
+## 팀원 소개 및 담당
 
-| 이름&nbsp;&nbsp;| GitHub | 담당 |
+| 이름&nbsp;&nbsp;&nbsp;| GitHub | 담당 |
 |------|--------|------|
 | 윤하빈 | <a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30"/></a>&nbsp;[@yunabin](https://github.com/yunabin) | |
 | 정민혁 | <a href="https://github.com/haxxru"><img src="https://github.com/haxxru.png?size=80" width="30" height="30"/></a>&nbsp;[@haxxru](https://github.com/haxxru) | 회원&nbsp;인증(JWT·OAuth2·이메일&nbsp;인증), 구인/제안&nbsp;시스템&nbsp;CRUD, CI/CD&nbsp;파이프라인&nbsp;및&nbsp;AWS&nbsp;배포 |
