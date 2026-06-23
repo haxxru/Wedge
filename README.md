@@ -115,30 +115,7 @@
 
 ## 시스템 아키텍처
 
-```
-                         ┌──────────────┐
-                         │   Client     │
-                         │  (Browser)   │
-                         └──────┬───────┘
-                                │
-                 ┌──────────────┴──────────────┐
-                 ▼                              ▼
-        ┌────────────────┐            ┌─────────────────┐
-        │    Vercel       │            │   AWS EC2        │
-        │                 │   HTTPS    │                  │
-        │  Next.js 16     │ ────────>  │  Caddy (SSL)     │
-        │  (Frontend)     │            │    |              │
-        │                 │            │  Spring Boot      │
-        └────────────────┘            │  (Backend:8080)   │
-                                      │    |       |      │
-                                      │  MySQL   Redis    │
-                                      └─────────────────┘
-                                              |
-                                      ┌──────────────┐
-                                      │ Cloudflare R2 │
-                                      │ (File Storage)│
-                                      └──────────────┘
-```
+<img src="frontend/public/architecture.png" width="100%" />
 
 ---
 
@@ -176,85 +153,13 @@
 
 ## ERD
 
-```
-┌──────────┐     ┌───────────────────┐     ┌────────────┐
-│  Member   │────>│ FreelancerProfile │<────│  Category  │
-│           │     │                   │     └────────────┘
-│ id        │     │ id                │
-│ email     │     │ title             │     ┌────────────┐
-│ name      │     │ introduction      │────>│ Portfolio   │
-│ role      │     │ region, price     │     │  └ Images   │
-│ provider  │     │ careerYears       │     └────────────┘
-└──────┬────┘     └────────┬──────────┘
-       │                   │
-       │    ┌──────────────┴──────────────┐
-       │    ▼                              ▼
-       │  ┌──────────────┐     ┌──────────────┐
-       │  │  Reservation  │     │   Bookmark   │
-       │  │               │     └──────────────┘
-       │  │ status        │
-       │  │ reservationDt │
-       │  └──────┬────────┘
-       │         │
-       │    ┌────┴─────┐────────────┐
-       │    ▼          ▼            ▼
-       │ ┌────────┐ ┌────────┐ ┌────────┐
-       │ │ Review │ │ChatRoom│ │  Chat  │
-       │ │        │ │        │ │ Message│
-       │ │ rating │ └────────┘ └────────┘
-       │ └────────┘
-       │
-       ├──> ┌──────────────┐     ┌────────────┐
-       │    │ RecruitPost   │<────│  Proposal  │
-       │    │ (구인글)       │     │ (제안서)    │
-       │    │ budget, date  │     │ price      │
-       │    └──────────────┘     └────────────┘
-       │
-       └──> ┌──────────────┐
-            │    Post       │
-            │ (커뮤니티)     │
-            └──────────────┘
-```
+<img src="frontend/public/erd.png" width="100%" />
 
 ---
 
 ## 프로젝트 구조
 
-```
-wedge/
-├── backend/
-│   └── src/main/java/com/wedge/backend/
-│       ├── domain/
-│       │   ├── member/          # 회원, 인증, OAuth
-│       │   ├── freelancer/      # 프리랜서 프로필, 포트폴리오
-│       │   ├── category/        # 서비스 카테고리
-│       │   ├── recruit/         # 구인글
-│       │   ├── proposal/        # 제안서
-│       │   ├── reservations/    # 예약
-│       │   ├── review/          # 리뷰
-│       │   ├── chat/            # 실시간 채팅
-│       │   ├── chatbot/         # AI 견적 챗봇
-│       │   ├── community/       # 커뮤니티
-│       │   └── bookmark/        # 찜하기
-│       └── global/              # 보안, JWT, WebSocket, 설정
-│
-├── frontend/src/
-│   ├── app/                     # Next.js 페이지
-│   ├── components/              # 공통 컴포넌트, UI
-│   ├── contexts/                # React Context (UserContext)
-│   ├── hooks/                   # 커스텀 훅
-│   ├── lib/                     # 유틸리티 (auth, fetch)
-│   └── constants/               # 상수
-│
-├── .github/workflows/
-│   ├── ci.yml                   # CI: 빌드 & 테스트
-│   ├── cd.yml                   # CD: Docker Hub -> AWS 배포
-│   └── fork-sync.yml            # 포크 자동 동기화 (30분)
-│
-├── docker-compose.yml           # 로컬 개발용
-├── docker-compose.prod.yml      # 운영 배포용
-└── .env.example                 # 환경변수 템플릿
-```
+<img src="frontend/public/structure.png" width="100%" />
 
 ---
 
