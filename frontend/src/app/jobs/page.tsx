@@ -56,26 +56,56 @@ export default function JobsPage() {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const params = new URLSearchParams();
-        if (categoryId) params.append("categoryId", String(categoryId));
-        if (region.trim()) params.append("region", region.trim());
-        if (status) params.append("status", status);
-        params.append("page", String(page));
-        params.append("size", "6");
-        params.append("sort", "createdAt,desc");
-        const res = await fetch(
-          `${API_BASE_URL}/api/v1/jobs?${params.toString()}`,
-        );
-        const data = await res.json();
-        setPosts(data.content ?? []);
-        setTotalPages(data.totalPages ?? 0);
+        if (categoryId) {
+          const params = new URLSearchParams();
+          params.append("categoryId", String(categoryId));
+          if (region.trim()) params.append("region", region.trim());
+          if (status) params.append("status", status);
+          params.append("page", String(page));
+          params.append("size", "6");
+          params.append("sort", "createdAt,desc");
+          const res = await fetch(
+            `${API_BASE_URL}/api/v1/jobs?${params.toString()}`,
+          );
+          const data = await res.json();
+          setPosts(data.content ?? []);
+          setTotalPages(data.totalPages ?? 0);
+        } else {
+          const catIds = categories.map((c) => c.id);
+          if (catIds.length === 0) {
+            setPosts([]);
+            setTotalPages(0);
+            return;
+          }
+          const results = await Promise.all(
+            catIds.map((cId) => {
+              const params = new URLSearchParams();
+              params.append("categoryId", String(cId));
+              if (region.trim()) params.append("region", region.trim());
+              if (status) params.append("status", status);
+              params.append("page", "0");
+              params.append("size", "100");
+              params.append("sort", "createdAt,desc");
+              return fetch(`${API_BASE_URL}/api/v1/jobs?${params.toString()}`)
+                .then((r) => r.json())
+                .then((d) => (d.content ?? []) as RecruitPost[])
+                .catch(() => [] as RecruitPost[]);
+            }),
+          );
+          const merged = results.flat().sort(
+            (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+          const start = page * 6;
+          setPosts(merged.slice(start, start + 6));
+          setTotalPages(Math.ceil(merged.length / 6));
+        }
       } catch {
       } finally {
         setLoading(false);
       }
     };
     fetchPosts();
-  }, [categoryId, region, status, page]);
+  }, [categoryId, categories, region, status, page]);
 
   const isLoggedIn = mounted && Boolean(getAccessToken());
 
