@@ -83,6 +83,7 @@ export default function CommunityPage() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -95,6 +96,7 @@ export default function CommunityPage() {
       try {
         let allContent: Post[] = [];
         let totalPagesResult = 0;
+        let totalCountResult = 0;
 
         if (activeType) {
           const params = new URLSearchParams();
@@ -107,6 +109,7 @@ export default function CommunityPage() {
           const data = await res.json();
           allContent = data.content ?? [];
           totalPagesResult = data.totalPages ?? 0;
+          totalCountResult = data.totalElements ?? allContent.length;
         } else {
           const types: PostType[] = ["WEDDING_REVIEW", "TIP", "BOARD"];
           const results = await Promise.all(
@@ -123,10 +126,12 @@ export default function CommunityPage() {
           const start = page * 10;
           allContent = merged.slice(start, start + 10);
           totalPagesResult = Math.ceil(merged.length / 10);
+          totalCountResult = merged.length;
         }
 
         setPosts(allContent);
         setTotalPages(totalPagesResult);
+        setTotalCount(totalCountResult);
       } catch (e) {
         console.error("게시글 목록 조회 실패", e);
       } finally {
@@ -181,7 +186,14 @@ export default function CommunityPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         <div className="flex items-center justify-between mb-6">
-          <p className="text-sm text-[#75786c]">게시글 목록</p>
+          <p className="text-sm text-[#75786c]">
+            게시글 목록
+            {!loading && (
+              <span className="ml-1 font-medium text-[#1b1c18]">
+                {totalCount}건
+              </span>
+            )}
+          </p>
           {isLoggedIn && (
             <Link
               href="/community/write"
