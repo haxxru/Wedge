@@ -131,7 +131,7 @@
 
 ## 🏗 시스템 아키텍처
 
-<img src="frontend/public/123213.png" width="100%" />
+<img src="frontend/public/architecture.png" width="100%" />
 
 ---
 
