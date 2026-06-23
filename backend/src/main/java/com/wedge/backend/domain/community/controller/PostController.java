@@ -61,13 +61,17 @@ public class PostController {
         return ResponseEntity.ok(postService.getPost(id));
     }
 
-    @PatchMapping("/{id}")
-    @Operation(summary = "게시글 수정", description = "작성자 본인만 수정할 수 있습니다.")
+    @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "게시글 수정", description = "작성자 본인만 수정할 수 있습니다. 이미지를 새로 첨부하면 기존 이미지가 교체됩니다.")
     public ResponseEntity<PostResponse> updatePost(
             @PathVariable Long id,
             Authentication authentication,
-            @RequestBody PostRequest request) {
-        return ResponseEntity.ok(postService.updatePost(id, getAuthenticatedMember(authentication), request));
+            @RequestParam String title,
+            @RequestParam String content,
+            @RequestParam(required = false) List<MultipartFile> images,
+            @RequestParam(required = false) List<Long> mentionedFreelancerProfileIds) throws IOException {
+        return ResponseEntity.ok(postService.updatePost(
+                id, getAuthenticatedMember(authentication), title, content, images, mentionedFreelancerProfileIds));
     }
 
     @DeleteMapping("/{id}")

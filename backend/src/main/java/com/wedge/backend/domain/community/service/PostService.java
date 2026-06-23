@@ -74,10 +74,23 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponse updatePost(Long postId, Member member, PostRequest request) {
+    public PostResponse updatePost(Long postId, Member member, String title, String content,
+                                   List<MultipartFile> images, List<Long> mentionedFreelancerProfileIds) throws IOException {
         Post post = findMyPost(postId, member);
-        post.update(request.getTitle(), request.getContent());
-        return new PostResponse(post);
+        String imageUrl = null;
+        if (images != null && !images.isEmpty()) {
+            List<String> uploadedUrls = new ArrayList<>();
+            for (MultipartFile image : images) {
+                if (image != null && !image.isEmpty()) {
+                    uploadedUrls.add(r2FileUploadService.upload(image, "posts"));
+                }
+            }
+            if (!uploadedUrls.isEmpty()) {
+                imageUrl = String.join(",", uploadedUrls);
+            }
+        }
+        post.update(title, content, imageUrl, mentionedFreelancerProfileIds);
+        return toResponse(post);
     }
 
     @Transactional

@@ -70,9 +70,14 @@ public class Post extends BaseTimeEntity {
         return Arrays.asList(imageUrl.split(","));
     }
 
-    public void update(String title, String content) {
+    public void update(String title, String content, String imageUrl, List<Long> freelancerProfileIds) {
         if (title != null) this.title = title;
         if (content != null) this.content = content;
+        if (imageUrl != null) this.imageUrl = imageUrl;
+        this.mentionedFreelancerProfileIds.clear();
+        if (freelancerProfileIds != null) {
+            this.mentionedFreelancerProfileIds.addAll(freelancerProfileIds);
+        }
     }
 
     public void delete() {
