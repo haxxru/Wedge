@@ -193,7 +193,7 @@ npm run dev    # http://localhost:3000
     <tr>
       <td><nobr>윤하빈</nobr></td>
       <td><a href="https://github.com/yunabin"><img src="https://github.com/yunabin.png?size=80" width="30" height="30"/></a>&nbsp;<a href="https://github.com/yunabin">@yunabin</a></td>
-      <td><i>담당 파트를 작성해주세요</i></td>
+      <td>찜(북마크) 시스템, 전문가 탐색 API, 추천 프리랜서 캐러셀(Redis 캐싱), AI 견적 챗봇(Spring AI + ChatGPT), Redis 환경 설정</td>
     </tr>
     <tr>
       <td><nobr>정민혁</nobr></td>
