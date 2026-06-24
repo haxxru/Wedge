@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { API_BASE_URL, createAuthHeaders, getAccessToken } from "@/lib/auth";
 import { authFetch } from "@/lib/authFetch";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -44,6 +45,7 @@ type RecruitPost = {
   weddingDate: string;
   status: RecruitStatus;
   region: string | null;
+  imageUrl: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -366,6 +368,19 @@ export default function JobDetailPage() {
                 </p>
               </div>
             </div>
+
+            {post.imageUrl && (
+              <div className="mt-6">
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-[#efeee7]">
+                  <Image
+                    src={post.imageUrl}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="pt-6 text-sm text-[#45483d] leading-relaxed whitespace-pre-wrap break-words overflow-hidden">
               {post.content}
