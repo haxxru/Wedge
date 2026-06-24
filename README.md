@@ -5,7 +5,8 @@
 
 > **프로젝트 기간** : 2026.06.11 ~ 2026.06.24  
 > **배포 URL** : [wedge-tawny.vercel.app](https://wedge-tawny.vercel.app)  
-> **API 문서** : [api.wedge.o-r.kr/swagger-ui.html](https://api.wedge.o-r.kr/swagger-ui.html)
+> **API 문서** : [api.wedge.o-r.kr/swagger-ui.html](https://api.wedge.o-r.kr/swagger-ui.html)  
+> **시연 영상** : [streamable.com/6dklaq](https://streamable.com/6dklaq)
 <img src="https://skillicons.dev/icons?i=nextjs,ts,tailwind,react,java,spring,mysql,redis,docker,aws,githubactions" />
 
 ---
