@@ -502,17 +502,25 @@ export default function ChatRoomPage({
               <div key={pending.key} className="flex justify-end">
                 <div className="max-w-[78%] rounded-lg bg-[#677b47] px-4 py-3 text-sm leading-relaxed text-white opacity-75">
                   <p className="whitespace-pre-wrap break-words">{pending.content}</p>
-                  <div className="mt-2 flex items-center justify-end gap-2 text-[11px] text-white/80">
-                    <span>{pending.failed ? "전송 실패" : "전송 중"}</span>
-                    {pending.failed && (
-                      <button
-                        type="button"
-                        className="font-semibold underline"
-                        onClick={() => retryPendingMessage(pending)}
-                      >
-                        재전송
-                      </button>
-                    )}
+                  <div className="mt-1 flex flex-col items-end gap-1">
+                    <span className="text-[11px] text-white/70">
+                      {new Date(pending.createdAt).toLocaleTimeString("ko-KR", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                    <div className="flex items-center gap-2 text-[11px] text-white/80">
+                      <span>{pending.failed ? "전송 실패" : "전송 중"}</span>
+                      {pending.failed && (
+                        <button
+                          type="button"
+                          className="font-semibold underline"
+                          onClick={() => retryPendingMessage(pending)}
+                        >
+                          재전송
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
